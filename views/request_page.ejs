@@ -1,0 +1,1031 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="/all.min.css" />
+    <link rel="stylesheet" href="/fontawesome.min.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="myStyle.css" />
+
+    <title>CMS</title>
+  </head>
+
+  <body>
+    <div class="container" >
+      <div class="navigation" >
+        <ul>
+          <li>
+            <a href="/home">
+              <!-- <span class="icon"><i class="fa fa-apple"></i></span> -->
+              <span class="title" style="width: 100px"
+                ><h4 style="width: 50px; height: 100px">Logo</h4></span
+              >
+            </a>
+          </li>
+          <li>
+            <a href="/home">
+              <span class="icon"
+                ><i class="fa fa-home" aria-hidden="true"></i
+              ></span>
+              <span class="title">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="/user_page">
+              <span class="icon"
+                ><i class="fa fa-users" aria-hidden="true"></i
+              ></span>
+              <span class="title User_page">Users</span>
+            </a>
+          </li>
+          <li>
+            <a href="/request_page">
+              <span class="icon"
+                ><i class="fa fa-envelope" aria-hidden="true"></i
+              ></span>
+              <span class="title">Requests</span>
+            </a>
+          </li>
+          <!-- <li>
+            <a href="/newRequest_page">
+              <span class="icon"
+                ><i class="fa fa-question-circle" aria-hidden="true"></i
+              ></span>
+              <span class="title">New Requests</span>
+            </a>
+          </li> -->
+          <li>
+            <a href="/certificates_page">
+              <span class="icon"
+                ><i class="fa fa-certificate" aria-hidden="true"></i
+              ></span>
+              <span class="title">Certificates</span>
+            </a>
+          </li>
+          <li>
+            <a href="#">
+              <span class="icon"
+                ><i class="fa fa-sign-out" aria-hidden="true"></i
+              ></span>
+              <span class="title" onclick="logout()">sign out</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="main" >
+        <div class="topbar">
+          <div class="toggle" onclick="toggleMenu();"></div>
+          <!-- <div class="search">
+            <label for="">
+              <input type="text" placeholder="search here" />
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </label>
+          </div> -->
+          <div
+            class="user"
+            style="
+              width: 200px;
+              height: 60px;
+              display: flex;
+              flex-direction: row;
+              justify-content: space-around;
+              align-items: center;
+            "
+          >
+            <!-- <div style="width: 200px" id="datetime"></div> -->
+            <div class="user-image" style="width: 12px; height: 12px">
+              <img
+                src="/user.png"
+                style="
+                  width: 50%;
+                  height: 50%;
+                  object-fit: contain;
+                  margin-top: 15px;
+                "
+              />
+            </div>
+            <div
+              class="user-login-details"
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-right: 60px;
+                font-size: small;
+              "
+            >
+              <div>
+                <span>Name</span>
+              </div>
+              <div>
+                <span>Email</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="details">
+          <div class="certificates">
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              "
+            >
+              <p style="font-size: x-large; font-weight: 600">
+                My Requests
+              </p>
+              <!-- <button
+                id="openModalBtn"
+                style="
+                  background-color: red;
+                  padding-left: 16px;
+                  padding-right: 16px;
+                  padding-top: 8px;
+                  padding-bottom: 8px;
+                  border: 0px;
+                  color: white;
+                  border-radius: 2px;
+                "
+              >
+                Add Certificate
+              </button> -->
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+              "
+            >
+              <div
+                class="search"
+                style="
+                  margin-top: 10px;
+                  margin-bottom: 10px;
+                  margin-right: 10px;
+                "
+              >
+                <label for="">
+                  <input type="text" placeholder="search here" />
+                  <i class="fa fa-search" aria-hidden="true"></i>
+                </label>
+              </div>
+              <button
+                id="openModalBtn"
+                style="
+                  background-color: red;
+                  padding-left: 16px;
+                  padding-right: 16px;
+                  padding-top: 4px;
+                  padding-bottom: 4px;
+                  border: 0px;
+                  color: white;
+                  border-radius: 2px;
+                  height: 30px;
+                  margin-top: 20px;
+                "
+              >
+                New Request
+              </button>
+            </div>
+            <table>
+              <thead style="height: 6px">
+              <tr
+                style="
+                  background-color: rgba(218, 221, 221, 0.757);
+                  padding-top: 2px;
+                  height: 15px;
+                "
+              >
+                <!-- <td style="visibility: hidden;">itemID</td> -->
+                <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Project title
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Domain name
+                </th>
+                <!-- <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Server Hostname
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Server Address
+                </th> -->
+                <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Status
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Date Requested
+                </th>
+                <th
+                  style="
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  "
+                >
+                  Actions
+                </th>
+              </tr>
+              </thead>
+              <tbody> 
+            
+              </tr>
+              </tbody>
+            </table>
+
+            <div id="myModal" class="modal" style="padding-left: 400px; overflow-y: auto;">
+              <div
+                class="modal-content"
+                style="border-radius: 10px; margin-top: 100px; overflow-y: auto;"
+              >
+                <span
+                  class="close"
+                  style="
+                    border: 1px;
+                    border-color: black;
+                    width: 10px;
+                    height: 10px;
+                    margin-right: 80px;
+                  "
+                  id="closeModalBtn"
+                  >&times;</span
+                >
+                <h2 style="margin-left: 60px">Add New Certificate</h2>
+                <!-- <hr style="margin-top: 5px" /> -->
+                <br />
+                <form
+                  class="userForm"
+                  style="margin-left: 60px; padding-bottom: 20px;scroll-behavior: auto;"
+                >
+                  <div id="inputError" name="inputError" class="errorN"></div>
+                  <div class="tab" style="display: none;">
+                    <div style="display: flex; flex-direction: row; justify-content: center;  align-items: center
+                    ;">
+                      <div class="step" style="width: 30px; height: 30px; border-radius: 50%; margin-right: 30px; border: 1px red solid; background-color: white;"></div>
+                      <div class="step" style="width: 30px; height: 30px; border-radius: 50%; background-color: white; border: 1px red solid; "></div>
+                    </div>
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">UserEmail</label>
+                    <input
+                      name="userEmail"
+                      class="username"
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                      placeholder="UserEmail"
+                      required
+                    />
+                  </div>
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Project Title</label>
+                    <input
+                      name="projectTitle"
+                      class="username"
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                      placeholder="Project title"
+                      required
+                    />
+                  </div>
+
+                  <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 10px;
+                  "
+                >
+                  <label for="">Project Purpose</label>
+                  <input
+                    name="projectPurpose"
+                    class="username"
+                    style="
+                      width: 500px;
+                      height: 30px;
+                      border: solid 1px black;
+                      border-radius: 5px;
+                      padding-left: 4px;
+                    "
+                    placeholder="Project Purporse"
+                    required
+                  />
+                </div>
+
+                <div style="display: flex; flex-direction: row">
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">External Users?</label>
+                    <!-- <div style="position: relative; display: inline-block; margin-left: 120px; bottom: 25px;  "> -->
+                    <span style=" position: absolute; margin-bottom: 10px; background-color: rgb(70, 69, 69); color: white; padding-left: 4px; padding-right: 4px; border-radius: 5px; font-size: x-small;">Is it customer facing?</span>
+                    <!-- </div> -->
+                    <select
+                      for=""
+                      name="externalUsers"
+                      id="role"
+                      style="width: 230px; height: 30px; margin-right: 40px"
+                    >
+                      <option disabled selected>Select Status</option>
+                      <option value="2">Yes</option>
+                      <option value="1">No</option>
+                    </select>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Generates Revenue?</label>
+                    <select
+                      name="revGen"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="IT Operations">Yes</option>
+                      <option value="IT Architecture">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="display: flex; flex-direction: row">
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Deg Effect?</label>
+                    <select
+                      for=""
+                      name="degEffect"
+                      id="role"
+                      style="width: 230px; height: 30px; margin-right: 40px"
+                    >
+                      <option disabled selected>Select option</option>
+                      <option value="2">Yes</option>
+                      <option value="1">No</option>
+                    </select>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Request Type</label>
+                    <select
+                      name="requestType"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="IT Operations">Renewal</option>
+                      <option value="IT Architecture">New Request</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div style="display: flex; flex-direction: row">
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Manager's Approval?</label>
+                    <select
+                      for=""
+                      name="managerApproval"
+                      id="role"
+                      style="width: 230px; height: 30px; margin-right: 40px"
+                    >
+                      <option disabled selected>Select option</option>
+                      <option value="2">Yes</option>
+                      <option value="1">No</option>
+                    </select>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">DNS Mapping?</label>
+                    <select
+                      name="dnsMappingReq"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="IT Operations">Yes</option>
+                      <option value="IT Architecture">No</option>
+                    </select>
+                  </div>
+                </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Domain name</label>
+                    <input
+                      name="domainName"
+                      class="Email"
+                      placeholder="domainName"
+                      type="text"
+                      required
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                    />
+                  </div>
+                  </div>
+
+                  <div class="tab" style="display: none;">
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Server Hostname</label>
+                    <input
+                      name="serverHostname"
+                      class="password"
+                      placeholder="Server Hostname"
+                      required
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                    />
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Server address</label>
+                    <input
+                      name="serverAddress"
+                      class="password_repeat"
+                      placeholder="Server address"
+                      required
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                    />
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Port Number</label>
+                    <input
+                      name="portNumber"
+                      class="password_repeat"
+                      placeholder="Server address"
+                      required
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                    />
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Server specifications</label>
+                    <input
+                      name="serverSpecs"
+                      class="password_repeat"
+                      placeholder="Server address"
+                      required
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                    />
+                  </div>
+
+                  <div
+                    style="
+                      display: flex;
+                      flex-direction: column;
+                      margin-bottom: 10px;
+                    "
+                  >
+                    <label for="">Operating System</label>
+                    <input
+                      name="operatingSystem"
+                      class="lineManager"
+                      placeholder="line Manager Email"
+                      type="text"
+                      required
+                      style="
+                        width: 500px;
+                        height: 30px;
+                        border: solid 1px black;
+                        border-radius: 5px;
+                        padding-left: 4px;
+                      "
+                    />
+                  </div>
+
+                  <div style="display: flex; flex-direction: row">
+                    <div style="display: flex; flex-direction: column">
+                      <label for="">Status</label>
+                      <select
+                        for=""
+                        name="status"
+                        id="role"
+                        style="width: 230px; height: 30px; margin-right: 40px"
+                      >
+                        <option disabled selected>Select Status</option>
+                        <option value="2">In Progress</option>
+                        <option value="1">Pending</option>
+                        <option value="1">Completed</option>
+                      </select>
+                    </div>
+
+                    <div style="display: flex; flex-direction: column">
+                      <label for="">Generates Revenue?</label>
+                      <select
+                        name="team"
+                        id="team"
+                        style="width: 230px; height: 30px"
+                      >
+                        <option value="" disabled selected>
+                          Select option
+                        </option>
+                        <option value="IT Operations">Yes</option>
+                        <option value="IT Architecture">No</option>
+                      </select>
+                    </div>
+                  </div>
+                  <br />
+
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Waf Config?</label>
+                    <select
+                      name="wafConfig"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="IT Operations">Yes</option>
+                      <option value="IT Architecture">No</option>
+                    </select>
+                  </div>
+
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Date Requested</label>
+                    <input type="datetime" name="dateRequested">
+                    <select
+                      name="wafConfig"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="IT Operations">Yes</option>
+                      <option value="IT Architecture">No</option>
+                    </select>
+                  </div>
+
+                  </div>
+
+                  <div style="overflow:auto; float: right; display: flex; flex-direction: row; ">
+                    <div style="float:right; ">
+                      <button type="button" style="
+                      padding-left: 8px;
+                      padding-right: 8px;
+                      background-color: black;
+                      border: solid 1px black;
+                      color: white;
+                      
+                     
+                      padding-top: 4px;
+                      padding-bottom: 4px;
+                      border-radius: 3px;
+                    " id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                      <button  style="
+                      padding-left: 8px;
+                      padding-right: 8px;
+                      background-color: red;
+                      border: solid 1px red;
+                      color: white;
+                      float: right;
+                      
+                      padding-top: 4px;
+                      padding-bottom: 4px;
+                      border-radius: 3px;
+                      margin-left: 8px;
+                    " id="nextBtn" onclick="nextPrev(1)">Next</button>
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    id="submit"
+                    style="
+                      padding-left: 16px;
+                      padding-right: 8px;
+                      background-color: red;
+                      border: solid 1px red;
+                      color: white;
+                      float: right;
+                      margin-right: 80px;
+                      padding-top: 4px;
+                      padding-bottom: 4px;
+                      border-radius: 3px;
+                      display: none;
+                    "
+                  >
+                    Submit
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="JS/index.js"></script>
+    <script>
+      // Script for modal
+      const openModalBtn = document.getElementById("openModalBtn");
+      const closeModalBtn = document.getElementById("closeModalBtn");
+      const modal = document.getElementById("myModal");
+
+      openModalBtn.addEventListener("click", () => {
+        modal.style.display = "block";
+        console.log("opened");
+      });
+
+      closeModalBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+
+      // Close modal if user clicks outside the modal content
+      window.addEventListener("click", (event) => {
+        if (event.target === modal) {
+          modal.style.display = "none";
+        }
+      });
+
+      // form submition
+      const form = document.querySelector("form");
+      const errorMsg = document.querySelector(".errorN");
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        errorMsg.textContent = "";
+        const userEmail = form.userEmail.value;
+        const projectTitle = form.projectTitle.value;
+        const projectPurpose = form.projectPurpose.value;
+        const revGen = form.revGen.value;
+        const externalUsers = form.externalUsers.value;
+        const degEffect = form.degEffect.value;
+        const requestType = form.requestType.value;
+        const managerApproval = form.managerApproval.value;
+        const serverSpecs = form.serverSpecs.value;
+        const domainName = form.domainName.value;
+        const dnsMappingReq = form.dnsMappingReq.value;
+        const wafConfig = form.wafConfig.value;
+        const serverHostname = form.serverHostname.value;
+        const serverAddress = form.serverAddress.value;
+        const operatingSystem = form.operatingSystem.value;
+        const portNumber = form.portNumber.value;
+        const status = form.status.value;
+        const dateRequested = form.dateRequested.value;
+
+        // console.log(username, password, password_repeat, email, team, role);
+
+        try {
+          const res = await fetch("/certs/addCert", {
+            method: "POST",
+            body: JSON.stringify({
+              userEmail,
+        projectTitle,
+        projectPurpose,
+        revGen,
+        externalUsers,
+        degEffect,
+        requestType,
+        managerApproval,
+        serverSpecs,
+        domainName,
+        dnsMappingReq,
+        wafConfig,
+        serverHostname,
+        serverAddress,
+        operatingSystem,
+        portNumber,
+        status,
+        dateRequested
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+
+          const data = await res.json();
+          console.log(data);
+
+          if (data.message == "Success!") {
+            modal.style.display="none";
+            // location.assign("/certificate_page");
+          } else {
+            errorMsg.textContent = data.message;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
+
+      // loading tables
+
+      document.addEventListener("DOMContentLoaded", async function () {
+        try {
+          const res = await fetch("/certs/allCerts");
+          const data = await res.json();
+          console.log(data);
+
+          console.log(typeof data);
+
+          if (typeof data === "object") {
+            // Data is an array, proceed to populate the table
+            const dataArray = Object.values(data);
+            loadHTMLTable(dataArray);
+          } else {
+            // Data is not in the expected format, handle the error or log a message
+            console.error("Data is not in the expected format:", data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
+
+      function loadHTMLTable(data) {
+        console.log("running");
+        const table = document.querySelector("table tbody");
+        let tableHTML = " ";
+
+        if (data.length === 0) {
+          table.innerHTML = "tr><td colspan='5'>No user registered</td></tr>";
+        }
+        data.forEach(function (certificate) {
+          console.log(certificate);
+
+          // console.log(
+          //   user[0].username,
+          //   user.userEmail,
+          //   user.team,
+          //   user.lineManager,
+          //   user.role
+          // );
+          for (let i = 0; i < certificate.length; i++) {
+            const certificateData = certificate[i];
+            if (
+              certificateData.userEmail !== undefined &&
+              certificateData.projectTitle !== undefined &&
+              certificateData.domainName !== undefined &&
+              certificateData.requestType !== undefined &&
+              certificateData.serverAddress !== undefined &&
+              certificateData.status !== undefined &&
+              certificateData.dateRequested !== undefined
+            ) {
+              tableHTML += "<tr>";
+              tableHTML += `<td style="
+                      border-bottom: 1px solid rgb(168, 168, 169);
+                      text-align: left;
+                      padding: 8px;
+                    ">${certificateData.projectTitle}</td>`;
+              tableHTML += `<td style="
+                      border-bottom: 1px solid rgb(168, 168, 169);
+                      text-align: left;
+                      padding: 8px;
+                    ">${certificateData.domainName}</td>`;
+              // tableHTML += `<td style="
+              //         border-bottom: 1px solid rgb(168, 168, 169);
+              //         text-align: left;
+              //         padding: 8px;
+              //       ">${certificateData.serverHostname}</td>`;
+              // tableHTML += `<td style="
+              //         border-bottom: 1px solid rgb(168, 168, 169);
+              //         text-align: left;
+              //         padding: 8px;
+              //       ">${certificateData.serverAddress}</td>`;
+              tableHTML += `<td style="
+                      border-bottom: 1px solid rgb(168, 168, 169);
+                      text-align: left;
+                      padding: 8px;
+                    ">${certificateData.status}</td>`;
+                    tableHTML += `<td style="
+                      border-bottom: 1px solid rgb(168, 168, 169);
+                      text-align: left;
+                      padding: 8px;
+                    ">${certificateData.dateRequested}</td>`;
+                    
+
+              tableHTML += `<td
+                  style="
+                        border-bottom: 1px solid rgb(168, 168, 169);
+                        text-align: left;
+                        padding: 8px;
+                      "
+                >
+                  <span
+                    style="
+                          padding-left: 4px;
+                          padding-right: 4px;
+                          color: white;
+                          background-color: black;
+                          border-radius: 3px;
+                          font-size: small;
+                        "
+                  >
+                    edit
+                  </span>
+                  <span
+                    style="
+                          padding-left: 4px;
+                          padding-right: 4px;
+                          color: white;
+                          background-color: red;
+                          border-radius: 3px;
+                          margin-left: 6px;
+                          font-size: small;
+                        "
+                  >
+                    delete
+                  </span>
+                </td>`;
+              tableHTML += "</tr>";
+            }
+          }
+          table.innerHTML = tableHTML;
+        });
+      }
+
+
+      var currentTab = 0; // Current tab is set to be the first tab (0)
+showTab(currentTab); // Display the current tab
+
+function showTab(n) {
+  // function to display the specified tab of the form 
+  var x = document.getElementsByClassName("tab");
+  x[n].style.display = "block";
+  // fixing the Previous/Next buttons:
+  if (n == 0) {
+    document.getElementById("prevBtn").style.display = "none";
+  } else {
+    document.getElementById("prevBtn").style.display = "inline";
+  }
+  if (n == (x.length - 1)) {
+    document.getElementById("nextBtn").style.display="none";
+    document.getElementById('submit').style.display="flex";
+    
+  } else {
+    document.getElementById("nextBtn").innerHTML = "Next";
+  }
+ 
+  fixStepIndicator(n)
+}
+
+function nextPrev(n) {
+  // function to figure out which tab to display
+  var x = document.getElementsByClassName("tab");
+  // Exit the function if any field in the current tab is invalid:
+  if (n == 1 && !validateForm()) return false;
+  // Hide the current tab:
+  x[currentTab].style.display = "none";
+  // Increase or decrease the current tab by 1:
+  currentTab = currentTab + n;
+  // if you have reached the end of the form... :
+  if (currentTab >= x.length) {
+    //...the form gets submitted:
+    document.querySelector("form").submit();
+    return false;
+  }
+  // Otherwise, display the correct tab:
+  showTab(currentTab);
+}
+
+function validateForm() {
+  // This function deals with validation of the form fields
+  var x, y, i, valid = true;
+  x = document.getElementsByClassName("tab");
+  y = x[currentTab].getElementsByTagName("input");
+  // A loop that checks every input field in the current tab:
+  for (i = 0; i < y.length; i++) {
+    // If a field is empty...
+    if (y[i].value == "") {
+      // add an "invalid" class to the field:
+      y[i].className += " invalid";
+      // and set the current valid status to false:
+      valid = false;
+    }
+  }
+  // If the valid status is true, mark the step as finished and valid:
+  if (valid) {
+    document.getElementsByClassName("step")[currentTab].className += " finish";
+  }
+  return valid; // return the valid status
+}
+
+function fixStepIndicator(n) {
+  // This function removes the "active" class of all steps...
+  var i, x = document.getElementsByClassName("step");
+  for (i = 0; i < x.length; i++) {
+    x[i].className = x[i].className.replace(" active", "");
+  }
+  //... and adds the "active" class to the current step:
+  x[n].className += " active";
+}
+    </script>
+  </body>
+</html>
