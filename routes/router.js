@@ -125,6 +125,8 @@ router.post("/login", async (req, res, next) => {
     );
   });
 });
+
+
 //http://localhost:3000/api/secret-route
 router.get(
   "/allUsers", //userMiddleware.isLoggedIn,
