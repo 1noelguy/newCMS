@@ -73,7 +73,30 @@ router.put("", userMiddleware.isLoggedIn, (req, res)=>{
 });
 
 //Delete User
-router.delete("", userMiddleware.isLoggedIn, (req, res)=>{
+router.delete("/deleteUser/", //userMiddleware.isLoggedIn, 
+(req, res)=>{
+    const userID = req.body.userID;
+
+    const query = `DELETE FROM users WHERE userID = ? ;`;
+
+    try {
+        db.query(query,[userID], (err, result)=>{
+            if (err) {
+                return res.status(400).send({
+                    message: err,
+                });  
+            } else {
+                return res.status(200).send({
+                    message: "Deleted!",
+                    data: result
+                });
+            }
+        });
+    } catch (error) {
+        return res.status(400).send({
+            message: err,
+        });
+    }
 
 });
 

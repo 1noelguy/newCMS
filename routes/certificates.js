@@ -68,8 +68,7 @@ router.post(
         message: error,
       });
     }
-  }
-);
+  });
 
 //Get All Certificates
 router.get(
@@ -191,7 +190,7 @@ router.get("/completedCerts",
 //Get A Particular user
 router.get(
   "/certById/:certificateID",
-  userMiddleware.isLoggedIn,
+  // userMiddleware.isLoggedIn,
   async (req, res) => {
     const certID = req.params.certificateID;
     // console.log(certificateID);
@@ -243,8 +242,7 @@ router.get("/myCerts/", async (req, res) => {
             if (err) {
               console.log(err);
             } else {
-              // console.log(result);
-              // console.log("i mean here",);
+
               try {
                 const query = `SELECT * FROM certificates WHERE userEmail = ?;`;
 
@@ -268,6 +266,7 @@ router.get("/myCerts/", async (req, res) => {
                   message: error,
                 });
               }
+              
             }
           }
         );
@@ -279,9 +278,82 @@ router.get("/myCerts/", async (req, res) => {
 });
 
 //Update user
-router.put("", userMiddleware.isLoggedIn, (req, res) => {});
+router.put("/updateCerts", async (req, res) => {
+  // const certID = req.params.certificateID;
+
+  const query = `UPDATE certificates SET 
+  userEmail = ${db.escape(req.body.userEmail)},
+  projectTitle = ${db.escape(req.body.projectTitle)},
+  projectPurpose = ${db.escape(req.body.projectPurpose)},
+  revGen = ${db.escape(req.body.revGen)},
+  externalUsers = ${db.escape(req.body.externalUsers)},
+  degEffect = ${db.escape(req.body.degEffect)},
+  requestType = ${db.escape(req.body.requestType)},
+  managerApproval = ${db.escape(req.body.managerApproval)},
+  serverSpecs = ${db.escape(req.body.serverSpecs)},
+  domainName = ${db.escape(req.body.domainName)},
+  dnsMappingReq = ${db.escape(req.body.dnsMappingReq)},
+  wafConfig = ${db.escape(req.body.wafConfig)},
+  serverHostname = ${db.escape(req.body.serverHostname)},
+  serverAddress = ${db.escape(req.body.serverAddress)},
+  operatingSystem = ${db.escape(req.body.operatingSystem)},
+  portNumber = ${db.escape(req.body.portNumber)},
+  status = ${db.escape(req.body.status)},
+  dateRequested = now() 
+  where certificateID = ${db.escape(req.body.certificateID)};`;
+
+    // console.log(query);
+    
+    try {
+      await new Promise((resolve, reject) => {
+        db.query(query, (err, result) => {
+          if (err) {
+            res.status(400).send({
+              Message: err,
+            });
+          } else {
+            resolve(result);
+            return res.status(200).send({
+              message: "Success!",
+              data: result,
+            });
+          }
+        });
+      });
+    } catch (error) {
+      res.status(400).send({
+        message: error,
+      });
+    }
+});
 
 //Delete User
-router.delete("", userMiddleware.isLoggedIn, (req, res) => {});
+router.delete("/deleteCert/", //userMiddleware.isLoggedIn, 
+(req, res) => {
+  const certID = req.body.certificateID;
+
+  console.log(certID);
+
+  const query = `DELETE FROM certificates WHERE certificateID = ? ;`;
+  try {
+    db.query(query, [certID], (err, result)=>{
+      if (err) {
+        res.status(400).send({
+          Message: err,
+        });
+      } else {
+        // resolve(result);
+        return res.status(200).send({
+          message: "Deleted!",
+          data: result,
+        });
+      }
+    });
+  } catch (error) {
+    res.status(400).send({
+      message: error,
+    });
+  }
+});
 
 module.exports = router;
