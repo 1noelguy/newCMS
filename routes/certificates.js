@@ -99,6 +99,95 @@ router.get(
   }
 );
 
+//Get pending certificates
+router.get(
+  "/pendingCerts",
+  //userMiddleware.isLoggedIn
+  async (req, res) => {
+    // res.send("Get all users");
+    const query = "SELECT * FROM certificates WHERE status = 'pending';";
+
+    try {
+      await new Promise((resolve, reject) => {
+        db.query(query, (err, result) => {
+          if (err) {
+            return res.status(400).send(err);
+          } else {
+            resolve(result);
+            return res.status(200).send({
+              message: "Success!",
+              data: result,
+            });
+          }
+        });
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+);
+
+//Get in progress certificates
+router.get("/progressCerts",
+ //userMiddleware.isLoggedIn,
+  async (req, res) => {
+  // Query to fetch all certificates with status "pending"
+  const query = "SELECT * FROM certificates WHERE status = 'in progress';";
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          return res.status(400).send({
+            message: err,
+          });
+        } else {
+          resolve(result);
+          return res.status(200).send({
+            message: "Success!",
+            data: result,
+          });
+        }
+      });
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: err,
+    });
+  }
+});
+
+//Get completed certificates
+router.get("/completedCerts",
+ //userMiddleware.isLoggedIn,
+  async (req, res) => {
+  // Query to fetch all certificates with status "pending"
+  const query = "SELECT * FROM certificates WHERE status = 'completed';";
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          return res.status(400).send({
+            message: err,
+          });
+        } else {
+          resolve(result);
+          return res.status(200).send({
+            message: "Success!",
+            data: result,
+          });
+        }
+      });
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: err,
+    });
+  }
+});
+
+
 //Get A Particular user
 router.get(
   "/certById/:certificateID",
@@ -132,6 +221,8 @@ router.get(
     }
   }
 );
+
+
 
 // Get Certificates for a particular user
 router.get("/myCerts/", async (req, res) => {

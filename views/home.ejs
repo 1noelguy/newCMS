@@ -116,7 +116,7 @@
           
 
             <div class="cardBox">
-                <div class="card" style="display: flex; flex-direction: row; justify-content: space-around; ">
+                <div class="card" id="allCerts" style="display: flex; flex-direction: row; justify-content: space-around; ">
                     <div>
                         <div style="width: 4px; margin-top: 4px; height: 64px; background-color: red; border-radius: 4px;">
 
@@ -132,7 +132,7 @@
                     </div>
                 </div>
                 
-                <div class="card" style="display: flex; flex-direction: row; justify-content: space-around; " >
+                <div class="card" id="pendingCerts" style="display: flex; flex-direction: row; justify-content: space-around; " >
                     <div>
                         <div style="width: 4px; margin-top: 4px; height: 64px; background-color: red; border-radius: 4px;">
 
@@ -143,13 +143,13 @@
                         <div class="cardName">Pending</div>
                     </div>
                     <div class="iconBox">
-                      <i class="fa-solid fa-check"></i>
+                      <i class="fa-solid fa-ellipsis" style="color: #dec9c0;"></i>
                         
                     </div>
                 </div>
 
                 
-                <div class="card" style="display: flex; flex-direction: row; justify-content: space-around; ">
+                <div class="card" id="inprogressCerts" style="display: flex; flex-direction: row; justify-content: space-around; ">
                     <div>
                         <div style="width: 4px; margin-top: 4px; height: 64px; background-color: red; border-radius: 4px;">
 
@@ -160,11 +160,11 @@
                         <div class="cardName">In Progress</div>
                     </div>
                     <div class="iconBox">
-                        <i class="fa fa-search" aria-hidden="true"></i>
+                      <i class="fa-solid fa-spinner" style="color: #dec9c0;"></i>
                     </div>
                 </div>
                 
-                <div class="card" style="display: flex; flex-direction: row; justify-content: space-around; ">
+                <div class="card" id="completedCerts" style="display: flex; flex-direction: row; justify-content: space-around; ">
                     <div>
                         <div style="width: 4px; margin-top: 4px; height: 64px; background-color: red; border-radius: 4px;">
 
@@ -175,19 +175,19 @@
                         <div class="cardName">Completed</div>
                     </div>
                     <div class="iconBox">
-                        <!-- some icon here -->
+                      <i class="fa-solid fa-check"></i>
                     </div>
                 </div>
             </div>
 
-            <div style="background-color: white; width: 700px; margin-left: 20px; padding: 50px;">
+            <!-- <div style="background-color: white; width: 700px; margin-left: 20px; padding: 50px;">
                 <div style="padding-top: 4px; padding-bottom: 20px;">Requests Analytics</div>
                 <canvas id="myChart" style="width:100%;max-width:700px;  "></canvas>
-            </div>
+            </div> -->
             <div class="sub" style="margin-bottom: -52px; margin-top: 30px;">
 
                 <div class = "desc">
-                    <h2>Certificates In Progress</h2>
+                    <h2>All Certificates </h2>
                 </div>
                 <!-- <hr> -->
             </div>
@@ -308,9 +308,22 @@ new Chart("myChart", {
 
         // loading tables
 
+        const CompletedCertsQuery="certs/completedCerts";
+        const InprogressCertsQuery="certs/progressCerts";
+        const PendingCertsQuery="certs/pendingCerts";
+        const AllCertsQuery="certs/allCerts";
+
       document.addEventListener("DOMContentLoaded", async function () {
+
+        const completedCertsButton = document.getElementById("completedCerts");
+  const inprogressCertsButton = document.getElementById("inprogressCerts");
+  const pendingCertsButton = document.getElementById("pendingCerts");
+  const allCertsButton = document.getElementById("allCerts");
+  const resultDiv = document.getElementById("result");
+
+  const fetchCertificates = async (url) => {
         try {
-          const res = await fetch("/certs/allCerts");
+          const res = await fetch(url);
           const data = await res.json();
           console.log(data);
 
@@ -327,7 +340,28 @@ new Chart("myChart", {
         } catch (error) {
           console.log(error);
         }
+      }
+
+      fetchCertificates("certs/allCerts");
+
+      completedCertsButton.addEventListener("click", () => {
+    fetchCertificates("certs/completedCerts");
+  });
+
+  inprogressCertsButton.addEventListener("click", () => {
+    fetchCertificates("certs/progressCerts");
+  });
+
+  pendingCertsButton.addEventListener("click", () => {
+    fetchCertificates("certs/pendingCerts");
+  });
+
+  allCertsButton.addEventListener("click", () => {
+    fetchCertificates("certs/allCerts");
+  });
+
       });
+    
 
       function loadHTMLTable(data) {
         console.log("running");
@@ -358,6 +392,22 @@ new Chart("myChart", {
               certificateData.status !== undefined &&
               certificateData.dateRequested !== undefined
             ) {
+              // Sample date string
+const dateString = certificateData.dateRequested; // Replace with your actual data
+
+// Create a Date object from the date string
+const date = new Date(dateString);
+
+// Get the date components
+const year = date.getFullYear();
+const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based, so add 1
+const day = date.getDate().toString().padStart(2, "0");
+
+// Format the date as "YYYY-MM-DD"
+const formattedDate = `${year}-${month}-${day}`;
+
+console.log(formattedDate); // Output: "2023-10-10"
+
               tableHTML += "<tr>";
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
@@ -388,7 +438,7 @@ new Chart("myChart", {
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
                       padding: 8px;
-                    ">${certificateData.dateRequested}</td>`;
+                    ">${formattedDate}</td>`;
                     
 
             //   tableHTML += `<td
