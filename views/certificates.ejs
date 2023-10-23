@@ -240,6 +240,7 @@ input.invalid {
                   border-radius: 2px;
                   height: 30px;
                   margin-top: 20px;
+                  display: none;
                 "
               >
                 Add Certificate
@@ -309,7 +310,7 @@ input.invalid {
                 >
                   Date Requested
                 </th>
-                <th
+                <!-- <th
                   style="
                     border: 1px solid #dddddd;
                     text-align: left;
@@ -317,7 +318,7 @@ input.invalid {
                   "
                 >
                   Actions
-                </th>
+                </th> -->
               </tr>
               </thead>
               <tbody> 
@@ -925,6 +926,20 @@ input.invalid {
               certificateData.status !== undefined &&
               certificateData.dateRequested !== undefined
             ) {
+              const dateString = certificateData.dateRequested; // Replace with your actual data
+
+// Create a Date object from the date string
+const date = new Date(dateString);
+
+// Get the date components
+const year = date.getFullYear();
+const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based, so add 1
+const day = date.getDate().toString().padStart(2, "0");
+
+// Format the date as "YYYY-MM-DD"
+const formattedDate = `${year}-${month}-${day}`;
+
+console.log(formattedDate);
               tableHTML += "<tr>";
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
@@ -955,42 +970,42 @@ input.invalid {
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
                       padding: 8px;
-                    ">${certificateData.dateRequested}</td>`;
+                    ">${formattedDate}</td>`;
                     
 
-              tableHTML += `<td
-                  style="
-                        border-bottom: 1px solid rgb(168, 168, 169);
-                        text-align: left;
-                        padding: 8px;
-                      "
-                >
-                  <span
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: black;
-                          border-radius: 3px;
-                          font-size: small;
-                        "
-                  >
-                    edit
-                  </span>
-                  <span
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: red;
-                          border-radius: 3px;
-                          margin-left: 6px;
-                          font-size: small;
-                        "
-                  >
-                    delete
-                  </span>
-                </td>`;
+              // tableHTML += `<td
+              //     style="
+              //           border-bottom: 1px solid rgb(168, 168, 169);
+              //           text-align: left;
+              //           padding: 8px;
+              //         "
+              //   >
+              //     <span
+              //       style="
+              //             padding-left: 4px;
+              //             padding-right: 4px;
+              //             color: white;
+              //             background-color: black;
+              //             border-radius: 3px;
+              //             font-size: small;
+              //           "
+              //     >
+              //       edit
+              //     </span>
+              //     <span
+              //       style="
+              //             padding-left: 4px;
+              //             padding-right: 4px;
+              //             color: white;
+              //             background-color: red;
+              //             border-radius: 3px;
+              //             margin-left: 6px;
+              //             font-size: small;
+              //           "
+              //     >
+              //       delete
+              //     </span>
+              //   </td>`;
               tableHTML += "</tr>";
             }
           }
