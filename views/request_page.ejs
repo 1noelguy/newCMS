@@ -802,7 +802,7 @@ input.invalid {
               <br />
               <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
                 <div style="padding-right: 16px;"><button style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
-                <div><button style="background-color: red; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Delete</button></div>
+                <div><button id="confirmDelete" style="background-color: red; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Delete</button></div>
               </div>
               </div>
             </div>
@@ -1442,7 +1442,7 @@ input.invalid {
               certificateData.dateRequested !== undefined
             ) {
               const dateString = certificateData.dateRequested; // Replace with your actual data
-
+              
 // Create a Date object from the date string
 const date = new Date(dateString);
 
@@ -1494,6 +1494,7 @@ console.log(formattedDate);
                         text-align: left;
                         padding: 8px;
                       "
+                      data-certificate-id="${certificateData.certificateID}"
                 >
                   <button
                   id="openEditModalBtn"
@@ -1530,6 +1531,7 @@ console.log(formattedDate);
           }
           table.innerHTML = tableHTML;
         });
+        
       }
       
 //       document.addEventListener("DOMContentLoaded", function() {
@@ -1548,8 +1550,37 @@ console.log(formattedDate);
 document.getElementById("table-container").addEventListener("click", function(event) {
   // Check if the clicked element is a "delete" button
   if (event.target.id === "openDeleteModalBtn") {
+    // Use querySelector to find the "Delete" button and get the attribute
+const certificateID = this.parentElement.querySelector("[data-certificate-id]").getAttribute("data-certificate-id");
+
+    console.log(certificateID);
     deleteModal.style.display = "block";
     console.log("Delete button clicked");
+    document.getElementById("confirmDelete").addEventListener("click", function() {
+    // Send an AJAX request to delete the certificate
+    fetch("certs/deleteCert/", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ certificateID: certificateID }),
+    })
+      .then(response => response.json())
+      .then(data => {
+        if (data.message === "Deleted!") {
+          console.log("deleted");
+          // Certificate deleted successfully, you can update the UI or reload the table here
+          // For example, you can remove the corresponding row from the table.
+          this.parentElement.parentElement.remove(); // Remove the whole row
+        } else {
+          // Handle the error, show an alert, or take appropriate action
+        }
+      })
+      .catch(error => {
+        console.error(error);
+      });
+      document.getElementById("deleteModal").style.display = "none";
+  });
   }
 
   if (event.target.id === "openEditModalBtn") {
@@ -1558,6 +1589,9 @@ document.getElementById("table-container").addEventListener("click", function(ev
   }
 
 });
+
+const confirmDeleteButton = document.getElementById("confirmDelete");
+console.log(id)
 
 
 
