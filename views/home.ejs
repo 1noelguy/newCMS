@@ -187,7 +187,7 @@
             <div class="sub" style="margin-bottom: -52px; margin-top: 30px;">
 
                 <div class = "desc">
-                    <h2>All Certificates </h2>
+                    <h2 id="certificateType">All certificates </h2>
                 </div>
                 <!-- <hr> -->
             </div>
@@ -320,6 +320,7 @@ new Chart("myChart", {
   const pendingCertsButton = document.getElementById("pendingCerts");
   const allCertsButton = document.getElementById("allCerts");
   const resultDiv = document.getElementById("result");
+  const certificateType= document.getElementById("certificateType");
 
   const fetchCertificates = async (url) => {
         try {
@@ -346,18 +347,23 @@ new Chart("myChart", {
 
       completedCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/completedCerts");
+    certificateType.innerHTML="Completed Certificates";
+
   });
 
   inprogressCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/progressCerts");
+    certificateType.innerHTML="Certificates in Progress";
   });
 
   pendingCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/pendingCerts");
+    certificateType.innerHTML="Pending Certificates";
   });
 
   allCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/allCerts");
+    certificateType.innerHTML="All certificates";
   });
 
       });
