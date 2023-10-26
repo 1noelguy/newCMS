@@ -178,7 +178,7 @@ router.get("/logout", userMiddleware.isLoggedIn, async (req, res, next) => {
   try {
     res.cookie("jwt", "", { maxAge: 1 });
     res.send({
-      message: "Done",
+      message: "Done"
     });
   } catch (err) {
     console.log(err);

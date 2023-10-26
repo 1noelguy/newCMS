@@ -68,7 +68,8 @@ router.get("/userById/:userID", userMiddleware.isLoggedIn, async (req, res)=>{
 });
 
 //Update user
-router.put("", userMiddleware.isLoggedIn, (req, res)=>{
+router.put("/updateUser/", //userMiddleware.isLoggedIn, 
+(req, res)=>{
 
 });
 
