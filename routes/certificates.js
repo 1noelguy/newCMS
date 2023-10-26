@@ -327,7 +327,7 @@ router.put("/updateCerts", async (req, res) => {
     }
 });
 
-//Delete User
+//Delete Certificate
 router.delete("/deleteCert/", //userMiddleware.isLoggedIn, 
 (req, res) => {
   const certID = req.body.certificateID;
