@@ -187,6 +187,127 @@ router.get("/completedCerts",
 });
 
 
+//Completed certs count
+router.get("/completedCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query = "SELECT COUNT(*) AS Count FROM certificates WHERE status = 'completed';";
+
+  try {
+      await new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+              if (err) {
+                  return res.status(400).send({
+                      message: err,
+                  });
+              } else {
+                  const Count = result[0].Count;
+
+                  // Return the count in the response
+                  return res.status(200).send({
+                      message: "Success!",
+                      Count: Count,
+                  });
+              }
+          });
+      });
+  } catch (error) {
+      return res.status(400).send({
+          message: err,
+      });
+  }
+});
+
+
+//Pending Certs count
+router.get("/pendingCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query = "SELECT COUNT(*) AS Count FROM certificates WHERE status = 'pending';";
+
+  try {
+      await new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+              if (err) {
+                  return res.status(400).send({
+                      message: err,
+                  });
+              } else {
+                  const Count = result[0].Count;
+
+                  // Return the count in the response
+                  return res.status(200).send({
+                      message: "Success!",
+                      Count: Count,
+                  });
+              }
+          });
+      });
+  } catch (error) {
+      return res.status(400).send({
+          message: err,
+      });
+  }
+});
+
+router.get("/inprogressCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query = "SELECT COUNT(*) AS Count FROM certificates WHERE status = 'inprogress';";
+
+  try {
+      await new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+              if (err) {
+                  return res.status(400).send({
+                      message: err,
+                  });
+              } else {
+                  const Count = result[0].Count;
+
+                  // Return the count in the response
+                  return res.status(200).send({
+                      message: "Success!",
+                      Count: Count,
+                  });
+              }
+          });
+      });
+  } catch (error) {
+      return res.status(400).send({
+          message: err,
+      });
+  }
+});
+
+
+router.get("/totalCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query = "SELECT COUNT(*) AS Count FROM certificates;";
+  
+
+  try {
+      await new Promise((resolve, reject) => {
+          db.query(query, (err, result) => {
+              if (err) {
+                  return res.status(400).send({
+                      message: err,
+                  });
+              } else {
+                  const Count = result[0].Count;
+
+                  // Return the count in the response
+                  return res.status(200).send({
+                      message: "Success!",
+                      Count: Count,
+                  });
+              }
+          });
+      });
+  } catch (error) {
+      return res.status(400).send({
+          message: err,
+      });
+  }
+});
+
 //Get A Particular user
 router.get(
   "/certById/:certificateID",
