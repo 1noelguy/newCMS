@@ -706,7 +706,7 @@ input.invalid {
                 </div>
                 <br />
                 <div style="display: flex; flex-direction: row">
-                <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
+                <!-- <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
                   <label for="">Waf Config?</label>
                   <select
                     name="wafConfig"
@@ -719,7 +719,7 @@ input.invalid {
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
-                </div>
+                </div> -->
 
                 <!-- <div style="display: flex; flex-direction: column">
                   <label for="" style="margin-left: 40px;">Date Requested</label>
@@ -1676,7 +1676,7 @@ console.log(editcertificateID);
         const serverSpecs = form.serverSpecs.value;
         const domainName = form.domainName.value;
         const dnsMappingReq = form.dnsMappingReq.value;
-        const wafConfig = form.wafConfig.value;
+        // const wafConfig = form.wafConfig.value;
         const serverHostname = form.serverHostname.value;
         const serverAddress = form.serverAddress.value;
         const operatingSystem = form.operatingSystem.value;
@@ -1701,7 +1701,7 @@ console.log(editcertificateID);
         serverSpecs,
         domainName,
         dnsMappingReq,
-        wafConfig,
+        // wafConfig,
         serverHostname,
         serverAddress,
         operatingSystem,
