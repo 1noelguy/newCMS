@@ -24,6 +24,7 @@ form.addEventListener('submit', async(e)=>{
             errorMsg.textContent = data.message;
         }
         if (data.userID) {
+            //set local storage here
             location.assign('/home')
         }
 
