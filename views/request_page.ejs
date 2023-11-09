@@ -721,11 +721,11 @@ input.invalid {
                   </select>
                 </div>
 
-                <div style="display: flex; flex-direction: column">
+                <!-- <div style="display: flex; flex-direction: column">
                   <label for="" style="margin-left: 40px;">Date Requested</label>
                   <input type="date" name="dateRequested" style="width: 230px;  margin-left:40px;">
                   
-                </div>
+                </div> -->
                 </div>
 
                 </div>
@@ -1682,7 +1682,7 @@ console.log(editcertificateID);
         const operatingSystem = form.operatingSystem.value;
         const portNumber = form.portNumber.value;
         const status = "Pending";
-        const dateRequested = form.dateRequested.value;
+        const dateRequested = new Date();
 
         // console.log(username, password, password_repeat, email, team, role);
 
