@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div id="totalcount" class="numbers">250</div>
+                        <div id="totalcount" class="numbers">0</div>
                         <div class="cardName">Total</div>
                     </div>
                     <div class="iconBox">
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div id="pendingcount" class="numbers">23</div>
+                        <div id="pendingcount" class="numbers">0</div>
                         <div class="cardName">Pending</div>
                     </div>
                     <div class="iconBox">
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div id="inprogresscount" class="numbers">3</div>
+                        <div id="inprogresscount" class="numbers">0</div>
                         <div class="cardName">In Progress</div>
                     </div>
                     <div class="iconBox">
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div id="completedcount" class="numbers">54</div>
+                        <div id="completedcount" class="numbers">0</div>
                         <div class="cardName">Completed</div>
                     </div>
                     <div class="iconBox">
@@ -313,7 +313,7 @@ new Chart("myChart", {
         const PendingCertsQuery="certs/pendingCerts";
         const AllCertsQuery="certs/allCerts";
         const CompletedCertsCount="certs/completedCertsCount";
-        const InprogressCertsCount="certs/pendingCertsCount";
+        const InprogressCertsCount="certs/inprogressCertsCount";
         const TotalCertsCount="certs/totalCertsCount";
         const PendingCertsCount = "certs/pendingCertsCount";
 
@@ -365,7 +365,7 @@ fetchTotalCertificatesCount(count);
 
 const fetchCompletedCertificatesCount = async (CompletedCertsCount) => {
     try {
-        const res = await fetch(count);
+        const res = await fetch(CompletedCertsCount);
         const data = await res.json();
 
         if (typeof data === "object") {
@@ -397,7 +397,7 @@ fetchCompletedCertificatesCount(CompletedCertsCount);
 
 const fetchPendingCertificatesCount = async (PendingCertsCount) => {
     try {
-        const res = await fetch(count);
+        const res = await fetch(PendingCertsCount);
         const data = await res.json();
 
         if (typeof data === "object") {
@@ -429,7 +429,7 @@ fetchPendingCertificatesCount(PendingCertsCount);
 
 const fetchInprogressCertificatesCount = async (InprogressCertsCount) => {
     try {
-        const res = await fetch(count);
+        const res = await fetch(InprogressCertsCount);
         const data = await res.json();
 
         if (typeof data === "object") {
@@ -500,7 +500,7 @@ fetchInprogressCertificatesCount(InprogressCertsCount);
   pendingCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/pendingCerts");
     fetchCertificatesCount(PendingCertsCount);
-  pendingcount.innerHTML=updatedCount;
+ 
     certificateType.innerHTML="Pending Certificates";
   });
 

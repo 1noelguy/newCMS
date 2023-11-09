@@ -447,8 +447,8 @@ input.invalid {
                     style="width: 230px; height: 30px; margin-right: 40px"
                   >
                     <option disabled selected>Select Status</option>
-                    <option value="2">Yes</option>
-                    <option value="1">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
                 </div>
 
@@ -462,8 +462,8 @@ input.invalid {
                     <option value="" disabled selected>
                       Select option
                     </option>
-                    <option value="IT Operations">Yes</option>
-                    <option value="IT Architecture">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
                 </div>
               </div>
@@ -478,8 +478,8 @@ input.invalid {
                     style="width: 230px; height: 30px; margin-right: 40px"
                   >
                     <option disabled selected>Select option</option>
-                    <option value="2">Yes</option>
-                    <option value="1">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
                 </div>
 
@@ -493,8 +493,8 @@ input.invalid {
                     <option value="" disabled selected>
                       Select option
                     </option>
-                    <option value="IT Operations">Renewal</option>
-                    <option value="IT Architecture">New Request</option>
+                    <option value="Renewal">Renewal</option>
+                    <option value="New Request">New Request</option>
                   </select>
                 </div>
               </div>
@@ -509,8 +509,8 @@ input.invalid {
                     style="width: 230px; height: 30px; margin-right: 40px"
                   >
                     <option disabled selected>Select option</option>
-                    <option value="2">Yes</option>
-                    <option value="1">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
                 </div>
 
@@ -524,8 +524,8 @@ input.invalid {
                     <option value="" disabled selected>
                       Select option
                     </option>
-                    <option value="IT Operations">Yes</option>
-                    <option value="IT Architecture">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
                 </div>
               </div>
@@ -683,9 +683,9 @@ input.invalid {
                       style="width: 230px; height: 30px; margin-right: 40px"
                     >
                       <option disabled selected>Select Status</option>
-                      <option value="2">In Progress</option>
-                      <option value="1">Pending</option>
-                      <option value="1">Completed</option>
+                      <option value="In Progress">In Progress</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Completed">Completed</option>
                     </select>
                   </div>
 
@@ -699,8 +699,8 @@ input.invalid {
                       <option value="" disabled selected>
                         Select option
                       </option>
-                      <option value="IT Operations">Yes</option>
-                      <option value="IT Architecture">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
                 </div>
@@ -716,8 +716,8 @@ input.invalid {
                     <option value="" disabled selected>
                       Select option
                     </option>
-                    <option value="IT Operations">Yes</option>
-                    <option value="IT Architecture">No</option>
+                    <option value="Yes">Yes</option>
+                    <option value="No">No</option>
                   </select>
                 </div>
 
@@ -806,6 +806,47 @@ input.invalid {
               <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
                 <div style="padding-right: 16px;"><button id="cancelDelete" style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
                 <div><button id="confirmDelete" style="background-color: red; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Delete</button></div>
+              </div>
+              </div>
+            </div>
+            <div id="changeStatusModal" style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 200px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+              <div
+              class="modal-content"
+              style="border-radius: 10px; margin-top: 100px; width: 40%; overflow-y: auto;"
+            >
+              <span
+                class="close"
+                style="
+                  border: 1px;
+                  border-color: black;
+                  width: 10px;
+                  height: 10px;
+                  margin-right: 80px;
+                "
+                id="closeDeleteModal"
+                >&times;</span
+              >
+              <h2 style="margin-left: 60px ; color: black;">Change Certificate Status</h2>
+              <!-- <hr style="margin-top: 5px" /> -->
+              <span style="padding-left: 60px; margin-top: 60px;">Select your required status from the dropdown below.</span>
+              <br />
+              <div style="display: flex; flex-direction: column; margin-left: 60px; margin-top: 20px;">
+                <label for="">Status</label>
+                <select
+                  for=""
+                  name="status"
+                  id="status"
+                  style="width: 300px; height: 30px; margin-right: 40px"
+                >
+                  <option disabled selected>Select Status</option>
+                  <option value="In Progress">In Progress</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Completed">Completed</option>
+                </select>
+              </div>
+              <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
+                <div style="padding-right: 16px;"><button id="cancelDelete" style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
+                <div><button id="saveStatus" style="background-color: green; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Save</button></div>
               </div>
               </div>
             </div>
@@ -926,8 +967,8 @@ input.invalid {
                       style="width: 230px; height: 30px; margin-right: 40px"
                     >
                       <option disabled selected>Select Status</option>
-                      <option value="2">Yes</option>
-                      <option value="1">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
   
@@ -941,8 +982,8 @@ input.invalid {
                       <option value="" disabled selected>
                         Select option
                       </option>
-                      <option value="IT Operations">Yes</option>
-                      <option value="IT Architecture">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
                 </div>
@@ -957,8 +998,8 @@ input.invalid {
                       style="width: 230px; height: 30px; margin-right: 40px"
                     >
                       <option disabled selected>Select option</option>
-                      <option value="2">Yes</option>
-                      <option value="1">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
   
@@ -972,8 +1013,8 @@ input.invalid {
                       <option value="" disabled selected>
                         Select option
                       </option>
-                      <option value="IT Operations">Renewal</option>
-                      <option value="IT Architecture">New Request</option>
+                      <option value="Renewal">Renewal</option>
+                      <option value="New Request">New Request</option>
                     </select>
                   </div>
                 </div>
@@ -988,8 +1029,8 @@ input.invalid {
                       style="width: 230px; height: 30px; margin-right: 40px"
                     >
                       <option disabled selected>Select option</option>
-                      <option value="2">Yes</option>
-                      <option value="1">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
   
@@ -1003,8 +1044,8 @@ input.invalid {
                       <option value="" disabled selected>
                         Select option
                       </option>
-                      <option value="IT Operations">Yes</option>
-                      <option value="IT Architecture">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
                     </select>
                   </div>
                 </div>
@@ -1162,9 +1203,9 @@ input.invalid {
                         style="width: 230px; height: 30px; margin-right: 40px"
                       >
                         <option disabled selected>Select Status</option>
-                        <option value="2">In Progress</option>
-                        <option value="1">Pending</option>
-                        <option value="1">Completed</option>
+                        <option value="In progress">In Progress</option>
+                        <option value="Pending">Pending</option>
+                        <option value="Completed">Completed</option>
                       </select>
                     </div>
   
@@ -1178,8 +1219,8 @@ input.invalid {
                         <option value="" disabled selected>
                           Select option
                         </option>
-                        <option value="IT Operations">Yes</option>
-                        <option value="IT Architecture">No</option>
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
                       </select>
                     </div>
                   </div>
@@ -1195,16 +1236,16 @@ input.invalid {
                       <option value="" disabled selected>
                         Select option
                       </option>
-                      <option value="IT Operations">Yes</option>
-                      <option value="IT Architecture">No</option>
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option> 
                     </select>
                   </div>
   
-                  <div style="display: flex; flex-direction: column">
+                  <!-- <div style="display: flex; flex-direction: column">
                     <label for="" style="margin-left: 40px;">Date Requested</label>
                     <input type="date" name="dateRequested" style="width: 230px;  margin-left:40px;">
                     
-                  </div>
+                  </div> -->
                   </div>
   
                   </div>
@@ -1362,7 +1403,7 @@ function showEditTab(n) {
   }
   if (n == (x.length - 1)) {
     document.getElementById("nextEditBtn").style.display="none";
-    document.getElementById('edit').style.display="flex";
+    document.getElementById('editCertificate').style.display="flex";
     
   } else {
     document.getElementById("nextEditBtn").innerHTML = "Next";
@@ -1432,9 +1473,11 @@ function fixEditStepIndicator(n) {
       const closeModalBtn = document.getElementById("closeModalBtn");
       const modal = document.getElementById("myModal");
       const deleteModal=document.getElementById("deleteModal");
+      const changeStatusModal=document.getElementById("changeStatusModal");
       const editModal=document.getElementById("editModal");
       const cancelDelete=document.getElementById("cancelDelete");
       const closeDeleteModal=document.getElementById("closeDeleteModal");
+      const  saveStatus=document.getElementById(" saveStatus");
 
 
       cancelDelete.addEventListener("click",()=>{
@@ -1468,6 +1511,60 @@ function fixEditStepIndicator(n) {
 //script to prepopulate edit form and hanle updation
 
 document.getElementById("table-container").addEventListener("click", function(event) {
+
+  if(event.target.id==="openChangeStatusModalBtn"){
+    changeStatusModal.style.display="flex";
+    const editcertificateID = this.parentElement.querySelector("[data-certificate-id]").getAttribute("data-certificate-id");
+    fetch(`certs/certById/${editcertificateID}`)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.data && data.data.length > 0) {
+              console.log(data.data[0]);
+                const certificateData = data.data[0];
+                status.value=certificateData.status; 
+const saveStatus=document.getElementById("saveStatus");
+                saveStatus.addEventListener("click", (e) => {
+                const updatedStatusData = {
+                            
+                            status: status.value,
+                            certificateID: editcertificateID, // Use the ID obtained earlier
+                        };
+                        fetch("certs/updateCertStatus", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(updatedStatusData),
+                        })
+                       
+                        .then((response) =>{ console.log(response)})
+                        .then(console.log(response))
+                        
+                        .then((data) => {
+                            if (data.message === "Success!") {
+                                console.log("Certificate updated successfully.");
+                                    
+                                } else {
+                                    console.error("Failed to retrieve certificate data.");
+                                    console.error(response)
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error:", error);
+                                alert("An error occurred while retrieving certificate data.");
+                            });
+                          
+                        
+                          });
+                          } 
+
+                        })                
+                        
+                        }
+                          
+                        
+            
+          
   // Check if the clicked element is a "delete" button
   if (event.target.id === "openEditModalBtn") {
     // Use querySelector to find the "Delete" button and get the attribute
@@ -1495,34 +1592,67 @@ console.log(editcertificateID);
                 editForm.serverHostname.value=certificateData.serverHostname;
                 editForm.serverSpecs.value=certificateData.serverSpecs;
                 editForm.status.value=certificateData.status;
+                editForm.dnsMappingReq.value=certificateData.dnsMappingReq;
                 editForm.wafConfig.value=certificateData.wafConfig;
                 // Set values for other input fields
 
-                // // Handle the form submission (update logic)
-                // editForm.addEventListener("submit", (e) => {
-                //     e.preventDefault();
+                // Handle the form submission (update logic)
+                editForm.addEventListener("submit", (e) => {
+                    e.preventDefault();
 
-                //     // Gather the updated data from the form
-                //     const updatedData = {
-                //         userEmail: editForm.userEmail.value,
-                //         // Extract values for other properties
-                //         certificateID: certificateID,
-                //     };
-                //   });
-            } else {
-                console.error("Failed to retrieve certificate data.");
-            }
-        })
-        .catch((error) => {
-            console.error("Error:", error);
-            alert("An error occurred while retrieving certificate data.");
-        });
-  }
+                    // Gather the updated data from the form
+                    const updatedData = {
+                            userEmail: editForm.userEmail.value,
+                            degEffect: editForm.degEffect.value,
+                            domainName: editForm.domainName.value,
+                            externalUsers: editForm.externalUsers.value,
+                            managerApproval: editForm.managerApproval.value,
+                            operatingSystem: editForm.operatingSystem.value,
+                            portNumber: editForm.portNumber.value,
+                            projectPurpose: editForm.projectPurpose.value,
+                            projectTitle: editForm.projectTitle.value,
+                            requestType: editForm.requestType.value,
+                            revGen: editForm.revGen.value,
+                            serverAddress: editForm.serverAddress.value,
+                            serverHostname: editForm.serverHostname.value,
+                            serverSpecs: editForm.serverSpecs.value,
+                            status: editForm.status.value,
+                            wafConfig: editForm.wafConfig.value,
+                            dnsMappingReq: editForm.dnsMappingReq.value,
+                            certificateID: editcertificateID, // Use the ID obtained earlier
+                        };
+                        fetch("certs/updateCerts", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify(updatedData),
+                        })
+                       
+                        .then((response) =>{ console.log(response)})
+                        .then(console.log(response))
+                        
+                        .then((data) => {
+                            if (data.message === "Success!") {
+                                console.log("Certificate updated successfully.");
+                                    
+                                } else {
+                                    console.error("Failed to retrieve certificate data.");
+                                    console.error(response)
+                                }
+                            })
+                            .catch((error) => {
+                                console.error("Error:", error);
+                                alert("An error occurred while retrieving certificate data.");
+                            });
+                          });
+                        
+                            
+                          }
+                    })
+                  }
 
-  
-
-});
-
+                });
 
 
 
@@ -1754,6 +1884,21 @@ console.log(formattedDate);
                         "
                   >
                     delete
+                  </button>
+                  <button
+                   id="openChangeStatusModalBtn"
+                    style="
+                          padding-left: 4px;
+                          padding-right: 4px;
+                          color: white;
+                          background-color: green;
+                          border-radius: 3px;
+                          margin-left: 6px;
+                          font-size: small;
+                          border:none;
+                        "
+                  >
+                    change status
                   </button>
                 </td>`;
               tableHTML += "</tr>";
