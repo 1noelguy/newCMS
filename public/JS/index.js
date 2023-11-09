@@ -12,9 +12,12 @@ function toggleMenu(){
 }
 
     let Name = document.querySelector('.user');
+    let logout = document.querySelector('.logOut');
+    
     Name.innerHTML = localStorage.getItem("username");
 
-    async function logout(){
+    logout.addEventListener('click', async()=>{
+        // alert('Clicked')
         try {
             const res = await fetch('/api/logout',{
                 method: 'GET',
@@ -24,10 +27,31 @@ function toggleMenu(){
             console.log(data);
 
             if (data.message) {
-                location.assign('\signIn')
+                // console.log(data.message);
+                localStorage.removeItem("username", data.username);
+                localStorage.removeItem("function", data.role);
+                location.assign('/');
             }
 
         } catch (err) {
             console.log(err);
         }
-    }
+    });
+
+    // async function logout1(){
+    //     try {
+    //         const res = await fetch('/api/logout',{
+    //             method: 'GET',
+    //             headers: {'Content-Type': 'application/json'}
+    //         })
+    //         const data = await res.json();
+    //         console.log(data);
+
+    //         if (data.message) {
+    //             location.assign('/signIn');
+    //         }
+
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+    // }

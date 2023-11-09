@@ -175,7 +175,7 @@ router.get(
 //   }
 // );
 
-router.get("/logout", userMiddleware.isLoggedIn, async (req, res, next) => {
+router.get("/logout", async (req, res, next) => {
   try {
     res.cookie("jwt", "", { maxAge: 1 });
     res.send({
@@ -184,8 +184,6 @@ router.get("/logout", userMiddleware.isLoggedIn, async (req, res, next) => {
   } catch (err) {
     console.log(err);
   }
-  // res.cookie('jwt', '', { maxAge: 1});
-  // res.redirect('/')
 });
 
 module.exports = router;
