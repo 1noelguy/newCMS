@@ -4,26 +4,30 @@ function toggleMenu(){
     let navigation = document.querySelector('.navigation');
     let main = document.querySelector('.main');
 
+
     toggle.classList.toggle('active');
     navigation.classList.toggle('active');
     main.classList.toggle('active');
 
 }
 
-async function logout(){
-    try {
-        const res = await fetch('/api/logout',{
-            method: 'GET',
-            headers: {'Content-Type': 'application/json'}
-        })
-        const data = await res.json();
-        console.log(data);
+    let Name = document.querySelector('.user');
+    Name.innerHTML = localStorage.getItem("username");
 
-        if (data.message) {
-            location.assign('\signIn')
+    async function logout(){
+        try {
+            const res = await fetch('/api/logout',{
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'}
+            })
+            const data = await res.json();
+            console.log(data);
+
+            if (data.message) {
+                location.assign('\signIn')
+            }
+
+        } catch (err) {
+            console.log(err);
         }
-
-    } catch (err) {
-        console.log(err);
     }
-}

@@ -25,7 +25,10 @@ form.addEventListener('submit', async(e)=>{
         }
         if (data.userID) {
             //set local storage here
-            location.assign('/home')
+            localStorage.setItem("username", data.username);
+            localStorage.setItem("function", data.role);
+            location.assign('/home');
+            // console.log(data.username, data.userID, data.role);
         }
 
     } catch (err) {

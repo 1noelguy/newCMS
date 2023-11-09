@@ -112,6 +112,7 @@ router.post("/login", async (req, res, next) => {
               return res.status(200).send({
                 message: "logged in!",
                 token,
+                username: result[0]["username"],
                 userID: result[0]["userID"],
                 role: result[0]["roleID"],
               });
