@@ -123,7 +123,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div class="numbers">250</div>
+                        <div id="totalcount" class="numbers">0</div>
                         <div class="cardName">Total</div>
                     </div>
                     <div class="iconBox">
@@ -139,7 +139,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div class="numbers">23</div>
+                        <div id="pendingcount" class="numbers">0</div>
                         <div class="cardName">Pending</div>
                     </div>
                     <div class="iconBox">
@@ -156,7 +156,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div class="numbers">3</div>
+                        <div id="inprogresscount" class="numbers">0</div>
                         <div class="cardName">In Progress</div>
                     </div>
                     <div class="iconBox">
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div class="numbers">54</div>
+                        <div id="completedcount" class="numbers">0</div>
                         <div class="cardName">Completed</div>
                     </div>
                     <div class="iconBox">
@@ -187,7 +187,7 @@
             <div class="sub" style="margin-bottom: -52px; margin-top: 30px;">
 
                 <div class = "desc">
-                    <h2>All Certificates </h2>
+                    <h2 id="certificateType">All certificates </h2>
                 </div>
                 <!-- <hr> -->
             </div>
@@ -312,6 +312,10 @@ new Chart("myChart", {
         const InprogressCertsQuery="certs/progressCerts";
         const PendingCertsQuery="certs/pendingCerts";
         const AllCertsQuery="certs/allCerts";
+        const CompletedCertsCount="certs/completedCertsCount";
+        const InprogressCertsCount="certs/inprogressCertsCount";
+        const TotalCertsCount="certs/totalCertsCount";
+        const PendingCertsCount = "certs/pendingCertsCount";
 
       document.addEventListener("DOMContentLoaded", async function () {
 
@@ -320,6 +324,140 @@ new Chart("myChart", {
   const pendingCertsButton = document.getElementById("pendingCerts");
   const allCertsButton = document.getElementById("allCerts");
   const resultDiv = document.getElementById("result");
+  const certificateType= document.getElementById("certificateType");
+  const completedcount=document.getElementById("completedcount");
+  const inprogresscount= document.getElementById("inprogresscount");
+  const pendingcount= document.getElementById("pendingcount");
+  const totalcount=document.getElementById("totalcount");
+  const count=TotalCertsCount;
+  let updatedCount;
+
+  const fetchTotalCertificatesCount = async (count) => {
+    try {
+        const res = await fetch(count);
+        const data = await res.json();
+
+        if (typeof data === "object") {
+          console.log(data);
+            // Check if the data contains a count property
+            if ("Count" in data) {
+               totalcount.innerHTML=data.Count;
+             
+                // Data contains a count, display it
+                console.log("Total Count: " + data.Count);
+                console.log(data);
+                
+               
+            } else {
+              
+            }
+        } else {
+            // Data is not in the expected format, handle the error or log a message
+            console.error("Data is not in the expected format:", data);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+
+fetchTotalCertificatesCount(count);
+
+const fetchCompletedCertificatesCount = async (CompletedCertsCount) => {
+    try {
+        const res = await fetch(CompletedCertsCount);
+        const data = await res.json();
+
+        if (typeof data === "object") {
+          console.log(data);
+            // Check if the data contains a count property
+            if ("Count" in data) {
+               completedcount.innerHTML=data.Count;
+             
+                // Data contains a count, display it
+                console.log("Total Count: " + data.Count);
+                console.log(data);
+                
+               
+            } else {
+              
+            }
+        } else {
+            // Data is not in the expected format, handle the error or log a message
+            console.error("Data is not in the expected format:", data);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+
+fetchCompletedCertificatesCount(CompletedCertsCount);
+
+
+const fetchPendingCertificatesCount = async (PendingCertsCount) => {
+    try {
+        const res = await fetch(PendingCertsCount);
+        const data = await res.json();
+
+        if (typeof data === "object") {
+          console.log(data);
+            // Check if the data contains a count property
+            if ("Count" in data) {
+               pendingcount.innerHTML=data.Count;
+             
+                // Data contains a count, display it
+                console.log("Total Count: " + data.Count);
+                console.log(data);
+                
+               
+            } else {
+              
+            }
+        } else {
+            // Data is not in the expected format, handle the error or log a message
+            console.error("Data is not in the expected format:", data);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+
+fetchPendingCertificatesCount(PendingCertsCount);
+
+
+const fetchInprogressCertificatesCount = async (InprogressCertsCount) => {
+    try {
+        const res = await fetch(InprogressCertsCount);
+        const data = await res.json();
+
+        if (typeof data === "object") {
+          console.log(data);
+            // Check if the data contains a count property
+            if ("Count" in data) {
+               inprogresscount.innerHTML=data.Count;
+             
+                // Data contains a count, display it
+                console.log("Total Count: " + data.Count);
+                console.log(data);
+                
+               
+            } else {
+              
+            }
+        } else {
+            // Data is not in the expected format, handle the error or log a message
+            console.error("Data is not in the expected format:", data);
+        }
+    } catch (error) {
+        console.error("Error:", error);
+    }
+};
+
+
+fetchInprogressCertificatesCount(InprogressCertsCount);
+
 
   const fetchCertificates = async (url) => {
         try {
@@ -346,18 +484,31 @@ new Chart("myChart", {
 
       completedCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/completedCerts");
+    fetchCertificatesCount(CompletedCertsCount);
+    completedcount.innerHTML=updatedCount;
+    certificateType.innerHTML="Completed Certificates";
+
   });
 
   inprogressCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/progressCerts");
+    fetchCertificatesCount(InprogressCertsCount);
+    inprogresscount.innerHTML=updatedCount;
+    certificateType.innerHTML="Certificates in Progress";
   });
 
   pendingCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/pendingCerts");
+    fetchCertificatesCount(PendingCertsCount);
+ 
+    certificateType.innerHTML="Pending Certificates";
   });
 
   allCertsButton.addEventListener("click", () => {
     fetchCertificates("certs/allCerts");
+    fetchCertificatesCount(TotalCertsCount);
+    totalcount.innerHTML=updatedCount;
+    certificateType.innerHTML="All certificates";
   });
 
       });

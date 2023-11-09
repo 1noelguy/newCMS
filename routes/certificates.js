@@ -68,7 +68,8 @@ router.post(
         message: error,
       });
     }
-  });
+  }
+);
 
 //Get All Certificates
 router.get(
@@ -127,41 +128,74 @@ router.get(
 );
 
 //Get in progress certificates
-router.get("/progressCerts",
- //userMiddleware.isLoggedIn,
+router.get(
+  "/progressCerts",
+  //userMiddleware.isLoggedIn,
   async (req, res) => {
-  // Query to fetch all certificates with status "pending"
-  const query = "SELECT * FROM certificates WHERE status = 'in progress';";
+    // Query to fetch all certificates with status "pending"
+    const query = "SELECT * FROM certificates WHERE status = 'in progress';";
 
-  try {
-    await new Promise((resolve, reject) => {
-      db.query(query, (err, result) => {
-        if (err) {
-          return res.status(400).send({
-            message: err,
-          });
-        } else {
-          resolve(result);
-          return res.status(200).send({
-            message: "Success!",
-            data: result,
-          });
-        }
+    try {
+      await new Promise((resolve, reject) => {
+        db.query(query, (err, result) => {
+          if (err) {
+            return res.status(400).send({
+              message: err,
+            });
+          } else {
+            resolve(result);
+            return res.status(200).send({
+              message: "Success!",
+              data: result,
+            });
+          }
+        });
       });
-    });
-  } catch (error) {
-    return res.status(400).send({
-      message: err,
-    });
+    } catch (error) {
+      return res.status(400).send({
+        message: err,
+      });
+    }
   }
-});
+);
 
 //Get completed certificates
-router.get("/completedCerts",
- //userMiddleware.isLoggedIn,
+router.get(
+  "/completedCerts",
+  //userMiddleware.isLoggedIn,
   async (req, res) => {
-  // Query to fetch all certificates with status "pending"
-  const query = "SELECT * FROM certificates WHERE status = 'completed';";
+    // Query to fetch all certificates with status "pending"
+    const query = "SELECT * FROM certificates WHERE status = 'completed';";
+
+    try {
+      await new Promise((resolve, reject) => {
+        db.query(query, (err, result) => {
+          if (err) {
+            return res.status(400).send({
+              message: err,
+            });
+          } else {
+            resolve(result);
+            return res.status(200).send({
+              message: "Success!",
+              data: result,
+            });
+          }
+        });
+      });
+    } catch (error) {
+      return res.status(400).send({
+        message: err,
+      });
+    }
+  }
+);
+
+//Completed certs count
+router.get("/completedCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query =
+    "SELECT COUNT(*) AS Count FROM certificates WHERE status = 'Completed';";
 
   try {
     await new Promise((resolve, reject) => {
@@ -171,10 +205,12 @@ router.get("/completedCerts",
             message: err,
           });
         } else {
-          resolve(result);
+          const Count = result[0].Count;
+
+          // Return the count in the response
           return res.status(200).send({
             message: "Success!",
-            data: result,
+            Count: Count,
           });
         }
       });
@@ -186,6 +222,98 @@ router.get("/completedCerts",
   }
 });
 
+//Pending Certs count
+router.get("/pendingCertsCount", async (req, res) => {
+  // Query to fetch both the count and data of certificates with status "Pending"
+  const query =
+    "SELECT COUNT(*) AS Count FROM certificates WHERE status = 'Pending') AS Count FROM certificates WHERE status = 'Pending';";
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          return res.status(400).send({
+            message: err,
+          });
+        } else {
+          const Count = result[0].Count;
+          const certificateData = result; // The certificate data
+
+          // Return the count and certificate data in the response
+          return res.status(200).send({
+            message: "Success!",
+            Count: Count,
+            data: certificateData,
+          });
+        }
+      });
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: error,
+    });
+  }
+});
+
+
+router.get("/inprogressCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query =
+    "SELECT COUNT(*) AS Count FROM certificates WHERE status = 'In Progress';";
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          return res.status(400).send({
+            message: err,
+          });
+        } else {
+          const Count = result[0].Count;
+
+          // Return the count in the response
+          return res.status(200).send({
+            message: "Success!",
+            Count: Count,
+          });
+        }
+      });
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: err,
+    });
+  }
+});
+
+router.get("/totalCertsCount", async (req, res) => {
+  // Query to fetch the count of certificates with status "completed"
+  const query = "SELECT COUNT(*) AS Count FROM certificates;";
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          return res.status(400).send({
+            message: err,
+          });
+        } else {
+          const Count = result[0].Count;
+
+          // Return the count in the response
+          return res.status(200).send({
+            message: "Success!",
+            Count: Count,
+          });
+        }
+      });
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: err,
+    });
+  }
+});
 
 //Get A Particular user
 router.get(
@@ -221,8 +349,6 @@ router.get(
   }
 );
 
-
-
 // Get Certificates for a particular user
 router.get("/myCerts/", async (req, res) => {
   const token = req.cookies.jwt;
@@ -242,7 +368,6 @@ router.get("/myCerts/", async (req, res) => {
             if (err) {
               console.log(err);
             } else {
-
               try {
                 const query = `SELECT * FROM certificates WHERE userEmail = ?;`;
 
@@ -266,7 +391,6 @@ router.get("/myCerts/", async (req, res) => {
                   message: error,
                 });
               }
-              
             }
           }
         );
@@ -281,6 +405,7 @@ router.get("/myCerts/", async (req, res) => {
 router.put("/updateCerts", async (req, res) => {
   // const certID = req.params.certificateID;
 
+  console.log(req.body);
   const query = `UPDATE certificates SET 
   userEmail = ${db.escape(req.body.userEmail)},
   projectTitle = ${db.escape(req.body.projectTitle)},
@@ -302,52 +427,23 @@ router.put("/updateCerts", async (req, res) => {
   dateRequested = now() 
   where certificateID = ${db.escape(req.body.certificateID)};`;
 
-    // console.log(query);
-    
-    try {
-      await new Promise((resolve, reject) => {
-        db.query(query, (err, result) => {
-          if (err) {
-            res.status(400).send({
-              Message: err,
-            });
-          } else {
-            resolve(result);
-            return res.status(200).send({
-              message: "Success!",
-              data: result,
-            });
-          }
-        });
-      });
-    } catch (error) {
-      res.status(400).send({
-        message: error,
-      });
-    }
-});
+  // console.log(query);
 
-//Delete User
-router.delete("/deleteCert/", //userMiddleware.isLoggedIn, 
-(req, res) => {
-  const certID = req.body.certificateID;
-
-  console.log(certID);
-
-  const query = `DELETE FROM certificates WHERE certificateID = ? ;`;
   try {
-    db.query(query, [certID], (err, result)=>{
-      if (err) {
-        res.status(400).send({
-          Message: err,
-        });
-      } else {
-        // resolve(result);
-        return res.status(200).send({
-          message: "Deleted!",
-          data: result,
-        });
-      }
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          res.status(400).send({
+            Message: err,
+          });
+        } else {
+          resolve(result);
+          return res.status(200).send({
+            message: "Success!",
+            data: result,
+          });
+        }
+      });
     });
   } catch (error) {
     res.status(400).send({
@@ -355,5 +451,70 @@ router.delete("/deleteCert/", //userMiddleware.isLoggedIn,
     });
   }
 });
+
+
+//Update Certificate Status
+router.put("/updateCertStatus", async (req, res) => {
+  const certificateID = req.body.certificateID; // Assuming you have the certificateID in the request body
+  const newStatus = req.body.status; // The new status value to set
+
+  const query = `UPDATE certificates
+    SET status = ${db.escape(newStatus)}
+    WHERE certificateID = ${db.escape(certificateID)};`;
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, (err, result) => {
+        if (err) {
+          res.status(400).send({
+            message: err,
+          });
+        } else {
+          resolve(result);
+          return res.status(200).send({
+            message: "Success! Certificate status updated.",
+            data: result,
+          });
+        }
+      });
+    });
+  } catch (error) {
+    res.status(400).send({
+      message: error,
+    });
+  }
+});
+
+
+//Delete Certificate
+router.delete(
+  "/deleteCert/", //userMiddleware.isLoggedIn,
+  (req, res) => {
+    const certID = req.body.certificateID;
+
+    console.log(certID);
+
+    const query = `DELETE FROM certificates WHERE certificateID = ? ;`;
+    try {
+      db.query(query, [certID], (err, result) => {
+        if (err) {
+          res.status(400).send({
+            Message: err,
+          });
+        } else {
+          // resolve(result);
+          return res.status(200).send({
+            message: "Deleted!",
+            data: result,
+          });
+        }
+      });
+    } catch (error) {
+      res.status(400).send({
+        message: error,
+      });
+    }
+  }
+);
 
 module.exports = router;
