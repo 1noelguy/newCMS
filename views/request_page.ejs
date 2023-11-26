@@ -672,9 +672,34 @@ input.invalid {
                     "
                   />
                 </div>
+                <div
+                style="
+                  display: flex;
+                  flex-direction: column;
+                  margin-bottom: 10px;
+                "
+                class="tooltip" data-tooltip="Provide a link to document containing architectural drawing?"
+              >
+                <label for="">Link to architectural doc.</label>
+                <input
+                  name="Attachment"
+                  class="lineManager"
+                  placeholder="Link to confluence "
+                  type="text"
+                  required
+                  style="
+                    width: 500px;
+                    height: 30px;
+                    border: solid 1px black;
+                    border-radius: 5px;
+                    padding-left: 4px;
+                  "
+                />
+              </div>
+                
 
                 <div style="display: flex; flex-direction: row">
-                  <div style="display: flex; flex-direction: column">
+                  <!-- <div style="display: flex; flex-direction: column">
                     <label for="">Status</label>
                     <select
                       for=""
@@ -687,7 +712,7 @@ input.invalid {
                       <option value="Pending">Pending</option>
                       <option value="Completed">Completed</option>
                     </select>
-                  </div>
+                  </div> -->
 
                   <div style="display: flex; flex-direction: column">
                     <label for="">Generates Revenue?</label>
@@ -706,7 +731,7 @@ input.invalid {
                 </div>
                 <br />
                 <div style="display: flex; flex-direction: row">
-                <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
+                <!-- <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
                   <label for="">Waf Config?</label>
                   <select
                     name="wafConfig"
@@ -719,13 +744,13 @@ input.invalid {
                     <option value="Yes">Yes</option>
                     <option value="No">No</option>
                   </select>
-                </div>
+                </div> -->
 
-                <div style="display: flex; flex-direction: column">
+                <!-- <div style="display: flex; flex-direction: column">
                   <label for="" style="margin-left: 40px;">Date Requested</label>
                   <input type="date" name="dateRequested" style="width: 230px;  margin-left:40px;">
                   
-                </div>
+                </div> -->
                 </div>
 
                 </div>
@@ -1676,13 +1701,13 @@ console.log(editcertificateID);
         const serverSpecs = form.serverSpecs.value;
         const domainName = form.domainName.value;
         const dnsMappingReq = form.dnsMappingReq.value;
-        const wafConfig = form.wafConfig.value;
+        // const wafConfig = form.wafConfig.value;
         const serverHostname = form.serverHostname.value;
         const serverAddress = form.serverAddress.value;
         const operatingSystem = form.operatingSystem.value;
         const portNumber = form.portNumber.value;
-        const status = form.status.value;
-        const dateRequested = form.dateRequested.value;
+        const status = "Pending";
+        const dateRequested = new Date();
 
         // console.log(username, password, password_repeat, email, team, role);
 
@@ -1701,7 +1726,7 @@ console.log(editcertificateID);
         serverSpecs,
         domainName,
         dnsMappingReq,
-        wafConfig,
+        // wafConfig,
         serverHostname,
         serverAddress,
         operatingSystem,

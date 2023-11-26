@@ -21,7 +21,7 @@ router.post(
         serverSpecs,
         domainName,
         dnsMappingReq,
-        wafConfig,
+        
         serverHostname,
         serverAddress,
         operatingSystem,
@@ -39,7 +39,7 @@ router.post(
         ${db.escape(req.body.serverSpecs)},
         ${db.escape(req.body.domainName)},
         ${db.escape(req.body.dnsMappingReq)},
-        ${db.escape(req.body.wafConfig)},
+        
         ${db.escape(req.body.serverHostname)},
         ${db.escape(req.body.serverAddress)},
         ${db.escape(req.body.operatingSystem)},
