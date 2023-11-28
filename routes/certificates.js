@@ -454,9 +454,13 @@ router.put("/updateCerts", async (req, res) => {
 
 
 //Update Certificate Status
-router.put("/updateCertStatus", async (req, res) => {
-  const certificateID = req.body.certificateID; // Assuming you have the certificateID in the request body
+router.patch("/updateCertStatus/:certificateID", async (req, res) => {
+  const certificateID = req.params.certificateID; // Assuming you have the certificateID in the request body
   const newStatus = req.body.status; // The new status value to set
+
+
+  console.log(newStatus); //Not getting value from frontend
+
 
   const query = `UPDATE certificates
     SET status = ${db.escape(newStatus)}
