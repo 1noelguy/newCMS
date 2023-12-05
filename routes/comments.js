@@ -8,17 +8,17 @@ router.post("/addComment", (req, res)=>{
     // let token = req.cookies.jwt;
     let comment = req.body.comment;
     let certificateID = req.body.certificateID;
-    let commentor = req.body.cemmentor;
+    let commentor = null;
 
-    // jwt.verify(token,"SECRETKEY",(err,decodedToken)=>{
-    //     if (err) {
-    //         return res.status(400).send({
-    //             message: "Kindly log In to proceed",
-    //         });
-    //     } else {
-    //         commentor = decodedToken.username;
-    //     }
-    // });
+    jwt.verify(token,"SECRETKEY",(err,decodedToken)=>{
+        if (err) {
+            return res.status(400).send({
+                message: "Kindly log In to proceed",
+            });
+        } else {
+            commentor = decodedToken.username;
+        }
+    });
 
     try {
         db.query(`INSERT INTO comments (comment, commentor, certificateID) VALUES (${db.escape(comment)}, ${db.escape(commentor)}, ${db.escape(certificateID)})`, (err,result)=>{
@@ -82,13 +82,16 @@ router.delete("/delComment", async(req, res)=>{
                 } else {
                     resolve('Completed!');
                     return res.status(200).send({
-                        message: "Comment Deleted"
+                        message: "Comment Deleted",
+                        data: result
                     })
                 }
             });
         })
     } catch (error) {
-        
+        return res.status(400).send({
+            message: error
+        });
     }
 
 });
