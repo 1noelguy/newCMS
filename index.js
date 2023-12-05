@@ -21,6 +21,7 @@ app.set("view engine", "ejs");
 const auth = require("./routes/router.js");
 const users = require("./routes/users.js");
 const cert = require("./routes/certificates.js");
+const comms = require("./routes/comments.js");
 const { requireAuth, checkUser } = require("./middleware/authmid.js");
 
 //middleware for all endpoits
@@ -39,5 +40,6 @@ app.get("/certificates_page", requireAuth, (req, res) =>
 app.use("/api", auth);
 app.use("/users", users);
 app.use("/certs", cert);
+app.use("/comment", comms);
 
 app.listen(PORT, () => console.log(`server is runnig on ` + PORT));
