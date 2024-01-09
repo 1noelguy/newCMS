@@ -246,86 +246,89 @@ input.invalid {
                 Add Certificate
               </button>
             </div>
-            <table>
-              <thead style="height: 6px">
-              <tr
-                style="
-                  background-color: rgba(218, 221, 221, 0.757);
-                  padding-top: 2px;
-                  height: 15px;
-                "
-              >
-                <!-- <td style="visibility: hidden;">itemID</td> -->
-                <th
+            <div id="table-container">
+              <table>
+                <thead style="height: 6px">
+                <tr
                   style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
+                    background-color: rgba(218, 221, 221, 0.757);
+                    padding-top: 2px;
+                    height: 15px;
                   "
                 >
-                  Project title
-                </th>
-                <th
-                  style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                  "
-                >
-                  Domain name
-                </th>
-                <!-- <th
-                  style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                  "
-                >
-                  Server Hostname
-                </th>
-                <th
-                  style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                  "
-                >
-                  Server Address
-                </th> -->
-                <th
-                  style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                  "
-                >
-                  Status
-                </th>
-                <th
-                  style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                  "
-                >
-                  Date Requested
-                </th>
-                <!-- <th
-                  style="
-                    border: 1px solid #dddddd;
-                    text-align: left;
-                    padding: 8px;
-                  "
-                >
-                  Actions
-                </th> -->
-              </tr>
-              </thead>
-              <tbody> 
+                  <!-- <td style="visibility: hidden;">itemID</td> -->
+                  <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Project title
+                  </th>
+                  <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Domain name
+                  </th>
+                  <!-- <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Server Hostname
+                  </th>
+                  <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Server Address
+                  </th> -->
+                  <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Status
+                  </th>
+                  <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Date Requested
+                  </th>
+                  <!-- <th
+                    style="
+                      border: 1px solid #dddddd;
+                      text-align: left;
+                      padding: 8px;
+                    "
+                  >
+                    Actions
+                  </th> -->
+                </tr>
+                </thead>
+                <tbody> 
+              
+                </tr>
+                </tbody>
+              </table>
+            </div>
             
-              </tr>
-              </tbody>
-            </table>
 
             <div id="myModal" class="modal" style="padding-left: 400px; overflow-y: auto;">
               <div
@@ -783,6 +786,407 @@ input.invalid {
           </div>
         </div>
       </div>
+      <div id="certificateDetailsModal"  style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 20px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        <div
+          class="modal-content"
+          style="border-radius: 10px; width:50%; height: 90%; margin-top: 30px; overflow-y: auto;"
+        >
+          <span
+            class="close"
+            style="
+              border: 1px;
+              border-color: black;
+              width: 10px;
+              height: 10px;
+              margin-right: 10px;
+            "
+            id="closeCertModal"
+            >&times;</span
+          >
+          <h2 style="margin-left: 80px"> Certificate Details</h2>
+                          <!-- <hr style="margin-top: 5px" /> -->
+          <br />
+          <form
+            class="userForm"
+            style="margin-left: 20px; padding-bottom: 20px;scroll-behavior: auto;"
+          >
+          
+            <div id="inputError" name="inputError" class="errorN"></div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;margin-bottom: 10px;">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                
+              "
+            >
+              <label for="">UserEmail</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              userEmail  
+                
+            </div>
+            </div>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-right: 70px;
+              "
+            >
+              <label for="">Project Title</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+               
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+            </div>
+
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px; margin-bottom: 10px;">
+            <div
+            style="
+              display: flex;
+              flex-direction: column;
+              
+            "
+          >
+            <label for="">Project Purpose</label>
+            <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+          </div>
+          <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-right:50px;
+              "
+            >
+              <label for="">Domain name</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+            </div>
+
+          <div style="display: flex; flex-direction: row; justify-content:space-between; margin: 0px 80px 0px 80px;margin-bottom:10px;">
+            <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service Customer Facing?">
+              <label for="">External Users?</label>
+              <!-- <div style="position: relative; display: inline-block; margin-left: 120px; bottom: 25px;  "> -->
+              
+              <!-- </div> -->
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service revenue generating, e.g does it take top-up payments?">
+              <label for="">Generates Revenue?</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;margin-bottom: 10px;" >
+            <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the degradation of the service likely to have an impact on Vodafone's brand??">
+              <label for="">Deg Effect?</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-right:55px;" class="tooltip" data-tooltip="Is this a Renewal or a New request?">
+              <label for="">Request Type</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+          </div>
+
+          <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;">
+            <div style="display: flex; flex-direction: column"  class="tooltip" data-tooltip="Has this request received approval from Team Lead/Line Manager?">
+              <label for="">Manager's Approval?</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-right: 45px;margin-bottom: 10px;">
+              <label for="">DNS Mapping?</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+          </div>
+
+            
+            <!-- </div> -->
+
+            <!-- <div class="tab" style="display: none;"> -->
+              <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+              "
+            >
+              <label for="">Server Hostname</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+                margin-right: 45px;
+              "
+            >
+              <label for="">Server address</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+            </div>
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;">
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+              "
+            >
+              <label for="">Port Number</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+              "
+            >
+              <label for="">Server specifications</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+          </div>
+
+           
+
+            
+
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px; margin-bottom: 10px;">
+              <div style="display: flex; flex-direction: column">
+                <label for="">Status</label>
+                <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+              </div>
+
+              <div style="display: flex; flex-direction: column; ">
+                <label for="">Generates Revenue?</label>
+                <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+              </div>
+            </div>
+            <!-- <br /> -->
+            <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px; margin-bottom: 10px;">
+            <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
+              <label for="">Waf Config?</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; margin-right: 40px;">
+              <label for="" style="">Date Requested</label>
+              <div required
+              name="userEmail"
+              
+              class="username"
+              style="
+               color:gray;
+              "
+              placeholder="UserEmail">
+              UserEmail  
+                
+            </div>
+              
+            </div>
+            </div>
+
+            <div
+            style="
+              display: flex;
+              flex-direction: column;
+              margin-bottom: 10px;
+              margin: 0px 80px 0px 80px;
+            "
+          >
+            <label for="">Operating System type</label>
+            <div required
+            name="userEmail"
+            
+            class="username"
+            style="
+             color:gray;
+            "
+            placeholder="UserEmail">
+            UserEmail  
+              
+          </div>
+          </div>
+
+            <!-- </div> -->
+
+            
+          </form>
+        </div>
+      </div>
     </div>
     <script src="JS/index.js"></script>
     <script>
@@ -790,6 +1194,7 @@ input.invalid {
       const openModalBtn = document.getElementById("openModalBtn");
       const closeModalBtn = document.getElementById("closeModalBtn");
       const modal = document.getElementById("myModal");
+      
 
       openModalBtn.addEventListener("click", () => {
         modal.style.display = "block";
@@ -942,7 +1347,7 @@ const day = date.getDate().toString().padStart(2, "0");
 const formattedDate = `${year}-${month}-${day}`;
 
 console.log(formattedDate);
-              tableHTML += "<tr>";
+              tableHTML += '<tr id="opencertDetailsBtn">';
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
@@ -975,39 +1380,29 @@ console.log(formattedDate);
                     ">${formattedDate}</td>`;
                     
 
-              // tableHTML += `<td
-              //     style="
-              //           border-bottom: 1px solid rgb(168, 168, 169);
-              //           text-align: left;
-              //           padding: 8px;
-              //         "
-              //   >
-              //     <span
-              //       style="
-              //             padding-left: 4px;
-              //             padding-right: 4px;
-              //             color: white;
-              //             background-color: black;
-              //             border-radius: 3px;
-              //             font-size: small;
-              //           "
-              //     >
-              //       edit
-              //     </span>
-              //     <span
-              //       style="
-              //             padding-left: 4px;
-              //             padding-right: 4px;
-              //             color: white;
-              //             background-color: red;
-              //             border-radius: 3px;
-              //             margin-left: 6px;
-              //             font-size: small;
-              //           "
-              //     >
-              //       delete
-              //     </span>
-              //   </td>`;
+              tableHTML += `<td
+                  style="
+                        border-bottom: 1px solid rgb(168, 168, 169);
+                        text-align: left;
+                        padding: 8px;
+                      "
+                      data-certificate-id="${certificateData.certificateID}"
+                >
+                  <button
+                  id="viewcert"
+                    style="
+                          padding-left: 4px;
+                          padding-right: 4px;
+                          color: white;
+                          background-color: black;
+                          border-radius: 3px;
+                          font-size: small;
+                        "
+                  >
+                    view
+                  </button>
+                  
+                </td>`;
               tableHTML += "</tr>";
             }
           }
@@ -1015,7 +1410,26 @@ console.log(formattedDate);
         });
       }
 
+         
+document.getElementById("table-container").addEventListener("click", function(event) {
 
+
+  if (event.target.id === "viewcert") {
+    certificateDetailsModal.style.display = "block";
+    console.log("edit button clicked");
+  }
+  console.log("Event target id:", event.target.id);
+  if(event.target.id ==="closeCertModal"){
+    certificateDetailsModal.style.display="none";
+    
+  }
+
+});
+if(event.target.id ==="closeCertModal"){
+    certificateDetailsModal.style.display="none";
+    
+  }
+      
       var currentTab = 0; // Current tab is set to be the first tab (0)
 showTab(currentTab); // Display the current tab
 
