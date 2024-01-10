@@ -842,7 +842,7 @@ input.invalid {
             >
               <label for="">Project Title</label>
               <div required
-              name="userEmail"
+              name="projectTitle"
               
               class="username"
               style="
@@ -866,7 +866,7 @@ input.invalid {
           >
             <label for="">Project Purpose</label>
             <div required
-              name="userEmail"
+              name="projectPurpose"
               
               class="username"
               style="
@@ -886,7 +886,7 @@ input.invalid {
             >
               <label for="">Domain name</label>
               <div required
-              name="userEmail"
+              name="domainName"
               
               class="username"
               style="
@@ -906,7 +906,7 @@ input.invalid {
               
               <!-- </div> -->
               <div required
-              name="userEmail"
+              name="externalUsers"
               
               class="username"
               style="
@@ -921,7 +921,7 @@ input.invalid {
             <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service revenue generating, e.g does it take top-up payments?">
               <label for="">Generates Revenue?</label>
               <div required
-              name="userEmail"
+              name="revGen"
               
               class="username"
               style="
@@ -938,7 +938,7 @@ input.invalid {
             <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the degradation of the service likely to have an impact on Vodafone's brand??">
               <label for="">Deg Effect?</label>
               <div required
-              name="userEmail"
+              name="degEffect"
               
               class="username"
               style="
@@ -953,7 +953,7 @@ input.invalid {
             <div style="display: flex; flex-direction: column; margin-right:55px;" class="tooltip" data-tooltip="Is this a Renewal or a New request?">
               <label for="">Request Type</label>
               <div required
-              name="userEmail"
+              name="requestType"
               
               class="username"
               style="
@@ -970,7 +970,7 @@ input.invalid {
             <div style="display: flex; flex-direction: column"  class="tooltip" data-tooltip="Has this request received approval from Team Lead/Line Manager?">
               <label for="">Manager's Approval?</label>
               <div required
-              name="userEmail"
+              name="managerApproval"
               
               class="username"
               style="
@@ -985,7 +985,7 @@ input.invalid {
             <div style="display: flex; flex-direction: column; margin-right: 45px;margin-bottom: 10px;">
               <label for="">DNS Mapping?</label>
               <div required
-              name="userEmail"
+              name="dnsMappingReq"
               
               class="username"
               style="
@@ -1012,7 +1012,7 @@ input.invalid {
             >
               <label for="">Server Hostname</label>
               <div required
-              name="userEmail"
+              name="serverHostname"
               
               class="username"
               style="
@@ -1034,7 +1034,7 @@ input.invalid {
             >
               <label for="">Server address</label>
               <div required
-              name="userEmail"
+              name="serverAddress"
               
               class="username"
               style="
@@ -1056,7 +1056,7 @@ input.invalid {
             >
               <label for="">Port Number</label>
               <div required
-              name="userEmail"
+              name="portNumber"
               
               class="username"
               style="
@@ -1077,7 +1077,7 @@ input.invalid {
             >
               <label for="">Server specifications</label>
               <div required
-              name="userEmail"
+              name="serverSpecs"
               
               class="username"
               style="
@@ -1098,7 +1098,7 @@ input.invalid {
               <div style="display: flex; flex-direction: column">
                 <label for="">Status</label>
                 <div required
-              name="userEmail"
+              name="status"
               
               class="username"
               style="
@@ -1110,10 +1110,18 @@ input.invalid {
             </div>
               </div>
 
-              <div style="display: flex; flex-direction: column; ">
-                <label for="">Generates Revenue?</label>
-                <div required
-              name="userEmail"
+              <div
+              style="
+                display: flex;
+                flex-direction: column;
+                margin-bottom: 10px;
+                
+               margin-left: 20px;
+              "
+            >
+              <label for="">Operating System type</label>
+              <div required
+              name="operatingSystem"
               
               class="username"
               style="
@@ -1123,14 +1131,14 @@ input.invalid {
               UserEmail  
                 
             </div>
-              </div>
+            </div>
             </div>
             <!-- <br /> -->
             <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px; margin-bottom: 10px;">
             <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
               <label for="">Waf Config?</label>
               <div required
-              name="userEmail"
+              name="wafConfig"
               
               class="username"
               style="
@@ -1143,9 +1151,9 @@ input.invalid {
             </div>
 
             <div style="display: flex; flex-direction: column; margin-right: 40px;">
-              <label for="" style="">Date Requested</label>
+              <label for="" >Date Requested</label>
               <div required
-              name="userEmail"
+              name="dateRequested"
               
               class="username"
               style="
@@ -1159,27 +1167,7 @@ input.invalid {
             </div>
             </div>
 
-            <div
-            style="
-              display: flex;
-              flex-direction: column;
-              margin-bottom: 10px;
-              margin: 0px 80px 0px 80px;
-            "
-          >
-            <label for="">Operating System type</label>
-            <div required
-            name="userEmail"
-            
-            class="username"
-            style="
-             color:gray;
-            "
-            placeholder="UserEmail">
-            UserEmail  
-              
-          </div>
-          </div>
+           
 
             <!-- </div> -->
 
@@ -1190,7 +1178,6 @@ input.invalid {
     </div>
     <script src="JS/index.js"></script>
     <script>
-      // Script for modal
       const openModalBtn = document.getElementById("openModalBtn");
       const closeModalBtn = document.getElementById("closeModalBtn");
       const modal = document.getElementById("myModal");
@@ -1324,6 +1311,7 @@ input.invalid {
           // );
           for (let i = 0; i < certificate.length; i++) {
             const certificateData = certificate[i];
+            console.log(certificateData)
             if (
               certificateData.userEmail !== undefined &&
               certificateData.projectTitle !== undefined &&
@@ -1334,6 +1322,9 @@ input.invalid {
               certificateData.dateRequested !== undefined
             ) {
               const dateString = certificateData.dateRequested; // Replace with your actual data
+              
+
+   
 
 // Create a Date object from the date string
 const date = new Date(dateString);
@@ -1347,7 +1338,9 @@ const day = date.getDate().toString().padStart(2, "0");
 const formattedDate = `${year}-${month}-${day}`;
 
 console.log(formattedDate);
-              tableHTML += '<tr id="opencertDetailsBtn">';
+console.log(certificateData);
+
+tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringify(certificateData)}">`;
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
@@ -1390,6 +1383,7 @@ console.log(formattedDate);
                 >
                   <button
                   id="viewcert"
+                  data-certificate-data="${certificateData.certificateID}"
                     style="
                           padding-left: 4px;
                           padding-right: 4px;
@@ -1406,9 +1400,28 @@ console.log(formattedDate);
               tableHTML += "</tr>";
             }
           }
-          table.innerHTML = tableHTML;
+           table.innerHTML = tableHTML;
+        
+       
         });
+
+        
       }
+      
+  
+
+      
+//       function openCertificateModal(certificateData) {
+//     const modal = document.querySelector("#certificateDetailsModal");
+//     modal.style.display = "block";
+//     // Populate the modal with certificate data
+//     modal.querySelector("[name='userEmail']").innerText = certificateData.userEmail;
+//     modal.querySelector("[name='projectTitle']").innerText = certificateData.projectTitle;
+//     // ... (populate other fields in a similar way)
+
+//     // Display the modal
+    
+// }
 
          
 document.getElementById("table-container").addEventListener("click", function(event) {
@@ -1416,7 +1429,42 @@ document.getElementById("table-container").addEventListener("click", function(ev
 
   if (event.target.id === "viewcert") {
     certificateDetailsModal.style.display = "block";
-    console.log("edit button clicked");
+    console.log(event.target.getAttribute('data-certificate-data'));
+    const certificateDataID= event.target.getAttribute('data-certificate-data');
+    console.log(certificateDataID);
+    fetch(`certs/certById/${certificateDataID}`)
+        .then((response) => response.json())
+        .then((data) => {
+          console.log(data)
+            if (data.data && data.data.length > 0) {
+              console.log(data.data[0]);
+                const certificateData = data.data[0]; 
+                certificateDetailsModal.querySelector("[name='projectTitle']").innerText = certificateData.projectTitle;
+                certificateDetailsModal.querySelector("[name='userEmail']").innerText = certificateData.userEmail;
+                certificateDetailsModal.querySelector("[name='degEffect']").innerText = certificateData.degEffect;
+                certificateDetailsModal.querySelector("[name='domainName']").innerText = certificateData.domainName;
+                certificateDetailsModal.querySelector("[name='externalUsers']").innerText = certificateData.externalUsers;
+                certificateDetailsModal.querySelector("[name='managerApproval']").innerText = certificateData.managerApproval;
+                certificateDetailsModal.querySelector("[name='operatingSystem']").innerText = certificateData.operatingSystem;
+                certificateDetailsModal.querySelector("[name='portNumber']").innerText = certificateData.portNumber;
+                certificateDetailsModal.querySelector("[name='projectPurpose']").innerText = certificateData.projectPurpose;
+                certificateDetailsModal.querySelector("[name='requestType']").innerText = certificateData.requestType;
+                certificateDetailsModal.querySelector("[name='revGen']").innerText = certificateData.revGen;
+                certificateDetailsModal.querySelector("[name='serverAddress']").innerText = certificateData.serverAddress;
+                certificateDetailsModal.querySelector("[name='serverHostname']").innerText = certificateData.serverHostname;
+                certificateDetailsModal.querySelector("[name='serverSpecs']").innerText = certificateData.serverSpecs;
+                certificateDetailsModal.querySelector("[name='status']").innerText = certificateData.status;
+                certificateDetailsModal.querySelector("[name='dnsMappingReq']").innerText = certificateData.dnsMappingReq;
+                certificateDetailsModal.querySelector("[name='wafConfig']").innerText = certificateData.wafConfig;
+                certificateDetailsModal.querySelector("[name='dateRequested']").innerText = certificateData.dateRequested;
+                
+            }
+          })
+
+
+    // certificateData.querySelector("[name='userEmail']").innerText = certificateData.userEmail;
+    // modal.querySelector("[name='projectTitle']").innerText = certificateData.projectTitle;
+    console.log("view button clicked");
   }
   console.log("Event target id:", event.target.id);
   if(event.target.id ==="closeCertModal"){
@@ -1429,82 +1477,22 @@ if(event.target.id ==="closeCertModal"){
     certificateDetailsModal.style.display="none";
     
   }
-      
-      var currentTab = 0; // Current tab is set to be the first tab (0)
-showTab(currentTab); // Display the current tab
+// document.querySelector("table-container").addEventListener("click", function (event) {
+//     const targetElement = event.target;
 
-function showTab(n) {
-  // function to display the specified tab of the form 
-  var x = document.getElementsByClassName("tab");
-  x[n].style.display = "block";
-  // fixing the Previous/Next buttons:
-  if (n == 0) {
-    document.getElementById("prevBtn").style.display = "none";
-  } else {
-    document.getElementById("prevBtn").style.display = "inline";
-  }
-  if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").style.display="none";
-    document.getElementById('submit').style.display="flex";
-    document.getElementsByClassName("step")[currentTab].className += " finish";
-    
-  } else {
-    document.getElementById("nextBtn").innerHTML = "Next";
-  }
- 
-  fixStepIndicator(n)
-}
+//     // Check if the clicked element is a row with the id "opencertDetailsBtn"
+//     if (targetElement.tagName === 'TR' && targetElement.id === 'viewcert') {
+//         // Get the certificateData from the row's dataset
+//         const certificateData = JSON.parse(targetElement.dataset.certificateData);
+// console.log("kofi");
+//         // Call the openCertificateModal function
+//         openCertificateModal(certificateData);
+//     }
+// });
+   
+     
 
-function nextPrev(n) {
-  // function to figure out which tab to display
-  var x = document.getElementsByClassName("tab");
-  // Exit the function if any field in the current tab is invalid:
-  if (n == 1 && !validateForm()) return false;
-  // Hide the current tab:
-  x[currentTab].style.display = "none";
-  // Increase or decrease the current tab by 1:
-  currentTab = currentTab + n;
-  // if you have reached the end of the form... :
-  if (currentTab >= x.length) {
-    //...the form gets submitted:
-    document.querySelector("form").submit();
-    return false;
-  }
-  // Otherwise, display the correct tab:
-  showTab(currentTab);
-}
 
-function validateForm() {
-  // This function deals with validation of the form fields
-  var x, y, i, valid = true;
-  x = document.getElementsByClassName("tab");
-  y = x[currentTab].getElementsByTagName("input");
-  // A loop that checks every input field in the current tab:
-  for (i = 0; i < y.length; i++) {
-    // If a field is empty...
-    if (y[i].value == "") {
-      // add an "invalid" class to the field:
-      y[i].className += " invalid";
-      // and set the current valid status to false:
-      valid = false;
-    }
-  }
-  // If the valid status is true, mark the step as finished and valid:
-  if (valid) {
-    document.getElementsByClassName("step")[currentTab].className.replace("active","finish");
-  }
-  return valid; // return the valid status
-}
-
-function fixStepIndicator(n) {
-  // This function removes the "active" class of all steps...
-  var i, x = document.getElementsByClassName("step");
-  for (i = 0; i < x.length; i++) {
-    x[i].className = x[i].className.replace(" active", "");
-  }
-  //... and adds the "active" class to the current step:
-  x[n].className += " active";
-}
     </script>
   </body>
 </html>
