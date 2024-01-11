@@ -1196,6 +1196,7 @@ input.invalid {
                   </div>
                   
                 </form>
+                <div id="saveComment">save</div>
               </div>
           </div>
         </div>
@@ -1500,7 +1501,16 @@ document.getElementById("table-container").addEventListener("click", function(ev
 
 });
  const toggleComments=document.getElementById("displayComments");
- toggleComments.addEventListener("click", ()=>{
+ toggleComments.addEventListener("click", async(e)=>{
+  let certificateID=23;
+  fetch("comment/getComments/")
+        .then((response) => response.json())
+            .then((data) => {
+              if (data.data && data.data.length > 0) {
+              console.log(data.data[0]);
+              }
+             });
+  
   let commentsSection= document.getElementById("commentsContainer");
   commentsSection.style.display="flex";
   // commentsSection.style.flexDirection=""
@@ -1511,6 +1521,34 @@ document.getElementById("table-container").addEventListener("click", function(ev
   newcommentform.style.display="block";
 console.log("add new comment");
  });
+ const saveComment=document.getElementById("saveComment");
+ saveComment.addEventListener("click",async(e)=>{
+  const comment="test";
+  const certificateID=23;
+  try {
+          const res = await fetch("comment/addComment", {
+            method: "POST",
+            body: JSON.stringify({
+              comment,
+              certificateID
+            
+            }),
+            headers: { "Content-Type": "application/json" },
+          });
+
+          const data = await res.json();
+          console.log(data);
+
+          if (data.message == "Success!") {
+            modal.style.display="none";
+            // location.assign("/certificate_page");
+          } else {
+            errorMsg.textContent = data.message;
+          }
+        } catch (error) {
+          console.log(error);
+        }
+ })
    
      
 
