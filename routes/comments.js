@@ -44,10 +44,9 @@ router.post("/addComment", (req, res) => {
 });
 
 router.get("/getComments/:certificateID", (req, res) => {
-  let certID = req.param.commentID;
-  let query = `SELECT * FROM comments WHERE certificateID = ${db.escape(
-    certID
-  )} order by date;`;
+  let certID = req.params.certificateID;
+  console.log(certID);
+  let query = `SELECT * FROM comments WHERE certificateID = ${db.escape(certID)} order by date;`;
 
   try {
     db.query(query, (err, result) => {

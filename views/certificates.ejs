@@ -1502,8 +1502,8 @@ document.getElementById("table-container").addEventListener("click", function(ev
 });
  const toggleComments=document.getElementById("displayComments");
  toggleComments.addEventListener("click", async(e)=>{
-  let certificateID=23;
-  fetch("comment/getComments/")
+  let certificateID=27;
+  fetch(`comment/getComments/${certificateID}`)
         .then((response) => response.json())
             .then((data) => {
               if (data.data && data.data.length > 0) {
@@ -1524,7 +1524,7 @@ console.log("add new comment");
  const saveComment=document.getElementById("saveComment");
  saveComment.addEventListener("click",async(e)=>{
   const comment="test";
-  const certificateID=23;
+  const certificateID=27;
   try {
           const res = await fetch("comment/addComment", {
             method: "POST",
