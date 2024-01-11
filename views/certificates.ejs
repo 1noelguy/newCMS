@@ -791,7 +791,7 @@ input.invalid {
           class="modal-content"
           style="border-radius: 10px; width:50%; height: 90%; margin-top: 30px; overflow-y: auto;"
         >
-          <span
+          <button
             class="close"
             style="
               border: 1px;
@@ -801,7 +801,7 @@ input.invalid {
               margin-right: 10px;
             "
             id="closeCertModal"
-            >&times;</span
+            >&times;</button
           >
           <h2 style="margin-left: 80px"> Certificate Details</h2>
                           <!-- <hr style="margin-top: 5px" /> -->
@@ -1469,14 +1469,14 @@ document.getElementById("table-container").addEventListener("click", function(ev
   console.log("Event target id:", event.target.id);
   if(event.target.id ==="closeCertModal"){
     certificateDetailsModal.style.display="none";
-    
+    console.log("Event target id:", event.target.id);
   }
 
 });
-if(event.target.id ==="closeCertModal"){
-    certificateDetailsModal.style.display="none";
+// if(event.target.id ==="closeCertModal"){
+//     certificateDetailsModal.style.display="none";
     
-  }
+//   }
 // document.querySelector("table-container").addEventListener("click", function (event) {
 //     const targetElement = event.target;
 
