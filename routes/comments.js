@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../lib/db.js");
-const userMiddleware = require("../middleware/users.js");
 const jwt = require("jsonwebtoken");
 
 router.post("/addComment", (req, res)=>{
