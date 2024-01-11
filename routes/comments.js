@@ -43,7 +43,7 @@ router.post("/addComment", (req, res) => {
   }
 });
 
-router.get("/getComments/:commentID", (req, res) => {
+router.get("/getComments/:certificateID", (req, res) => {
   let certID = req.param.commentID;
   let query = `SELECT * FROM comments WHERE certificateID = ${db.escape(
     certID
