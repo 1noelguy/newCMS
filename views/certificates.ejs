@@ -1173,7 +1173,33 @@ input.invalid {
 
             
           </form>
+          <div style="width: 500px; height: 40px; border:1px solid #333;  margin: 0px 80px 0px 80px; text-align: center; padding: 10px 10px 0px 10px;">
+           <div style="display: flex; flex-direction: row; justify-content: space-between;">
+            <div style="color: red;">Comments <span>(0)</span></div>
+            <div style="color: red;" id="displayComments">></div>
+          </div>
+          </div>
+          <div id="commentsContainer" style=" display: none; flex-direction: column; margin: 0px 80px 0px 80px;  ">
+            <div style="display: flex; flex-direction: row; justify-content: space-between;">
+              <div>done</div>
+              <div>kofi</div>
+            </div>
+              
+              <div id="addComment" style= "margin-left: 500px; font-size: smaller; width: 50px; background-color: red; border: 1px solid red; border-radius: 5px; color: white; padding: 0px 5px 0px 10px;">Add</div>
+              <div id="newcomment" style="display: none;">
+                <form action="" style="display: block;">
+                  <div>
+                    <label for="">Comment</label>
+                  </div>
+                  <div>
+                    <input type="text">
+                  </div>
+                  
+                </form>
+              </div>
+          </div>
         </div>
+        
       </div>
     </div>
     <script src="JS/index.js"></script>
@@ -1473,22 +1499,18 @@ document.getElementById("table-container").addEventListener("click", function(ev
   }
 
 });
-// if(event.target.id ==="closeCertModal"){
-//     certificateDetailsModal.style.display="none";
-    
-//   }
-// document.querySelector("table-container").addEventListener("click", function (event) {
-//     const targetElement = event.target;
-
-//     // Check if the clicked element is a row with the id "opencertDetailsBtn"
-//     if (targetElement.tagName === 'TR' && targetElement.id === 'viewcert') {
-//         // Get the certificateData from the row's dataset
-//         const certificateData = JSON.parse(targetElement.dataset.certificateData);
-// console.log("kofi");
-//         // Call the openCertificateModal function
-//         openCertificateModal(certificateData);
-//     }
-// });
+ const toggleComments=document.getElementById("displayComments");
+ toggleComments.addEventListener("click", ()=>{
+  let commentsSection= document.getElementById("commentsContainer");
+  commentsSection.style.display="flex";
+  // commentsSection.style.flexDirection=""
+ });
+ const addNewComment=document.getElementById("addComment");
+ addNewComment.addEventListener("click",()=>{
+  let newcommentform=document.getElementById("newcomment");
+  newcommentform.style.display="block";
+console.log("add new comment");
+ });
    
      
 
