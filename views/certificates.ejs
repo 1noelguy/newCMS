@@ -1179,25 +1179,23 @@ input.invalid {
             <div style="color: red;" id="displayComments">></div>
           </div>
           </div>
-          <div id="commentsContainer" style=" display: none; flex-direction: column; margin: 0px 80px 0px 80px;  ">
-            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-              <div>done</div>
-              <div>kofi</div>
-            </div>
-              
-              <div id="addComment" style= "margin-left: 500px; font-size: smaller; width: 50px; background-color: red; border: 1px solid red; border-radius: 5px; color: white; padding: 0px 5px 0px 10px;">Add</div>
-              <div id="newcomment" style="display: none;">
-                <form action="" style="display: block;">
-                  <div>
-                    <label for="">Comment</label>
-                  </div>
-                  <div>
-                    <input type="text">
-                  </div>
-                  
-                </form>
-                <div id="saveComment">save</div>
+          <div id="commentsContainer" class="comments-container" style="display: none; flex-direction: column; margin: 10px 80px 10px 80px;">
+            <!-- Existing comments will be appended here dynamically -->
+            <div id="addComment" class="add-comment-btn" style="background-color: rgb(233, 127, 127); color: white; width: 120px ; padding: 4px 4px 4px 4px; border-radius: 5px; font-size: smaller;">Add Comment</div>
+          </div>
+          
+          
+          
+          <div id="newcomment" class="new-comment-form" style="display: none;">
+            <form action="">
+              <div>
+                <label for="commentInput">Comment</label>
               </div>
+              <div>
+                <input type="text" id="commentInput">
+              </div>
+            </form>
+            <div id="saveComment" class="save-comment-btn">Save</div>
           </div>
         </div>
         
@@ -1500,31 +1498,72 @@ document.getElementById("table-container").addEventListener("click", function(ev
   }
 
 });
- const toggleComments=document.getElementById("displayComments");
- toggleComments.addEventListener("click", async(e)=>{
-  let certificateID=27;
-  fetch(`comment/getComments/${certificateID}`)
-        .then((response) => response.json())
-            .then((data) => {
-              if (data.data && data.data.length > 0) {
-              console.log(data.data[0]);
-              }
-             });
-  
-  let commentsSection= document.getElementById("commentsContainer");
-  commentsSection.style.display="flex";
-  // commentsSection.style.flexDirection=""
- });
- const addNewComment=document.getElementById("addComment");
- addNewComment.addEventListener("click",()=>{
-  let newcommentform=document.getElementById("newcomment");
-  newcommentform.style.display="block";
-console.log("add new comment");
- });
+const toggleComments = document.getElementById("displayComments");
+  const addNewComment = document.getElementById("addComment");
+  const commentsContainer = document.getElementById("commentsContainer");
+  const newCommentForm = document.getElementById("newcomment");
+
+  toggleComments.addEventListener("click", async (e) => {
+    commentsContainer.style.display = "flex";
+    let certificateID = 23;
+
+    fetch(`comment/getComments/${certificateID}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.data && data.data.length > 0) {
+          // Assuming data.data is an array of comments
+          data.data.forEach((comment) => {
+            commentsContainer.appendChild(createCommentElement(comment));
+          });
+        }
+      });
+
+    commentsContainer.style.display = "flex";
+  });
+
+  addNewComment.addEventListener("click", () => {
+    newCommentForm.style.display = "block";
+    console.log("add new comment");
+  });
+
+  function createCommentElement(commentData) {
+    const commentDiv = document.createElement("div");
+    commentDiv.className = "comment";
+  commentDiv.style.border = "1px solid rgb(235, 169, 169)";
+  commentDiv.style.borderRadius = "10px";
+  commentDiv.style.margin="10px 0px 10px 0px";
+
+    const headerDiv = document.createElement("div");
+    headerDiv.className = "comment-header";
+  headerDiv.style.backgroundColor = "rgb(235, 169, 169)";
+  headerDiv.style.borderRadius = "10px";
+
+    const commentorName = document.createElement("div");
+    commentorName.textContent = `${commentData.commentor} commented ${getDaysAgo(commentData.date)}`;
+  commentorName.style.paddingTop = "5px";
+  commentorName.style.fontSize = "12px";
+    headerDiv.appendChild(commentorName);
+
+    const commentText = document.createElement("div");
+    commentText.textContent = commentData.comment;
+  commentText.style.padding = "5px 10px 10px 0";
+    
+    commentDiv.appendChild(headerDiv);
+    commentDiv.appendChild(commentText);
+
+    return commentDiv;
+  }
+
+  function getDaysAgo(dateString) {
+    const currentDate = new Date();
+    const commentDate = new Date(dateString);
+    const daysAgo = Math.floor((currentDate - commentDate) / (1000 * 60 * 60 * 24));
+    return `${daysAgo} days ago`;
+  }
  const saveComment=document.getElementById("saveComment");
  saveComment.addEventListener("click",async(e)=>{
   const comment="test";
-  const certificateID=27;
+  const certificateID=23;
   try {
           const res = await fetch("comment/addComment", {
             method: "POST",
