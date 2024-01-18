@@ -1175,27 +1175,28 @@ input.invalid {
           </form>
           <div style="width: 500px; height: 40px; border:1px solid #333;  margin: 0px 80px 0px 80px; text-align: center; padding: 10px 10px 0px 10px;">
            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div style="color: red;">Comments <span>(0)</span></div>
+            <div style="color: red;">Comments <span id="commentLength">(0)</span></div>
             <div style="color: red;" id="displayComments">></div>
           </div>
           </div>
           <div id="commentsContainer" class="comments-container" style="display: none; flex-direction: column; margin: 10px 80px 10px 80px;">
             <!-- Existing comments will be appended here dynamically -->
-            <div id="addComment" class="add-comment-btn" style="background-color: rgb(233, 127, 127); color: white; width: 120px ; padding: 4px 4px 4px 4px; border-radius: 5px; font-size: smaller;">Add Comment</div>
+            
           </div>
+          <div id="addComment" class="add-comment-btn" style="float: right; margin-right: 120px; margin-top: 10px; background-color: rgb(233, 127, 127); color: white; width: 120px ; padding: 4px 4px 4px 4px; border-radius: 5px; font-size: smaller;">Add Comment</div>
           
           
           
-          <div id="newcomment" class="new-comment-form" style="display: none;">
+          <div id="newcomment" class="new-comment-form" style="display: none; margin-top: 80px; margin-left: 80px;">
             <form action="">
               <div>
                 <label for="commentInput">Comment</label>
               </div>
               <div>
-                <input type="text" id="commentInput">
+                <input type="text" id="commentInput" style="width: 400px; border-radius: 5px; height: 30px; ">
               </div>
             </form>
-            <div id="saveComment" class="save-comment-btn">Save</div>
+            <div id="saveComment" class="save-comment-btn" style="float: right; margin-right: 220px; background-color: #aa0407; color: white; margin-top: 10px; border-radius: 5px; padding: 0px 5px 0px 5px;">Save</div>
           </div>
         </div>
         
@@ -1502,6 +1503,7 @@ const toggleComments = document.getElementById("displayComments");
   const addNewComment = document.getElementById("addComment");
   const commentsContainer = document.getElementById("commentsContainer");
   const newCommentForm = document.getElementById("newcomment");
+  const commentLength=document.getElementById("commentLength");
 
   toggleComments.addEventListener("click", async (e) => {
     commentsContainer.style.display = "flex";
@@ -1511,6 +1513,7 @@ const toggleComments = document.getElementById("displayComments");
       .then((response) => response.json())
       .then((data) => {
         if (data.data && data.data.length > 0) {
+          commentLength.innerText=`(${data.data.length})`;
           // Assuming data.data is an array of comments
           data.data.forEach((comment) => {
             commentsContainer.appendChild(createCommentElement(comment));
@@ -1519,6 +1522,8 @@ const toggleComments = document.getElementById("displayComments");
       });
 
     commentsContainer.style.display = "flex";
+    addNewComment.style.display="flex";
+   
   });
 
   addNewComment.addEventListener("click", () => {
@@ -1562,13 +1567,15 @@ const toggleComments = document.getElementById("displayComments");
   }
  const saveComment=document.getElementById("saveComment");
  saveComment.addEventListener("click",async(e)=>{
-  const comment="test";
+  const comment=document.getElementById("commentInput");
+  const commentInput=comment.value;
+  console.log(commentInput);
   const certificateID=23;
   try {
           const res = await fetch("comment/addComment", {
             method: "POST",
             body: JSON.stringify({
-              comment,
+              commentInput,
               certificateID
             
             }),
