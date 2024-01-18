@@ -1547,16 +1547,17 @@ const toggleComments = document.getElementById("displayComments");
     headerDiv.className = "comment-header";
   headerDiv.style.backgroundColor = "rgb(235, 169, 169)";
   headerDiv.style.borderRadius = "10px";
+  headerDiv.style.marginBottom="3px";
 
     const commentorName = document.createElement("div");
     commentorName.textContent = `${commentData.commentor} commented ${getDaysAgo(commentData.date)}`;
-  commentorName.style.paddingTop = "5px";
+  commentorName.style.paddingLeft = "5px";
   commentorName.style.fontSize = "12px";
     headerDiv.appendChild(commentorName);
 
     const commentText = document.createElement("div");
     commentText.textContent = commentData.comment;
-  commentText.style.padding = "5px 10px 10px 0";
+  commentText.style.padding = "5px 10px 10px 10px";
     
     commentDiv.appendChild(headerDiv);
     commentDiv.appendChild(commentText);
