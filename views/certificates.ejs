@@ -1499,6 +1499,11 @@ document.getElementById("table-container").addEventListener("click", function(ev
   }
 
 });
+
+const closecert=document.getElementById("closeCertModal");
+closecert.addEventListener("click",()=>{
+  certificateDetailsModal.style.display = "none"; 
+})
 const toggleComments = document.getElementById("displayComments");
   const addNewComment = document.getElementById("addComment");
   const commentsContainer = document.getElementById("commentsContainer");
