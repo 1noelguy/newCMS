@@ -2303,66 +2303,87 @@ console.log(formattedDate);
                       "
                       data-certificate-id="${certificateData.certificateID}"
                 >
-                  <button
-                  id="openEditModalBtn"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: black;
-                          border-radius: 3px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    edit
-                  </button>
-                  <button
-                   id="openDeleteModalBtn"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: red;
-                          border-radius: 3px;
-                          margin-left: 6px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    delete
-                  </button>
-                  <button
-                   id="openChangeStatusModalBtn"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: green;
-                          border-radius: 3px;
-                          margin-left: 6px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    change status
-                  </button>
-                  <button
-                  data-certificate-data="${certificateData.certificateID}"
-                   id="openCertDetailsModal"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: green;
-                          border-radius: 3px;
-                          margin-left: 6px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    View Cert
-                  </button>
+                <button
+                data-certificate-id="${certificateData.certificateID}"
+    class="toggleActionsBtn"
+    style="
+      padding-left: 4px;
+      padding-right: 4px;
+      color: white;
+      background-color: black;
+      border-radius: 3px;
+      font-size: small;
+      border: none;
+    "
+    onclick="toggleActions(this)"
+  >
+    Show Actions
+  </button>
+
+  <!-- Actions container -->
+  <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none; margin-top: 6px;">
+    <!-- Buttons for different actions -->
+    <button
+      class="openEditModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        color: white;
+        background-color: black;
+        border-radius: 3px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Edit
+    </button>
+    <button
+      class="openDeleteModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        color: white;
+        background-color: red;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Delete
+    </button>
+    <button
+      class="openChangeStatusModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        color: white;
+        background-color: green;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Change Status
+    </button>
+    <button
+      data-certificate-data="${certificateData.certificateID}"
+      class="openCertDetailsModal"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        color: white;
+        background-color: green;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      View Cert
+    </button>
+  </div>
                 </td>`;
               tableHTML += "</tr>";
             }
@@ -2384,49 +2405,75 @@ console.log(formattedDate);
 //     });
 //   }
 // });
+function toggleActions(btn) {
+      var actionsContainer = btn.nextElementSibling;
+      var toggleActionsBtn = btn;
+
+      if (actionsContainer.style.display === "none") {
+        actionsContainer.style.display = "block";
+        toggleActionsBtn.innerText = "Hide Actions";
+      } else {
+        actionsContainer.style.display = "none";
+        toggleActionsBtn.innerText = "Show Actions";
+      }
+    }
+
+    let certificateID;
    
 document.getElementById("table-container").addEventListener("click", function(event) {
   // Check if the clicked element is a "delete" button
-  if (event.target.id === "openDeleteModalBtn") {
-    // Use querySelector to find the "Delete" button and get the attribute
-const certificateID = this.parentElement.querySelector("[data-certificate-id]").getAttribute("data-certificate-id");
+  if (event.target.className==="openDeleteModalBtn") {
+    const certificateDataID= event.target.getAttribute('data-certificate-data');
 
-    console.log(certificateID);
     deleteModal.style.display = "block";
-    console.log("Delete button clicked");
-    document.getElementById("confirmDelete").addEventListener("click", function() {
-    // Send an AJAX request to delete the certificate
-    fetch("certs/deleteCert/", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ certificateID: certificateID }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        if (data.message === "Deleted!") {
-          console.log("deleted");
-          // Certificate deleted successfully, you can update the UI or reload the table here
-          // For example, you can remove the corresponding row from the table.
-          this.parentElement.parentElement.remove(); // Remove the whole row
-        } else {
-          // Handle the error, show an alert, or take appropriate action
-        }
-      })
-      .catch(error => {
-        console.error(error);
-      });
-      document.getElementById("deleteModal").style.display = "none";
-  });
-  }
 
-  if (event.target.id === "openEditModalBtn") {
+    document.getElementById("confirmDelete").addEventListener("click", function () {
+      fetch("certs/deleteCert/", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ certificateID: certificateID }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Deleted!") {
+            console.log("deleted");
+            // Certificate deleted successfully, you can update the UI or reload the table here
+            // For example, you can remove the corresponding row from the table.
+            event.target.parentElement.parentElement.remove(); // Remove the whole row
+          } else {
+            // Handle the error, show an alert, or take appropriate action
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      document.getElementById("deleteModal").style.display = "none";
+    });
+  }
+  // if(event.target.id==="toggleActionsBtn"){
+  //   // function toggleActions() {
+  //     var actionsContainer = document.getElementById("actionsContainer");
+  //     var toggleActionsBtn = document.getElementById("toggleActionsBtn");
+
+  //     if (actionsContainer.style.display === "none") {
+  //       actionsContainer.style.display = "block";
+  //       toggleActionsBtn.innerText = "Hide Actions";
+  //     } else {
+  //       actionsContainer.style.display = "none";
+  //       toggleActionsBtn.innerText = "Show Actions";
+  //     // }
+  //   }
+  // }
+
+  if (event.target.className === "openEditModalBtn") {
     editModal.style.display = "block";
     console.log("edit button clicked");
   }
   console.log("Event target id:", event.target.id);
-  if(event.target.id ==="openCertDetailsModal"){
+  if(event.target.className ==="openCertDetailsModal"){
     CertModal.style.display="block";
     console.log("kofi");
     console.log(event.target.getAttribute('data-certificate-data'));
