@@ -787,6 +787,7 @@ input.invalid {
         </div>
       </div>
       <div id="certificateDetailsModal"  style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 20px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        
         <div
           class="modal-content"
           style="border-radius: 10px; width:50%; height: 90%; margin-top: 30px; overflow-y: auto;"
@@ -804,10 +805,14 @@ input.invalid {
             >&times;</button
           >
           <h2 style="margin-left: 80px"> Certificate Details</h2>
+          <div style="display:flex; flex-direction:row; width: 600px; margin-left: 90px;margin-top: 10px;  border: 1px solid red ; background-color: white; border-radius: 15px; text-align: center;">
+            <div id="toggleDetailsContainer" style="width: 50%; background-color: red; border-radius: 15px; color: white; ">Certificate Details</div>
+            <div id="toggleCommentsContainer" style="width: 50%;">View Comments</div>
+        </div>
                           <!-- <hr style="margin-top: 5px" /> -->
           <br />
           <form
-            class="userForm"
+            id="CertForm"
             style="margin-left: 20px; padding-bottom: 20px;scroll-behavior: auto;"
           >
           
@@ -1191,9 +1196,34 @@ input.invalid {
     </div>
     <script src="JS/index.js"></script>
     <script>
+      const toggleDetails=document.getElementById("toggleDetailsContainer");
+      const toggleCommentContainer=document.getElementById("toggleCommentsContainer");
+      const CertForm=document.getElementById("CertForm");
       const openModalBtn = document.getElementById("openModalBtn");
       const closeModalBtn = document.getElementById("closeModalBtn");
       const modal = document.getElementById("myModal");
+
+      toggleCommentContainer.addEventListener("click",()=>{
+        
+        CertForm.style.display="none";
+        toggleCommentContainer.style.color="white";
+        toggleDetails.style.color="black";
+        toggleDetails.style.backgroundColor="white";
+        toggleCommentContainer.style.backgroundColor="red";
+        toggleCommentContainer.style.borderRadius="15px";
+
+      })
+      toggleDetails.addEventListener("click",()=>{
+        
+        CertForm.style.display="block";
+        toggleCommentContainer.style.color="black";
+        toggleDetails.style.color="white";
+        toggleDetails.style.backgroundColor="red";
+        toggleCommentContainer.style.backgroundColor="white";
+        toggleDetails.style.borderRadius="15px";
+        
+
+      })
       
 
       openModalBtn.addEventListener("click", () => {
@@ -1386,7 +1416,7 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
                     ">${formattedDate}</td>`;
                     
 
-              tableHTML += `<td
+                    tableHTML += `<td
                   style="
                         border-bottom: 1px solid rgb(168, 168, 169);
                         text-align: left;
@@ -1394,80 +1424,101 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
                       "
                       data-certificate-id="${certificateData.certificateID}"
                 >
-                  <button
-                  id="viewcert"
-                  data-certificate-data="${certificateData.certificateID}"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: black;
-                          border-radius: 3px;
-                          font-size: small;
-                        "
-                  >
-                    view
-                  </button>
-                  <button
-                  id="renewcert"
-                  data-certificate-data="${certificateData.certificateID}"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: green;
-                          border-radius: 3px;
-                          font-size: small;
-                          border:green 1px solid;
-                        "
-                  >
-                    renew
-                  </button>
-                  <button
-                  id="openEditModalBtn"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: blue;
-                          border-radius: 3px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    edit
-                  </button>
-                  <button
-                   id="openDeleteModalBtn"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: red;
-                          border-radius: 3px;
-                          margin-left: 6px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    delete
-                  </button>
-                  <button
-                   id="openChangeStatusModalBtn"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: gray;
-                          border-radius: 3px;
-                          margin-left: 6px;
-                          font-size: small;
-                          border:none;
-                        "
-                  >
-                    change status
-                  </button>
-                  
+                <button
+                data-certificate-id="${certificateData.certificateID}"
+    class="toggleActionsBtn"
+    style="
+      padding-left: 4px;
+      padding-right: 4px;
+      color: white;
+      background-color: black;
+      border-radius: 3px;
+      font-size: small;
+      border: none;
+    "
+    onclick="toggleActions(this)"
+  >
+    Show Actions
+  </button>
+
+  <!-- Actions container -->
+  <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none;position: absolute;
+  top: 32%; 
+  left:85%;
+  
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius:4px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+   margin-top: 10px;">
+    <!-- Buttons for different actions -->
+    <button
+      class="openEditModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: black;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Edit
+    </button>
+    <button
+      class="openDeleteModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: red;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Delete
+    </button>
+    <button
+      class="openChangeStatusModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: green;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Change Status
+    </button>
+    <button
+      data-certificate-data="${certificateData.certificateID}"
+      class="openCertDetailsModal"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: green;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      View Cert
+    </button>
+  </div>
                 </td>`;
               tableHTML += "</tr>";
             }
@@ -1495,11 +1546,27 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
     
 // }
 
-         
+function toggleActions(btn) {
+      var actionsContainer = btn.nextElementSibling;
+      var toggleActionsBtn = btn;
+
+      if (actionsContainer.style.display === "none") {
+        actionsContainer.style.display = "flex";
+        actionsContainer.style.flexDirection="column";
+        // actionsContainer.style.position="relative";
+        toggleActionsBtn.innerText = "Hide Actions";
+      } else {
+        actionsContainer.style.display = "none";
+        toggleActionsBtn.innerText = "Show Actions";
+      }
+    } 
+    let certificateID;       
 document.getElementById("table-container").addEventListener("click", function(event) {
 
 
-  if (event.target.id === "viewcert") {
+  if (event.target.className === "openCertDetailsModal") {
+    const certificateDetailsModal=document.getElementById("certificateDetailsModal");
+    console.log("kofi");
     certificateDetailsModal.style.display = "block";
     console.log(event.target.getAttribute('data-certificate-data'));
     const certificateDataID= event.target.getAttribute('data-certificate-data');
@@ -1539,6 +1606,7 @@ document.getElementById("table-container").addEventListener("click", function(ev
     console.log("view button clicked");
   }
   console.log("Event target id:", event.target.id);
+  // certificateDetailsModal.style.display = "block";
   if(event.target.className ==="ComentsCont"){
     certificateDetailsModal.style.display="none";
     console.log("Event target id:", event.target.id);
