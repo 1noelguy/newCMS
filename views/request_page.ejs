@@ -459,7 +459,7 @@ input.invalid {
 
               <div style="display: flex; flex-direction: row">
                 <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service Customer Facing?">
-                  <label for="">External Users?</label>
+                  <label for="">Public Facing?</label>
                   <!-- <div style="position: relative; display: inline-block; margin-left: 120px; bottom: 25px;  "> -->
                   
                   <!-- </div> -->
@@ -477,7 +477,7 @@ input.invalid {
                 </div>
 
                 <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service revenue generating, e.g does it take top-up payments?">
-                  <label for="">Generates Revenue?</label>
+                  <label for="">Does this Generate Revenue?</label>
                   <select
                     name="revGen"
                     id="team"
@@ -696,8 +696,8 @@ input.invalid {
                       <option value="" disabled selected>
                         Select option
                       </option>
-                      <option value="Windows">Windows</option>
-                      <option value="Linux">Linux</option>
+                      <option value="Nginx">Nginx</option>
+                      <option value="Apache">Apache</option>
                       <option value="Jks">Jks</option>
                     </select>
                   <!-- <input
@@ -867,8 +867,8 @@ input.invalid {
                 >
                   <option disabled selected>Select Status</option>
                   <option value="In Progress">In Progress</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Completed">Completed</option>
+                  <option value="Active">Active</option>
+                  <option value="Expired">Expired</option>
                 </select>
               </div>
               <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
@@ -1942,7 +1942,7 @@ function fixEditStepIndicator(n) {
 
 document.getElementById("table-container").addEventListener("click", function(event) {
 
-  if(event.target.id==="openChangeStatusModalBtn"){
+  if(event.target.className==="openChangeStatusModalBtn"){
     changeStatusModal.style.display="flex";
     const editcertificateID = this.parentElement.querySelector("[data-certificate-id]").getAttribute("data-certificate-id");
     const fetchData = async () => {
@@ -2000,7 +2000,7 @@ document.getElementById("table-container").addEventListener("click", function(ev
             
           
   // Check if the clicked element is a "delete" button
-  if (event.target.id === "openEditModalBtn") {
+  if (event.target.className=== "openEditModalBtn") {
     // Use querySelector to find the "Delete" button and get the attribute
 const editcertificateID = this.parentElement.querySelector("[data-certificate-id]").getAttribute("data-certificate-id");
 console.log(editcertificateID);
@@ -2472,6 +2472,7 @@ document.getElementById("table-container").addEventListener("click", function(ev
     editModal.style.display = "block";
     console.log("edit button clicked");
   }
+  
   console.log("Event target id:", event.target.id);
   if(event.target.className ==="openCertDetailsModal"){
     CertModal.style.display="block";
