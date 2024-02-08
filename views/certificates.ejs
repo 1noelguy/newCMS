@@ -804,7 +804,7 @@ input.invalid {
             id="closeCertModal"
             >&times;</button
           >
-          <h2 style="margin-left: 80px"> Certificate Details</h2>
+          <h2 style="margin-left: 80px">View Certificate Details</h2>
           <div style="display:flex; flex-direction:row; width: 600px; margin-left: 90px;margin-top: 10px;  border: 1px solid red ; background-color: white; border-radius: 15px; text-align: center;">
             <div id="toggleDetailsContainer" style="width: 50%; background-color: red; border-radius: 15px; color: white; ">Certificate Details</div>
             <div id="toggleCommentsContainer" style="width: 50%;">View Comments</div>
@@ -1165,17 +1165,20 @@ input.invalid {
 
             
           </form>
-          <div class="ComentsCont" style="width: 500px; height: 40px; border:1px solid #333;  margin: 0px 80px 0px 80px; text-align: center; padding: 10px 10px 0px 10px;">
-           <div style="display: flex; flex-direction: row; justify-content: space-between;">
+          <div id="ViewCommentsContainer" style="display: flex;">
+          <div class="ComentsCont" >
+           <div style="display: flex; flex-direction: row; justify-content: space-between; margin-left: 70px;">
             <div style="color: red;">Comments <span id="commentLength">(0)</span></div>
-            <div style="color: red;" id="displayComments">></div>
+            
+            <div id="addComment" class="add-comment-btn" style="float: right; margin-right: 40px; margin-top: 10px; background-color: rgb(233, 127, 127); color: white; width: 120px ; padding: 4px 4px 4px 4px; border-radius: 5px; font-size: smaller;">Add Comment</div>
           </div>
+          <div style=" margin-left: 70px; margin-top: 10px; width: 600px; border: 1px black solid;"></div>
           </div>
-          <div id="commentsContainer" class="comments-container" style="display: none; flex-direction: column; margin: 10px 80px 10px 80px;">
+          <div id="commentsContainer" class="comments-container" style="display: flex; flex-direction: column; margin: 10px 80px 10px 80px;">
             <!-- Existing comments will be appended here dynamically -->
             
           </div>
-          <div id="addComment" class="add-comment-btn" style="float: right; margin-right: 120px; margin-top: 10px; background-color: rgb(233, 127, 127); color: white; width: 120px ; padding: 4px 4px 4px 4px; border-radius: 5px; font-size: smaller;">Add Comment</div>
+          
           
           
           
@@ -1191,6 +1194,7 @@ input.invalid {
             <div id="saveComment" class="save-comment-btn" style="float: right; margin-right: 220px; background-color: #aa0407; color: white; margin-top: 10px; border-radius: 5px; padding: 0px 5px 0px 5px;">Save</div>
           </div>
         </div>
+        </div>
         
       </div>
     </div>
@@ -1202,20 +1206,39 @@ input.invalid {
       const openModalBtn = document.getElementById("openModalBtn");
       const closeModalBtn = document.getElementById("closeModalBtn");
       const modal = document.getElementById("myModal");
+      const ViewCommentsContainer=document.getElementById("ViewCommentsContainer");
 
       toggleCommentContainer.addEventListener("click",()=>{
         
         CertForm.style.display="none";
+        ViewCommentsContainer.style.display="block";
         toggleCommentContainer.style.color="white";
         toggleDetails.style.color="black";
         toggleDetails.style.backgroundColor="white";
         toggleCommentContainer.style.backgroundColor="red";
         toggleCommentContainer.style.borderRadius="15px";
 
+        const commentsContainer = document.getElementById("commentsContainer");
+        commentsContainer.style.display="block";
+        let certificateID = 23;
+
+fetch(`comment/getComments/${certificateID}`)
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.data && data.data.length > 0) {
+      commentLength.innerText=`(${data.data.length})`;
+      // Assuming data.data is an array of comments
+      data.data.forEach((comment) => {
+        commentsContainer.appendChild(createCommentElement(comment));
+      });
+    }
+  });
+
       })
       toggleDetails.addEventListener("click",()=>{
         
         CertForm.style.display="block";
+        ViewCommentsContainer.style.display="none";
         toggleCommentContainer.style.color="black";
         toggleDetails.style.color="white";
         toggleDetails.style.backgroundColor="red";
