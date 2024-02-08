@@ -1279,7 +1279,7 @@ fetch(`comment/getComments/${certificateID}`)
         const revGen = form.revGen.value;
         const externalUsers = form.externalUsers.value;
         const degEffect = form.degEffect.value;
-        const requestType = form.requestType.value;
+        // const requestType = form.requestType.value;
         const managerApproval = form.managerApproval.value;
         const serverSpecs = form.serverSpecs.value;
         const domainName = form.domainName.value;
@@ -1291,6 +1291,8 @@ fetch(`comment/getComments/${certificateID}`)
         const portNumber = form.portNumber.value;
         const status = form.status.value;
         const dateRequested = form.dateRequested.value;
+        const approversEmail =form.approversEmail.value;
+        const ProductType= form.ProductType.value
 
         // console.log(username, password, password_repeat, email, team, role);
 
@@ -1304,7 +1306,7 @@ fetch(`comment/getComments/${certificateID}`)
         revGen,
         externalUsers,
         degEffect,
-        requestType,
+        // requestType,
         managerApproval,
         serverSpecs,
         domainName,
@@ -1315,7 +1317,9 @@ fetch(`comment/getComments/${certificateID}`)
         operatingSystem,
         portNumber,
         status,
-        dateRequested
+        dateRequested,
+        approversEmail,
+        ProductType
             }),
             headers: { "Content-Type": "application/json" },
           });
@@ -1382,7 +1386,7 @@ fetch(`comment/getComments/${certificateID}`)
               certificateData.userEmail !== undefined &&
               certificateData.projectTitle !== undefined &&
               certificateData.domainName !== undefined &&
-              certificateData.requestType !== undefined &&
+              // certificateData.requestType !== undefined &&
               certificateData.serverAddress !== undefined &&
               certificateData.status !== undefined &&
               certificateData.dateRequested !== undefined
@@ -1432,6 +1436,7 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
                       text-align: left;
                       padding: 8px;
                     ">${certificateData.status}</td>`;
+                    
                     tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
@@ -1648,26 +1653,26 @@ const toggleComments = document.getElementById("displayComments");
   const newCommentForm = document.getElementById("newcomment");
   const commentLength=document.getElementById("commentLength");
 
-  toggleComments.addEventListener("click", async (e) => {
-    commentsContainer.style.display = "flex";
-    let certificateID = 23;
+  // toggleComments.addEventListener("click", async (e) => {
+  //   commentsContainer.style.display = "flex";
+  //   let certificateID = 23;
 
-    fetch(`comment/getComments/${certificateID}`)
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.data && data.data.length > 0) {
-          commentLength.innerText=`(${data.data.length})`;
-          // Assuming data.data is an array of comments
-          data.data.forEach((comment) => {
-            commentsContainer.appendChild(createCommentElement(comment));
-          });
-        }
-      });
+  //   fetch(`comment/getComments/${certificateID}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.data && data.data.length > 0) {
+  //         commentLength.innerText=`(${data.data.length})`;
+  //         // Assuming data.data is an array of comments
+  //         data.data.forEach((comment) => {
+  //           commentsContainer.appendChild(createCommentElement(comment));
+  //         });
+  //       }
+  //     });
 
-    commentsContainer.style.display = "flex";
-    addNewComment.style.display="flex";
+  //   commentsContainer.style.display = "flex";
+  //   addNewComment.style.display="flex";
    
-  });
+  // });
 
   addNewComment.addEventListener("click", () => {
     newCommentForm.style.display = "block";

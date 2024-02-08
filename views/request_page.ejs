@@ -747,6 +747,42 @@ input.invalid {
                     </select>
                   </div>
                 </div>
+                <div style="display: flex; flex-direction: row">
+                  <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 10px;
+                    margin-right: 40px;
+                  "
+                >
+                  <label for="">Product type</label>
+                  <select
+                      name="ProductType"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="Standard ssl">Standard ssl</option>
+                      <option value="Multisite ssl">Multisite ssl</option>
+                      
+                    </select>
+                  
+                </div>
+
+                  <div style="display: flex; flex-direction: column">
+                    <label for="">Approver's Email</label>
+                    <input type="text" name="approversEmail" style="
+                    width: 230px;
+                    height: 30px;
+                    border: solid 1px black;
+                    border-radius: 5px;
+                    padding-left: 4px;
+                  ">
+                  </div>
+                </div>
                 <br />
                 <div style="display: flex; flex-direction: row">
                 <!-- <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Will this require a WAF mapping/configuration">
@@ -2155,8 +2191,8 @@ const RequestDate = `${year}-${month}-${day}`;
         const projectPurpose = form.projectPurpose.value;
         const revGen = form.revGen.value;
         const externalUsers = form.externalUsers.value;
-         const degEffect = form.degEffect.value;
-        const requestType = form.requestType.value;
+         const degEffect = "Yes";
+        // const requestType = form.requestType.value;
         const managerApproval = form.managerApproval.value;
         const serverSpecs = form.serverSpecs.value;
         const domainName = form.domainName.value;
@@ -2167,6 +2203,8 @@ const RequestDate = `${year}-${month}-${day}`;
         const operatingSystem = form.operatingSystem.value;
         const portNumber = form.portNumber.value;
         const status = "Pending";
+        const ProductType=form.ProductType.value;
+        const approversEmail=form.approversEmail.value;
         const dateRequested = RequestDate;
         const csrLink="test";
         const confluenceLink="test";
@@ -2184,7 +2222,7 @@ const RequestDate = `${year}-${month}-${day}`;
         revGen,
         externalUsers,
         degEffect,
-        requestType,
+        // requestType,
         managerApproval,
         serverSpecs,
         domainName,
@@ -2195,6 +2233,8 @@ const RequestDate = `${year}-${month}-${day}`;
         operatingSystem,
         portNumber,
         status,
+        ProductType,
+        approversEmail,
         dateRequested,
         csrLink,
         confluenceLink
@@ -2286,7 +2326,7 @@ const RequestDate = `${year}-${month}-${day}`;
               certificateData.userEmail !== undefined &&
               certificateData.projectTitle !== undefined &&
               certificateData.domainName !== undefined &&
-              certificateData.requestType !== undefined &&
+              // certificateData.requestType !== undefined &&
               certificateData.serverAddress !== undefined &&
               certificateData.status !== undefined &&
               certificateData.dateRequested !== undefined

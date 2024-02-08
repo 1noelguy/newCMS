@@ -9,16 +9,72 @@ router.post(
   "/addCert",
   //  userMiddleware.isLoggedIn,
   async (req, res, next) => {
-
     const csrLink = req.body.csrLink;
     const confluenceLink = req.body.confluenceLink;
 
-    const query = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,requestType,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status) VALUES (${db.escape(req.body.userEmail)},${db.escape(req.body.projectTitle)},${db.escape(req.body.projectPurpose)},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},${db.escape(req.body.requestType)},${db.escape(req.body.managerApproval)},${db.escape(req.body.csrLink)},${db.escape(req.body.domainName)},${db.escape(req.body.dnsMappingReq)},${db.escape(req.body.confluenceLink)},${db.escape(req.body.serverAddress)},${db.escape(req.body.operatingSystem)},${db.escape(req.body.portNumber)},${db.escape(req.body.status)})`;
-    const queryNone = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,requestType,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status) VALUES (${db.escape(req.body.userEmail)},${db.escape(req.body.projectTitle)},${db.escape(req.body.projectPurpose)},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},${db.escape(req.body.requestType)},${db.escape(req.body.managerApproval)},DEFAULT,${db.escape(req.body.domainName)},${db.escape(req.body.dnsMappingReq)},DEFAULT,${db.escape(req.body.serverAddress)},${db.escape(req.body.operatingSystem)},${db.escape(req.body.portNumber)},${db.escape(req.body.status)})`;
-    const queryCSR = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,requestType,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status) VALUES (${db.escape(req.body.userEmail)},${db.escape(req.body.projectTitle)},${db.escape(req.body.projectPurpose)},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},${db.escape(req.body.requestType)},${db.escape(req.body.managerApproval)},${db.escape(req.body.csrLink)},${db.escape(req.body.domainName)},${db.escape(req.body.dnsMappingReq)},DEFAULT,${db.escape(req.body.serverAddress)},${db.escape(req.body.operatingSystem)},${db.escape(req.body.portNumber)},${db.escape(req.body.status)})`;
-    const queryConfluence = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,requestType,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status) VALUES (${db.escape(req.body.userEmail)},${db.escape(req.body.projectTitle)},${db.escape(req.body.projectPurpose)},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},${db.escape(req.body.requestType)},${db.escape(req.body.managerApproval)},DEFAULT,${db.escape(req.body.domainName)},${db.escape(req.body.dnsMappingReq)},${db.escape(req.body.confluenceLink)},${db.escape(req.body.serverAddress)},${db.escape(req.body.operatingSystem)},${db.escape(req.body.portNumber)},${db.escape(req.body.status)})`;
-    
-    if ((csrLink === undefined || csrLink === null) && (confluenceLink === undefined || confluenceLink === null)) {
+    const query = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+      req.body.userEmail
+    )},${db.escape(req.body.projectTitle)},${db.escape(
+      req.body.projectPurpose
+    )},${db.escape(req.body.revGen)},${db.escape(
+      req.body.externalUsers
+    )},${db.escape(
+      req.body.managerApproval
+    )},${db.escape(req.body.csrLink)},${db.escape(
+      req.body.domainName
+    )},${db.escape(req.body.dnsMappingReq)},${db.escape(
+      req.body.confluenceLink
+    )},${db.escape(req.body.serverAddress)},${db.escape(
+      req.body.operatingSystem
+    )},${db.escape(req.body.portNumber)},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
+    const queryNone = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+      req.body.userEmail
+    )},${db.escape(req.body.projectTitle)},${db.escape(
+      req.body.projectPurpose
+    )},${db.escape(req.body.revGen)},${db.escape(
+      req.body.externalUsers
+    )},${db.escape(
+      req.body.managerApproval
+    )},DEFAULT,${db.escape(req.body.domainName)},${db.escape(
+      req.body.dnsMappingReq
+    )},DEFAULT,${db.escape(req.body.serverAddress)},${db.escape(
+      req.body.operatingSystem
+    )},${db.escape(req.body.portNumber)},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
+    const queryCSR = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+      req.body.userEmail
+    )},${db.escape(req.body.projectTitle)},${db.escape(
+      req.body.projectPurpose
+    )},${db.escape(req.body.revGen)},${db.escape(
+      req.body.externalUsers
+    )},${db.escape(
+      req.body.managerApproval
+    )},${db.escape(req.body.csrLink)},${db.escape(
+      req.body.domainName
+    )},${db.escape(req.body.dnsMappingReq)},DEFAULT,${db.escape(
+      req.body.serverAddress
+    )},${db.escape(req.body.operatingSystem)},${db.escape(
+      req.body.portNumber
+    )},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
+    const queryConfluence = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+      req.body.userEmail
+    )},${db.escape(req.body.projectTitle)},${db.escape(
+      req.body.projectPurpose
+    )},${db.escape(req.body.revGen)},${db.escape(
+      req.body.externalUsers
+    )},${db.escape(
+      req.body.managerApproval
+    )},DEFAULT,${db.escape(req.body.domainName)},${db.escape(
+      req.body.dnsMappingReq
+    )},${db.escape(req.body.confluenceLink)},${db.escape(
+      req.body.serverAddress
+    )},${db.escape(req.body.operatingSystem)},${db.escape(
+      req.body.portNumber
+    )},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
+
+    if (
+      (csrLink === undefined || csrLink === null) &&
+      (confluenceLink === undefined || confluenceLink === null)
+    ) {
       try {
         await new Promise((resolve, reject) => {
           db.query(queryNone, (err, result) => {
@@ -40,7 +96,10 @@ router.post(
           message: error,
         });
       }
-    } else if( (csrLink !== undefined || csrLink !== null) && (confluenceLink === undefined || confluenceLink === null)) {
+    } else if (
+      (csrLink !== undefined || csrLink !== null) &&
+      (confluenceLink === undefined || confluenceLink === null)
+    ) {
       try {
         await new Promise((resolve, reject) => {
           db.query(queryCSR, (err, result) => {
@@ -62,7 +121,10 @@ router.post(
           message: error,
         });
       }
-    }else if( (csrLink === undefined || csrLink === null) && (confluenceLink !== undefined || confluenceLink !== null) ){
+    } else if (
+      (csrLink === undefined || csrLink === null) &&
+      (confluenceLink !== undefined || confluenceLink !== null)
+    ) {
       try {
         await new Promise((resolve, reject) => {
           db.query(queryConfluence, (err, result) => {
@@ -84,7 +146,7 @@ router.post(
           message: error,
         });
       }
-    }else{
+    } else {
       try {
         await new Promise((resolve, reject) => {
           db.query(query, (err, result) => {
@@ -107,8 +169,6 @@ router.post(
         });
       }
     }
-    
-
   }
 );
 
@@ -295,7 +355,6 @@ router.get("/pendingCertsCount", async (req, res) => {
     });
   }
 });
-
 
 router.get("/inprogressCertsCount", async (req, res) => {
   // Query to fetch the count of certificates with status "completed"
@@ -493,15 +552,12 @@ router.put("/updateCerts", async (req, res) => {
   }
 });
 
-
 //Update Certificate Status
 router.patch("/updateCertStatus/:certificateID", async (req, res) => {
   const certificateID = req.params.certificateID; // Assuming you have the certificateID in the request body
   const newStatus = req.body.status; // The new status value to set
 
-
   console.log(newStatus); //Not getting value from frontend
-
 
   const query = `UPDATE certificates
     SET status = ${db.escape(newStatus)}
@@ -529,7 +585,6 @@ router.patch("/updateCertStatus/:certificateID", async (req, res) => {
     });
   }
 });
-
 
 //Delete Certificate
 router.delete(
