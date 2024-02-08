@@ -2340,6 +2340,7 @@ console.log(formattedDate);
 
               tableHTML += `<td
                   style="
+                  position:relative;
                         border-bottom: 1px solid rgb(168, 168, 169);
                         text-align: left;
                         padding: 8px;
@@ -2364,10 +2365,11 @@ console.log(formattedDate);
   </button>
 
   <!-- Actions container -->
-  <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none;position: absolute;
-  top: 32%; 
-  left:85%;
-  
+  <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none;position: absolute; 
+  top: 55%;
+  left: 5%;
+ 
+  z-index:100;
   background-color: #ffffff;
   border: 1px solid #ccc;
   border-radius:4px;
