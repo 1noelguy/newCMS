@@ -12,64 +12,70 @@ router.post(
     const csrLink = req.body.csrLink;
     const confluenceLink = req.body.confluenceLink;
 
-    const query = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+    const query = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,degEffect,csrLink,domainName,dnsMappingReq,confluenceLink,serverHostname,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
       req.body.userEmail
     )},${db.escape(req.body.projectTitle)},${db.escape(
       req.body.projectPurpose
-    )},${db.escape(req.body.revGen)},${db.escape(
-      req.body.externalUsers
-    )},${db.escape(
-      req.body.managerApproval
-    )},${db.escape(req.body.csrLink)},${db.escape(
+    )},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},
+    ${db.escape(req.body.degEffect)},
+    ${db.escape(req.body.csrLink)},${db.escape(
       req.body.domainName
     )},${db.escape(req.body.dnsMappingReq)},${db.escape(
       req.body.confluenceLink
-    )},${db.escape(req.body.serverAddress)},${db.escape(
+    )},${db.escape(req.body.serverHostname)},${db.escape(req.body.serverAddress)},${db.escape(
       req.body.operatingSystem
-    )},${db.escape(req.body.portNumber)},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
-    const queryNone = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+    )},${db.escape(req.body.portNumber)},${db.escape(
+      req.body.status
+    )},${db.escape(req.body.ProductType)},${db.escape(
+      req.body.approversEmail
+    )})`;
+    const queryNone = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,degEffect,csrLink,domainName,dnsMappingReq,confluenceLink,serverHostname,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
       req.body.userEmail
     )},${db.escape(req.body.projectTitle)},${db.escape(
       req.body.projectPurpose
     )},${db.escape(req.body.revGen)},${db.escape(
       req.body.externalUsers
-    )},${db.escape(
-      req.body.managerApproval
-    )},DEFAULT,${db.escape(req.body.domainName)},${db.escape(
-      req.body.dnsMappingReq
-    )},DEFAULT,${db.escape(req.body.serverAddress)},${db.escape(
-      req.body.operatingSystem
-    )},${db.escape(req.body.portNumber)},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
-    const queryCSR = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
-      req.body.userEmail
-    )},${db.escape(req.body.projectTitle)},${db.escape(
-      req.body.projectPurpose
-    )},${db.escape(req.body.revGen)},${db.escape(
-      req.body.externalUsers
-    )},${db.escape(
-      req.body.managerApproval
-    )},${db.escape(req.body.csrLink)},${db.escape(
+      
+    )},${db.escape(req.body.degEffect)}
+    ,${db.escape(req.body.managerApproval)},DEFAULT,${db.escape(
       req.body.domainName
-    )},${db.escape(req.body.dnsMappingReq)},DEFAULT,${db.escape(
+    )},${db.escape(req.body.dnsMappingReq)},${db.escape(req.body.serverHostname)},DEFAULT,${db.escape(
       req.body.serverAddress
     )},${db.escape(req.body.operatingSystem)},${db.escape(
       req.body.portNumber
-    )},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
-    const queryConfluence = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,managerApproval,csrLink,domainName,dnsMappingReq,confluenceLink,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+    )},${db.escape(req.body.status)},${db.escape(
+      req.body.ProductType
+    )},${db.escape(req.body.approversEmail)})`;
+    const queryCSR = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,degEffect,csrLink,domainName,dnsMappingReq,confluenceLink,serverHostname,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
       req.body.userEmail
     )},${db.escape(req.body.projectTitle)},${db.escape(
       req.body.projectPurpose
-    )},${db.escape(req.body.revGen)},${db.escape(
-      req.body.externalUsers
-    )},${db.escape(
-      req.body.managerApproval
-    )},DEFAULT,${db.escape(req.body.domainName)},${db.escape(
-      req.body.dnsMappingReq
-    )},${db.escape(req.body.confluenceLink)},${db.escape(
+    )},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},
+    ${db.escape(req.body.degEffect)}
+    ,${db.escape(req.body.csrLink)},${db.escape(
+      req.body.domainName
+    )},${db.escape(req.body.dnsMappingReq)},${db.escape(req.body.serverHostname)},DEFAULT,${db.escape(
       req.body.serverAddress
     )},${db.escape(req.body.operatingSystem)},${db.escape(
       req.body.portNumber
-    )},${db.escape(req.body.status)},${db.escape(req.body.ProductType)},${db.escape(req.body.approversEmail)})`;
+    )},${db.escape(req.body.status)},${db.escape(
+      req.body.ProductType
+    )},${db.escape(req.body.approversEmail)})`;
+    const queryConfluence = `INSERT INTO certificates (userEmail,projectTitle,projectPurpose,revGen,externalUsers,degEffect,csrLink,domainName,dnsMappingReq,confluenceLink,serverHostname,serverAddress,operatingSystem,portNumber,status,ProductType,approversEmail) VALUES (${db.escape(
+      req.body.userEmail
+    )},${db.escape(req.body.projectTitle)},${db.escape(
+      req.body.projectPurpose
+    )},${db.escape(req.body.revGen)},${db.escape(req.body.externalUsers)},
+    ${db.escape(req.body.degEffect)}
+    ,DEFAULT,${db.escape(req.body.domainName)},${db.escape(
+      req.body.dnsMappingReq
+    )},${db.escape(req.body.confluenceLink)},${db.escape(req.body.serverHostname)},${db.escape(
+      req.body.serverAddress
+    )},${db.escape(req.body.operatingSystem)},${db.escape(
+      req.body.portNumber
+    )},${db.escape(req.body.status)},${db.escape(
+      req.body.ProductType
+    )},${db.escape(req.body.approversEmail)})`;
 
     if (
       (csrLink === undefined || csrLink === null) &&
