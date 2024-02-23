@@ -132,14 +132,14 @@
                     </div>
                 </div>
                 
-                <div class="card" id="pendingCerts" style="display: flex; flex-direction: row; justify-content: space-around; " >
+                <div class="card" id="activeCerts" style="display: flex; flex-direction: row; justify-content: space-around; " >
                     <div>
                         <div style="width: 4px; margin-top: 4px; height: 64px; background-color: red; border-radius: 4px;">
 
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div id="pendingcount" class="numbers">0</div>
+                        <div id="activecount" class="numbers">0</div>
                         <div class="cardName">Active</div>
                     </div>
                     <div class="iconBox">
@@ -164,14 +164,14 @@
                     </div>
                 </div>
                 
-                <div class="card" id="completedCerts" style="display: flex; flex-direction: row; justify-content: space-around; ">
+                <div class="card" id="expiredCerts" style="display: flex; flex-direction: row; justify-content: space-around; ">
                     <div>
                         <div style="width: 4px; margin-top: 4px; height: 64px; background-color: red; border-radius: 4px;">
 
                         </div>
                     </div>
                     <div style="margin-left: -32px ;">
-                        <div id="completedcount" class="numbers">0</div>
+                        <div id="expiredcount" class="numbers">0</div>
                         <div class="cardName">Expired</div>
                     </div>
                     <div class="iconBox">
@@ -308,26 +308,26 @@ new Chart("myChart", {
 
         // loading tables
 
-        const CompletedCertsQuery="certs/completedCerts";
+        const expiredCertsQuery="certs/expiredCerts";
         const InprogressCertsQuery="certs/progressCerts";
-        const PendingCertsQuery="certs/pendingCerts";
+        const activeCertsQuery="certs/activeCerts";
         const AllCertsQuery="certs/allCerts";
-        const CompletedCertsCount="certs/completedCertsCount";
+        const expiredCertsCount="certs/expiredCertsCount";
         const InprogressCertsCount="certs/inprogressCertsCount";
         const TotalCertsCount="certs/totalCertsCount";
-        const PendingCertsCount = "certs/pendingCertsCount";
+        const activeCertsCount = "certs/activeCertsCount";
 
       document.addEventListener("DOMContentLoaded", async function () {
 
-        const completedCertsButton = document.getElementById("completedCerts");
+        const expiredCertsButton = document.getElementById("expiredCerts");
   const inprogressCertsButton = document.getElementById("inprogressCerts");
-  const pendingCertsButton = document.getElementById("pendingCerts");
+  const activeCertsButton = document.getElementById("activeCerts");
   const allCertsButton = document.getElementById("allCerts");
   const resultDiv = document.getElementById("result");
   const certificateType= document.getElementById("certificateType");
-  const completedcount=document.getElementById("completedcount");
+  const expiredcount=document.getElementById("expiredcount");
   const inprogresscount= document.getElementById("inprogresscount");
-  const pendingcount= document.getElementById("pendingcount");
+  const activecount= document.getElementById("activecount");
   const totalcount=document.getElementById("totalcount");
   const count=TotalCertsCount;
   let updatedCount;
@@ -363,16 +363,16 @@ new Chart("myChart", {
 
 fetchTotalCertificatesCount(count);
 
-const fetchCompletedCertificatesCount = async (CompletedCertsCount) => {
+const fetchexpiredCertificatesCount = async (expiredCertsCount) => {
     try {
-        const res = await fetch(CompletedCertsCount);
+        const res = await fetch(expiredCertsCount);
         const data = await res.json();
 
         if (typeof data === "object") {
           console.log(data);
             // Check if the data contains a count property
             if ("Count" in data) {
-               completedcount.innerHTML=data.Count;
+               expiredcount.innerHTML=data.Count;
              
                 // Data contains a count, display it
                 console.log("Total Count: " + data.Count);
@@ -392,19 +392,19 @@ const fetchCompletedCertificatesCount = async (CompletedCertsCount) => {
 };
 
 
-fetchCompletedCertificatesCount(CompletedCertsCount);
+fetchexpiredCertificatesCount(expiredCertsCount);
 
 
-const fetchPendingCertificatesCount = async (PendingCertsCount) => {
+const fetchactiveCertificatesCount = async (activeCertsCount) => {
     try {
-        const res = await fetch(PendingCertsCount);
+        const res = await fetch(activeCertsCount);
         const data = await res.json();
 
         if (typeof data === "object") {
           console.log(data);
             // Check if the data contains a count property
             if ("Count" in data) {
-               pendingcount.innerHTML=data.Count;
+               activecount.innerHTML=data.Count;
              
                 // Data contains a count, display it
                 console.log("Total Count: " + data.Count);
@@ -424,7 +424,7 @@ const fetchPendingCertificatesCount = async (PendingCertsCount) => {
 };
 
 
-fetchPendingCertificatesCount(PendingCertsCount);
+fetchactiveCertificatesCount(activeCertsCount);
 
 
 const fetchInprogressCertificatesCount = async (InprogressCertsCount) => {
@@ -482,11 +482,11 @@ fetchInprogressCertificatesCount(InprogressCertsCount);
 
       fetchCertificates("certs/allCerts");
 
-      completedCertsButton.addEventListener("click", () => {
-    fetchCertificates("certs/completedCerts");
-    fetchCertificatesCount(CompletedCertsCount);
-    completedcount.innerHTML=updatedCount;
-    certificateType.innerHTML="Completed Certificates";
+      expiredCertsButton.addEventListener("click", () => {
+    fetchCertificates("certs/expiredCerts");
+    fetchCertificatesCount(expiredCertsCount);
+    expiredcount.innerHTML=updatedCount;
+    certificateType.innerHTML="Expired Certificates";
 
   });
 
@@ -497,11 +497,11 @@ fetchInprogressCertificatesCount(InprogressCertsCount);
     certificateType.innerHTML="Certificates in Progress";
   });
 
-  pendingCertsButton.addEventListener("click", () => {
-    fetchCertificates("certs/pendingCerts");
-    fetchCertificatesCount(PendingCertsCount);
- 
-    certificateType.innerHTML="Pending Certificates";
+  activeCertsButton.addEventListener("click", () => {
+    fetchCertificates("certs/activeCerts");
+    fetchCertificatesCount(activeCertsCount);
+    activecount.innerHTML=updatedCount;
+    certificateType.innerHTML="Active Certificates";
   });
 
   allCertsButton.addEventListener("click", () => {
@@ -518,6 +518,7 @@ fetchInprogressCertificatesCount(InprogressCertsCount);
         console.log("running");
         const table = document.querySelector("table tbody");
         let tableHTML = " ";
+        let certificatesDisplayed = 0;
 
         if (data.length === 0) {
           table.innerHTML = "tr><td colspan='5'>No user registered</td></tr>";
@@ -532,13 +533,13 @@ fetchInprogressCertificatesCount(InprogressCertsCount);
           //   user.lineManager,
           //   user.role
           // );
-          for (let i = 0; i < certificate.length; i++) {
+          for (let i =certificate.length - 1; i >=0  && certificatesDisplayed < 5 ; i--) {
             const certificateData = certificate[i];
             if (
               certificateData.userEmail !== undefined &&
               certificateData.projectTitle !== undefined &&
               certificateData.domainName !== undefined &&
-              certificateData.requestType !== undefined &&
+              // certificateData.requestType !== undefined &&
               certificateData.serverAddress !== undefined &&
               certificateData.status !== undefined &&
               certificateData.dateRequested !== undefined
@@ -590,42 +591,9 @@ console.log(formattedDate); // Output: "2023-10-10"
                       text-align: left;
                       padding: 8px;
                     ">${formattedDate}</td>`;
-                    
-
-            //   tableHTML += `<td
-            //       style="
-            //             border-bottom: 1px solid rgb(168, 168, 169);
-            //             text-align: left;
-            //             padding: 8px;
-            //           "
-            //     >
-            //       <span
-            //         style="
-            //               padding-left: 4px;
-            //               padding-right: 4px;
-            //               color: white;
-            //               background-color: black;
-            //               border-radius: 3px;
-            //               font-size: small;
-            //             "
-            //       >
-            //         edit
-            //       </span>
-            //       <span
-            //         style="
-            //               padding-left: 4px;
-            //               padding-right: 4px;
-            //               color: white;
-            //               background-color: red;
-            //               border-radius: 3px;
-            //               margin-left: 6px;
-            //               font-size: small;
-            //             "
-            //       >
-            //         delete
-            //       </span>
-            //     </td>`;
               tableHTML += "</tr>";
+              certificatesDisplayed++;
+              
             }
           }
           table.innerHTML = tableHTML;

@@ -424,6 +424,34 @@ input.invalid {
                     margin-bottom: 10px;
                   "
                 >
+                  <label for="">Approver's email</label>
+                  <input
+                    required
+                    name="approversEmail"
+                    
+                    class="userEmail"
+                    style="
+                      width: 500px;
+                      height: 30px;
+                      border: solid 1px black;
+                      border-radius: 5px;
+                      padding-left: 4px;
+                    "
+                    placeholder="Approver's Email"
+                    
+                  />
+                  <div id="emailError" class="color: red;
+                  font-size: 14px;
+                  margin-top: 5px;"></div>
+                </div>
+                
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 10px;
+                  "
+                >
                   <label for="">Project Title</label>
                   <input
                     name="projectTitle"
@@ -771,17 +799,33 @@ input.invalid {
                     </select>
                   
                 </div>
+                <div
+                  style="
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 10px;
+                    margin-right: 40px;
+                  "
+                >
+                  <label for="">Certificate duration</label>
+                  <select
+                      name="certificateDuration"
+                      id="team"
+                      style="width: 230px; height: 30px"
+                    >
+                      <option value="" disabled selected>
+                        Select option
+                      </option>
+                      <option value="1 year">1 year(min)</option>
+                      <option value="2 years">2 years</option>
+                      <option value="3 years">3 years</option>
+                      <option value="4 years">4 years</option>
+                      <option value="5 years">5 years(max)</option>
+                    </select>
+                  
+                </div>
 
-                  <div style="display: flex; flex-direction: column">
-                    <label for="">Approver's Email</label>
-                    <input type="text" name="approversEmail" style="
-                    width: 230px;
-                    height: 30px;
-                    border: solid 1px black;
-                    border-radius: 5px;
-                    padding-left: 4px;
-                  ">
-                  </div>
+                  
                 </div>
                 <br />
                 <div style="display: flex; flex-direction: row">
@@ -2195,12 +2239,12 @@ const RequestDate = `${year}-${month}-${day}`;
         // const serverSpecs = form.serverSpecs.value;
         const domainName = form.domainName.value;
         const dnsMappingReq = form.dnsMappingReq.value;
-        // const wafConfig = form.wafConfig.value;
+        const certificateDuration = form.certificateDuration.value;
         const serverHostname = form.serverHostname.value;
         const serverAddress = form.serverAddress.value;
         const operatingSystem = form.operatingSystem.value;
         const portNumber = form.portNumber.value;
-        const status = "Pending";
+        const status = "In progress";
         const ProductType=form.ProductType.value;
         const approversEmail=form.approversEmail.value;
         const dateRequested = RequestDate;
@@ -2225,7 +2269,7 @@ const RequestDate = `${year}-${month}-${day}`;
         // serverSpecs,
         domainName,
         dnsMappingReq,
-        // wafConfig,
+        certificateDuration,
         serverHostname,
         serverAddress,
         operatingSystem,
@@ -2308,6 +2352,7 @@ const RequestDate = `${year}-${month}-${day}`;
         if (data.length === 0) {
           table.innerHTML = "tr><td colspan='5'>No user registered</td></tr>";
         }
+        
         data.forEach(function (certificate) {
           console.log(certificate);
 
@@ -2318,7 +2363,7 @@ const RequestDate = `${year}-${month}-${day}`;
           //   user.lineManager,
           //   user.role
           // );
-          for (let i = 0; i < certificate.length; i++) {
+          for (let i =certificate.length - 1; i >=0 ; i--) {
             const certificateData = certificate[i];
             if (
               certificateData.userEmail !== undefined &&
@@ -2438,7 +2483,7 @@ console.log(formattedDate);
         padding-right: 4px;
         margin-bottom:4px;
         color: white;
-        background-color: red;
+        background-color: black;
         border-radius: 3px;
         margin-left: 6px;
         font-size: small;
@@ -2454,7 +2499,7 @@ console.log(formattedDate);
         padding-right: 4px;
         margin-bottom:4px;
         color: white;
-        background-color: green;
+        background-color: black;
         border-radius: 3px;
         margin-left: 6px;
         font-size: small;
@@ -2471,7 +2516,7 @@ console.log(formattedDate);
         padding-right: 4px;
         margin-bottom:4px;
         color: white;
-        background-color: green;
+        background-color: black;
         border-radius: 3px;
         margin-left: 6px;
         font-size: small;
