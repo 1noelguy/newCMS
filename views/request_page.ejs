@@ -69,7 +69,7 @@ input.invalid {
 
   <body>
     <div class="container" >
-      <div class="navigation" >
+      <div class="navigation" style="background-color: #aa0407;" >
         <ul>
           <li>
             <a href="/home">
@@ -220,16 +220,22 @@ input.invalid {
               <div
                 class="search"
                 style="
+                display: flex;
+                flex-direction: row;
                   margin-top: 10px;
                   margin-bottom: 10px;
                   margin-right: 10px;
                 "
               >
+               <div>
                 <label for="">
-                  <input type="text" id="searchInput" placeholder="search here" />
+                  <input type="text" id="projectNameInput" placeholder="search here" />
                   <i class="fa fa-search" aria-hidden="true"></i>
                 </label>
-                <!-- <button id="searchButton">Search</button> -->
+               </div>
+                <div>
+                  <button id="searchButton" style="background-color: black; margin-top: 10px; border:none; color: white; padding: 2px 4px 2px 4px;margin-left: 10px; " onclick="searchCertificates()">Search</button>
+                </div>
               </div>
               <button
                 id="openModalBtn"
@@ -329,7 +335,16 @@ input.invalid {
             
               </tr>
               </tbody>
+              
+              
             </table>
+            <div style="display: flex; float:right;">
+              <div class="pagination">
+                <button id="prevPage">Previous</button>
+                <span id="currentPage"></span>
+                <button id="nextPage">Next</button>
+              </div>
+            </div>
           </div>
           <div id="myModal" class="modal" style="padding-left: 400px; overflow-y: auto;">
             <div
@@ -440,9 +455,9 @@ input.invalid {
                     placeholder="Approver's Email"
                     
                   />
-                  <div id="emailError" class="color: red;
+                  <div id="emailError" style="color: red; font:bold;font-weight:600;
                   font-size: 14px;
-                  margin-top: 5px;"></div>
+                  margin-top: 5px; "></div>
                 </div>
                 
                 <div
@@ -1622,20 +1637,7 @@ input.invalid {
           </div>
 
           <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;">
-            <!-- <div style="display: flex; flex-direction: column"  class="tooltip" data-tooltip="Has this request received approval from Team Lead/Line Manager?">
-              <label for="">Manager's Approval?</label>
-              <div required
-              name="managerApproval"
-              
-              class="username"
-              style="
-               color:gray;
-              "
-              placeholder="UserEmail">
-              UserEmail  
-                
-            </div>
-            </div> -->
+            
 
             <div style="display: flex; flex-direction: column; margin-right: 45px;margin-bottom: 10px;">
               <label for="">DNS Mapping?</label>
@@ -1723,26 +1725,7 @@ input.invalid {
             </div>
             </div>
 
-            <!-- <div
-              style="
-                display: flex;
-                flex-direction: column;
-                margin-bottom: 10px;
-              "
-            >
-              <label for="">Server specifications</label>
-              <div required
-              name="serverSpecs"
-              
-              class="username"
-              style="
-               color:gray;
-              "
-              placeholder="UserEmail">
-              UserEmail  
-                
-            </div>
-            </div> -->
+           
           </div>
 
            
@@ -1902,6 +1885,7 @@ function validateForm() {
       if (y[i].name === "userEmail" && !isValidEmail(y[i].value)) {
         const emailError = document.getElementById("emailError");
         y[i].className += " invalid";
+        emailError.style.color="red";
         emailError.textContent = 'Please enter a valid email address.';
         valid = false;
       } else if (y[i].name === "domainName" && !isValidDomainName(y[i].value)) {
@@ -1911,6 +1895,11 @@ function validateForm() {
         valid = false;
       } else if (y[i].value === "") {
         y[i].className += " invalid";
+        valid = false;
+      }else if (y[i].name === "approversEmail" && !isValidEmail(y[i].value)) {
+        const emailError = document.getElementById("emailError");
+        y[i].className += " invalid";
+        emailError.textContent = 'Please enter a valid email address.';
         valid = false;
       }
     }
@@ -2299,6 +2288,7 @@ const RequestDate = `${year}-${month}-${day}`;
       });
 
       // loading tables
+      
 
       document.addEventListener("DOMContentLoaded", async function () {
         try {
@@ -2311,6 +2301,13 @@ const RequestDate = `${year}-${month}-${day}`;
           if (typeof data === "object") {
             // Data is an array, proceed to populate the table
             const dataArray = Object.values(data);
+//             const pageSize = 3; // Set your desired page size
+// let currentPage = 1;
+// const totalPages = Math.ceil(data.length / pageSize); 
+// const startIndex = (currentPage - 1) * pageSize;
+//   const endIndex = startIndex + pageSize;
+//   const currentPageData = dataArray.slice(startIndex, endIndex);
+//   console.log(currentPageData)
             loadHTMLTable(dataArray);
             document.addEventListener("DOMContentLoaded", function() {
   const openDeleteModalBtn = document.getElementById("openDeleteModalBtn");
@@ -2344,15 +2341,49 @@ const RequestDate = `${year}-${month}-${day}`;
         
       });
 
-      function loadHTMLTable(data) {
+      function searchCertificates() {
+    const projectTitle = document.getElementById('projectNameInput').value;
+    console.log(projectTitle);
+    if (!projectTitle) {
+        alert('Please enter a project name to search.');
+        return;
+    }
+
+    // Assuming your backend is hosted locally and the route is '/certificatesByProject'
+    fetch(`certs/certificatesByProject?projectTitle=${encodeURIComponent(projectTitle)}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+                console.log(response)
+            }
+            return response.json();
+        })
+        .then(data => {
+          console.log(data)
+          const dataArray = Object.values(data);
+  //         const startIndex = (currentPage - 1) * pageSize;
+  // const endIndex = startIndex + pageSize;
+  // const currentPageData = dataArray.slice(startIndex, endIndex);
+            loadHTMLTable(dataArray);
+        })
+        .catch(error => {
+            console.error('There has been a problem with your fetch operation:', error);
+        });
+}
+
+
+
+      function loadHTMLTable(data,currentPage,pageSize) {
         console.log("running");
         const table = document.querySelector("table tbody");
         let tableHTML = " ";
+       
 
         if (data.length === 0) {
           table.innerHTML = "tr><td colspan='5'>No user registered</td></tr>";
         }
         
+       
         data.forEach(function (certificate) {
           console.log(certificate);
 
@@ -2399,16 +2430,6 @@ console.log(formattedDate);
                       text-align: left;
                       padding: 8px;
                     ">${certificateData.domainName}</td>`;
-              // tableHTML += `<td style="
-              //         border-bottom: 1px solid rgb(168, 168, 169);
-              //         text-align: left;
-              //         padding: 8px;
-              //       ">${certificateData.serverHostname}</td>`;
-              // tableHTML += `<td style="
-              //         border-bottom: 1px solid rgb(168, 168, 169);
-              //         text-align: left;
-              //         padding: 8px;
-              //       ">${certificateData.serverAddress}</td>`;
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
@@ -2419,8 +2440,6 @@ console.log(formattedDate);
                       text-align: left;
                       padding: 8px;
                     ">${formattedDate}</td>`;
-                    
-
               tableHTML += `<td
                   style="
                   position:relative;
@@ -2534,19 +2553,24 @@ console.log(formattedDate);
         });
         
       }
-      
-//       document.addEventListener("DOMContentLoaded", function() {
-//   const openDeleteModalBtn = document.getElementById("openDeleteModalBtn");
 
-  
-  
-//   if (openDeleteModalBtn) {
-//     openDeleteModalBtn.addEventListener("click", () => {
-//       deleteModal.style.display = "block";
-//       console.log("opened delete modal");
-//     });
-//   }
-// });
+      
+
+      document.getElementById('prevPage').addEventListener('click', () => {
+  if (currentPage > 1) {
+    currentPage--;
+    loadHTMLTable(data, currentPage, pageSize);
+  }
+});
+
+document.getElementById('nextPage').addEventListener('click', () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    loadHTMLTable(data, currentPage, pageSize);
+  }
+});
+      
+
 function toggleActions(btn) {
       var actionsContainer = btn.nextElementSibling;
       var toggleActionsBtn = btn;

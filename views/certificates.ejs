@@ -66,13 +66,15 @@ input.invalid {
 
   <body>
     <div class="container" >
-      <div class="navigation" >
+      <div class="navigation" style="background-color: #aa0407;" >
         <ul>
           <li>
             <a href="/home">
-              <!-- <span class="icon"><i class="fa fa-apple"></i></span> -->
+              <img src="images/telecellogo.png" style="width: 100px; height: 100px;" alt="">
               <span class="title" style="width: 100px"
-                ><h4 style="width: 50px; height: 100px">Logo</h4></span
+                ><h4 style="width: 50px; height: 100px">Logo</h4>
+                
+                </span
               >
             </a>
           </li>
@@ -1197,6 +1199,74 @@ input.invalid {
         </div>
         
       </div>
+      <div id="changeStatusModal" style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 200px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        <div
+        class="modal-content"
+        style="border-radius: 10px; margin-top: 100px; width: 40%; overflow-y: auto;"
+      >
+        <span
+          class="close"
+          style="
+            border: 1px;
+            border-color: black;
+            width: 10px;
+            height: 10px;
+            margin-right: 80px;
+          "
+          id="closeDeleteModal"
+          >&times;</span
+        >
+        <h2 style="margin-left: 60px ; color: black;">Change Certificate Status</h2>
+        <!-- <hr style="margin-top: 5px" /> -->
+        <span style="padding-left: 60px; margin-top: 60px;">Select your required status from the dropdown below.</span>
+        <br />
+        <div style="display: flex; flex-direction: column; margin-left: 60px; margin-top: 20px;">
+          <label for="">Status</label>
+          <select
+            for=""
+            name="status"
+            id="status"
+            style="width: 300px; height: 30px; margin-right: 40px"
+          >
+            <option disabled selected>Select Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Active">Active</option>
+            <option value="Expired">Expired</option>
+          </select>
+        </div>
+        <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
+          <div style="padding-right: 16px;"><button id="cancelDelete" style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
+          <div><button id="saveStatus" style="background-color: green; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Save</button></div>
+        </div>
+        </div>
+      </div>
+      <div id="deleteModal" style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 200px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        <div
+        class="modal-content"
+        style="border-radius: 10px; margin-top: 100px; width: 40%; overflow-y: auto;"
+      >
+        <span
+          class="close"
+          style="
+            border: 1px;
+            border-color: black;
+            width: 10px;
+            height: 10px;
+            margin-right: 80px;
+          "
+          id="closeDeleteModal"
+          >&times;</span
+        >
+        <h2 style="margin-left: 60px ; color: black;">Delete Certificate</h2>
+        <!-- <hr style="margin-top: 5px" /> -->
+        <span style="padding-left: 60px; margin-top: 60px;">Are you sure you want to delete this certificate?</span>
+        <br />
+        <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
+          <div style="padding-right: 16px;"><button id="cancelDelete" style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
+          <div><button id="confirmDelete" style="background-color: red; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Delete</button></div>
+        </div>
+        </div>
+      </div>
     </div>
     <script src="JS/index.js"></script>
     <script>
@@ -1421,16 +1491,7 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
                       text-align: left;
                       padding: 8px;
                     ">${certificateData.domainName}</td>`;
-              // tableHTML += `<td style="
-              //         border-bottom: 1px solid rgb(168, 168, 169);
-              //         text-align: left;
-              //         padding: 8px;
-              //       ">${certificateData.serverHostname}</td>`;
-              // tableHTML += `<td style="
-              //         border-bottom: 1px solid rgb(168, 168, 169);
-              //         text-align: left;
-              //         padding: 8px;
-              //       ">${certificateData.serverAddress}</td>`;
+              
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
@@ -1501,7 +1562,8 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
       Edit
     </button>
     <button
-      class="openDeleteModalBtn"
+    data-certificate-data="${certificateData.certificateID}"
+      class="deleteModalBtn"
       style="
         padding-left: 4px;
         padding-right: 4px;
@@ -1517,6 +1579,7 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
       Delete
     </button>
     <button
+    data-certificate-data="${certificateData.certificateID}"
       class="openChangeStatusModalBtn"
       style="
         padding-left: 4px;
@@ -1641,6 +1704,97 @@ document.getElementById("table-container").addEventListener("click", function(ev
   if(event.target.className ==="ComentsCont"){
     certificateDetailsModal.style.display="none";
     console.log("Event target id:", event.target.id);
+  }
+
+  if(event.target.className==="openChangeStatusModalBtn"){
+    const certificateStatusModal=document.getElementById("changeStatusModal");
+    console.log("Status Modal clicked");
+    certificateStatusModal.style.display = "block";
+    console.log(event.target.getAttribute('data-certificate-data'));
+    const certificateDataID= event.target.getAttribute('data-certificate-data');
+    console.log(certificateDataID);
+    const fetchData = async () => {
+    try {
+      const response = await fetch(`certs/certById/${certificateDataID}`);
+      const data = await response.json();
+
+      if (data.data && data.data.length > 0) {
+        console.log(data.data[0]);
+        const certificateData = data.data[0];
+        status.value = certificateData.status;
+
+        const saveStatus = document.getElementById("saveStatus");
+        saveStatus.addEventListener("click", async (e) => {
+          const selectedStatus = document.getElementById('status').value;
+
+          try {
+            const response = await fetch(`/certs/updateCertStatus/${certificateDataID}`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                status: selectedStatus,
+              }),
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+              console.log('Success:', responseData.message);
+              changeStatusModal.style.display="none";
+              alert("Certificate status updated sucessfully, refresh page to view changes.");
+              location.reload();
+            } else {
+              console.error('Error:', responseData.message);
+            }
+          } catch (error) {
+            console.error('Error:', error.message);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+  fetchData(); 
+
+  }
+  if(event.target.className==="deleteModalBtn"){
+    const certificateDeleteModal=document.getElementById("deleteModal");
+    console.log("Delete Modal clicked");
+    certificateDeleteModal.style.display = "block";
+    console.log(event.target.getAttribute('data-certificate-data'));
+    const certificateDataID= event.target.getAttribute('data-certificate-data');
+    console.log(certificateDataID);
+    deleteModal.style.display = "block";
+
+    document.getElementById("confirmDelete").addEventListener("click", function () {
+      fetch("certs/deleteCert/", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ certificateID: certificateID }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Deleted!") {
+            console.log("deleted");
+            // Certificate deleted successfully, you can update the UI or reload the table here
+            // For example, you can remove the corresponding row from the table.
+            event.target.parentElement.parentElement.remove(); // Remove the whole row
+          } else {
+            // Handle the error, show an alert, or take appropriate action
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      document.getElementById("deleteModal").style.display = "none";
+    });
   }
 
 });

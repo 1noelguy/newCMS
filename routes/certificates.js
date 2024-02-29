@@ -462,6 +462,41 @@ router.get(
   }
 );
 
+//Get Certificates by search
+router.get("/certificatesByProject", async (req, res) => {
+  // Get the project name from the query string
+  const projectTitle = req.query.projectTitle;
+
+  if (!projectTitle) {
+    return res.status(400).send({
+      message: "Project title is required",
+    });
+  }
+
+  // Query to fetch certificates with status "completed" for a specific project
+  const query = "SELECT * FROM certificates WHERE  projectTitle = ?;";
+
+  try {
+    await new Promise((resolve, reject) => {
+      db.query(query, [projectTitle], (err, results) => { // Use parameterized query for security
+        if (err) {
+          reject(err); // Properly handle the error by rejecting the promise
+        } else {
+          // Return the certificates data in the response
+          resolve(res.status(200).send({
+            message: "Success!",
+            certificates: results,
+          }));
+        }
+      });
+    });
+  } catch (error) {
+    return res.status(400).send({
+      message: error, // Make sure to reference 'error.message' for the correct error output
+    });
+  }
+});
+
 // Get Certificates for a particular user
 router.get("/myCerts/", async (req, res) => {
   const token = req.cookies.jwt;
