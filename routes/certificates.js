@@ -186,32 +186,62 @@ router.post(
 );
 
 //Get All Certificates
+const ITEMS_PER_PAGE = 10; // Adjust this based on your pagination preferences
+
 router.get(
   "/allCerts",
   //userMiddleware.isLoggedIn
   async (req, res) => {
-    // res.send("Get all users");
-    const query = "SELECT * FROM certificates;";
-
     try {
-      await new Promise((resolve, reject) => {
-        db.query(query, (err, result) => {
+      // Extract page number from the query parameters, default to page 1 if not provided
+      const page = parseInt(req.query.page) || 1;
+
+      // Calculate the offset based on the current page and items per page
+      const offset = (page - 1) * ITEMS_PER_PAGE;
+
+      // Fetch data with pagination using LIMIT and OFFSET
+      const query = `SELECT * FROM certificates LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset};`;
+
+      // Fetch the total count of items
+      const countQuery = "SELECT COUNT(*) AS totalCount FROM certificates;";
+      const totalCountResult = await new Promise((resolve, reject) => {
+        db.query(countQuery, (err, result) => {
           if (err) {
-            return res.status(400).send(err);
+            reject(err);
           } else {
-            resolve(result);
-            return res.status(200).send({
-              message: "Success!",
-              data: result,
-            });
+            resolve(result[0].totalCount);
           }
         });
       });
+
+      // Fetch the data
+      const result = await new Promise((resolve, reject) => {
+        db.query(query, (err, data) => {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(data);
+          }
+        });
+      });
+
+      return res.status(200).send({
+        message: "Success!",
+        data: result,
+        totalCount: totalCountResult,
+        currentPage: page,
+        totalPages: Math.ceil(totalCountResult / ITEMS_PER_PAGE),
+      });
     } catch (error) {
       console.log(error);
+      return res.status(500).send({
+        message: "Internal Server Error",
+        error: error.message,
+      });
     }
   }
 );
+
 
 //Get pending certificates
 router.get(

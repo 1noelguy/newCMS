@@ -2291,55 +2291,47 @@ const RequestDate = `${year}-${month}-${day}`;
       
 
       document.addEventListener("DOMContentLoaded", async function () {
-        try {
-          const res = await fetch("/certs/allCerts");
-          const data = await res.json();
-          console.log(data);
+  try {
+    let currentPage = 1; // Initialize the current page
+    const pageSize = 3; // Set your desired page size
 
-          console.log(typeof data);
+    const fetchData = async (page) => {
+      const res = await fetch(`/certs/allCerts?page=${page}`);
+      const data = await res.json();
+      console.log(data);
 
-          if (typeof data === "object") {
-            // Data is an array, proceed to populate the table
-            const dataArray = Object.values(data);
-//             const pageSize = 3; // Set your desired page size
-// let currentPage = 1;
-// const totalPages = Math.ceil(data.length / pageSize); 
-// const startIndex = (currentPage - 1) * pageSize;
-//   const endIndex = startIndex + pageSize;
-//   const currentPageData = dataArray.slice(startIndex, endIndex);
-//   console.log(currentPageData)
-            loadHTMLTable(dataArray);
-            document.addEventListener("DOMContentLoaded", function() {
-  const openDeleteModalBtn = document.getElementById("openDeleteModalBtn");
+      if (typeof data === "object") {
+        const dataArray = Object.values(data.data); // Assuming your data is nested under a 'data' key
 
-//   if (openDeleteModalBtn) {
-//   // The element exists, so you can safely attach an event listener
-//   openDeleteModalBtn.addEventListener("click", () => {
-//     // Your event handling code here
-//     console.log("Button clicked");
-//   });
-// }
-  
-  // if (openDeleteModalBtn) {
-  //   openDeleteModalBtn.addEventListener("click", () => {
-  //     // Your code to open the delete modal here
-  //     deleteModal.style.display = "block";
-  //     console.log("opened delete modal");
-  //   });
-  // }
+        // Update the current page span
+        document.getElementById("currentPage").innerText = `Page ${currentPage}`;
+
+        loadHTMLTable(dataArray);
+      } else {
+        console.error("Data is not in the expected format:", data);
+      }
+    };
+
+    // Initial data fetch
+    await fetchData(currentPage);
+
+    // Event listener for the next page button
+    document.getElementById("nextPage").addEventListener("click", async () => {
+      currentPage++;
+      await fetchData(currentPage);
+    });
+
+    // Event listener for the previous page button
+    document.getElementById("prevPage").addEventListener("click", async () => {
+      if (currentPage > 1) {
+        currentPage--;
+        await fetchData(currentPage);
+      }
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
-   
-          } else {
-            // Data is not in the expected format, handle the error or log a message
-            console.error("Data is not in the expected format:", data);
-          }
-        } catch (error) {
-          console.log(error);
-        }
-
-      
-        
-      });
 
       function searchCertificates() {
     const projectTitle = document.getElementById('projectNameInput').value;
@@ -2373,202 +2365,182 @@ const RequestDate = `${year}-${month}-${day}`;
 
 
 
-      function loadHTMLTable(data,currentPage,pageSize) {
-        console.log("running");
-        const table = document.querySelector("table tbody");
-        let tableHTML = " ";
-       
+function loadHTMLTable(data) {
+  console.log("running");
+  const table = document.querySelector("table tbody");
+  let tableHTML = "";
 
-        if (data.length === 0) {
-          table.innerHTML = "tr><td colspan='5'>No user registered</td></tr>";
-        }
-        
-       
-        data.forEach(function (certificate) {
-          console.log(certificate);
+  if (data.length === 0) {
+    table.innerHTML = "<tr><td colspan='5'>No user registered</td></tr>";
+  } else {
+    for (let i = data.length - 1; i >= 0; i--) {
+      const certificateData = data[i];
+      if (
+        certificateData.userEmail !== undefined &&
+        certificateData.projectTitle !== undefined &&
+        certificateData.domainName !== undefined &&
+        certificateData.serverAddress !== undefined &&
+        certificateData.status !== undefined &&
+        certificateData.dateRequested !== undefined
+      ) {
+        const dateString = certificateData.dateRequested;
+        const date = new Date(dateString);
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, "0");
+        const day = date.getDate().toString().padStart(2, "0");
+        const formattedDate = `${year}-${month}-${day}`;
+        console.log(formattedDate);
 
-          // console.log(
-          //   user[0].username,
-          //   user.userEmail,
-          //   user.team,
-          //   user.lineManager,
-          //   user.role
-          // );
-          for (let i =certificate.length - 1; i >=0 ; i--) {
-            const certificateData = certificate[i];
-            if (
-              certificateData.userEmail !== undefined &&
-              certificateData.projectTitle !== undefined &&
-              certificateData.domainName !== undefined &&
-              // certificateData.requestType !== undefined &&
-              certificateData.serverAddress !== undefined &&
-              certificateData.status !== undefined &&
-              certificateData.dateRequested !== undefined
-            ) {
-              const dateString = certificateData.dateRequested; // Replace with your actual data
-              
-// Create a Date object from the date string
-const date = new Date(dateString);
-
-// Get the date components
-const year = date.getFullYear();
-const month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is zero-based, so add 1
-const day = date.getDate().toString().padStart(2, "0");
-
-// Format the date as "YYYY-MM-DD"
-const formattedDate = `${year}-${month}-${day}`;
-
-console.log(formattedDate);
-              tableHTML += "<tr id='certificateDetailsModal'>";
-              tableHTML += `<td style="
-                      border-bottom: 1px solid rgb(168, 168, 169);
-                      text-align: left;
-                      padding: 8px;
-                    ">${certificateData.projectTitle}</td>`;
-              tableHTML += `<td style="
-                      border-bottom: 1px solid rgb(168, 168, 169);
-                      text-align: left;
-                      padding: 8px;
-                    ">${certificateData.domainName}</td>`;
-              tableHTML += `<td style="
-                      border-bottom: 1px solid rgb(168, 168, 169);
-                      text-align: left;
-                      padding: 8px;
-                    ">${certificateData.status}</td>`;
-                    tableHTML += `<td style="
-                      border-bottom: 1px solid rgb(168, 168, 169);
-                      text-align: left;
-                      padding: 8px;
-                    ">${formattedDate}</td>`;
-              tableHTML += `<td
-                  style="
-                  position:relative;
+        tableHTML += "<tr id='certificateDetailsModal'>";
+        tableHTML += `<td style="
                         border-bottom: 1px solid rgb(168, 168, 169);
                         text-align: left;
                         padding: 8px;
-                      "
-                      data-certificate-id="${certificateData.certificateID}"
-                >
-                <button
-                data-certificate-id="${certificateData.certificateID}"
-    class="toggleActionsBtn"
-    style="
-      padding-left: 4px;
-      padding-right: 4px;
-      color: white;
-      background-color: black;
-      border-radius: 3px;
-      font-size: small;
-      border: none;
-    "
-    onclick="toggleActions(this)"
-  >
-    Show Actions
-  </button>
-
-  <!-- Actions container -->
-  <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none;position: absolute; 
-  top: 55%;
-  left: 5%;
- 
-  z-index:100;
-  background-color: #ffffff;
-  border: 1px solid #ccc;
-  border-radius:4px;
-  padding: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
-   margin-top: 10px;">
-    <!-- Buttons for different actions -->
-    <button
-      class="openEditModalBtn"
-      style="
-        padding-left: 4px;
-        padding-right: 4px;
-        margin-bottom:4px;
-        color: white;
-        background-color: black;
-        border-radius: 3px;
-        margin-left: 6px;
-        font-size: small;
-        border: none;
-      "
-    >
-      Edit
-    </button>
-    <button
-      class="openDeleteModalBtn"
-      style="
-        padding-left: 4px;
-        padding-right: 4px;
-        margin-bottom:4px;
-        color: white;
-        background-color: black;
-        border-radius: 3px;
-        margin-left: 6px;
-        font-size: small;
-        border: none;
-      "
-    >
-      Delete
-    </button>
-    <button
-      class="openChangeStatusModalBtn"
-      style="
-        padding-left: 4px;
-        padding-right: 4px;
-        margin-bottom:4px;
-        color: white;
-        background-color: black;
-        border-radius: 3px;
-        margin-left: 6px;
-        font-size: small;
-        border: none;
-      "
-    >
-      Change Status
-    </button>
-    <button
-      data-certificate-data="${certificateData.certificateID}"
-      class="openCertDetailsModal"
-      style="
-        padding-left: 4px;
-        padding-right: 4px;
-        margin-bottom:4px;
-        color: white;
-        background-color: black;
-        border-radius: 3px;
-        margin-left: 6px;
-        font-size: small;
-        border: none;
-      "
-    >
-      View Cert
-    </button>
-  </div>
-                </td>`;
-              tableHTML += "</tr>";
-            }
-          }
-          table.innerHTML = tableHTML;
-        });
-        
+                      ">${certificateData.projectTitle}</td>`;
+        tableHTML += `<td style="
+                        border-bottom: 1px solid rgb(168, 168, 169);
+                        text-align: left;
+                        padding: 8px;
+                      ">${certificateData.domainName}</td>`;
+        tableHTML += `<td style="
+                        border-bottom: 1px solid rgb(168, 168, 169);
+                        text-align: left;
+                        padding: 8px;
+                      ">${certificateData.status}</td>`;
+        tableHTML += `<td style="
+                        border-bottom: 1px solid rgb(168, 168, 169);
+                        text-align: left;
+                        padding: 8px;
+                      ">${formattedDate}</td>`;
+        tableHTML += `<td
+                        style="
+                          position:relative;
+                          border-bottom: 1px solid rgb(168, 168, 169);
+                          text-align: left;
+                          padding: 8px;
+                        "
+                        data-certificate-id="${certificateData.certificateID}"
+                      >
+                      <button
+                        data-certificate-id="${certificateData.certificateID}"
+                        class="toggleActionsBtn"
+                        style="
+                          padding-left: 4px;
+                          padding-right: 4px;
+                          color: white;
+                          background-color: black;
+                          border-radius: 3px;
+                          font-size: small;
+                          border: none;
+                        "
+                        onclick="toggleActions(this)"
+                      >
+                        Show Actions
+                      </button>
+                      <!-- Actions container -->
+                      <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none;position: absolute; 
+                      top: 55%;
+                      left: 5%;
+                      z-index:100;
+                      background-color: #ffffff;
+                      border: 1px solid #ccc;
+                      border-radius:4px;
+                      padding: 10px;
+                      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+                      margin-top: 10px;">
+                        <!-- Buttons for different actions -->
+                        <button
+                          class="openEditModalBtn"
+                          style="
+                            padding-left: 4px;
+                            padding-right: 4px;
+                            margin-bottom:4px;
+                            color: white;
+                            background-color: black;
+                            border-radius: 3px;
+                            margin-left: 6px;
+                            font-size: small;
+                            border: none;
+                          "
+                        >
+                          Edit
+                        </button>
+                        <button
+                          class="openDeleteModalBtn"
+                          style="
+                            padding-left: 4px;
+                            padding-right: 4px;
+                            margin-bottom:4px;
+                            color: white;
+                            background-color: black;
+                            border-radius: 3px;
+                            margin-left: 6px;
+                            font-size: small;
+                            border: none;
+                          "
+                        >
+                          Delete
+                        </button>
+                        <button
+                          class="openChangeStatusModalBtn"
+                          style="
+                            padding-left: 4px;
+                            padding-right: 4px;
+                            margin-bottom:4px;
+                            color: white;
+                            background-color: black;
+                            border-radius: 3px;
+                            margin-left: 6px;
+                            font-size: small;
+                            border: none;
+                          "
+                        >
+                          Change Status
+                        </button>
+                        <button
+                          data-certificate-data="${certificateData.certificateID}"
+                          class="openCertDetailsModal"
+                          style="
+                            padding-left: 4px;
+                            padding-right: 4px;
+                            margin-bottom:4px;
+                            color: white;
+                            background-color: black;
+                            border-radius: 3px;
+                            margin-left: 6px;
+                            font-size: small;
+                            border: none;
+                          "
+                        >
+                          View Cert
+                        </button>
+                      </div>
+                    </td>`;
+        tableHTML += "</tr>";
       }
+    }
+
+    // Update the table body with the generated HTML
+    table.innerHTML = tableHTML;
+  }
+}
+
 
       
 
-      document.getElementById('prevPage').addEventListener('click', () => {
-  if (currentPage > 1) {
-    currentPage--;
-    loadHTMLTable(data, currentPage, pageSize);
-  }
-});
+//       document.getElementById('prevPage').addEventListener('click', () => {
+//   if (currentPage > 1) {
+//     currentPage--;
+//     loadHTMLTable(data, currentPage, pageSize);
+//   }
+// });
 
-document.getElementById('nextPage').addEventListener('click', () => {
-  if (currentPage < totalPages) {
-    currentPage++;
-    loadHTMLTable(data, currentPage, pageSize);
-  }
-});
+// document.getElementById('nextPage').addEventListener('click', () => {
+//   if (currentPage < totalPages) {
+//     currentPage++;
+//     loadHTMLTable(data, currentPage, pageSize);
+//   }
+// });
       
 
 function toggleActions(btn) {
@@ -2682,7 +2654,7 @@ document.getElementById("table-container").addEventListener("click", function(ev
 });
 
 const confirmDeleteButton = document.getElementById("confirmDelete");
-console.log(id)
+// console.log(id)
 
 
 
