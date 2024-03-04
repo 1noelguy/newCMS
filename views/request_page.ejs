@@ -2278,7 +2278,6 @@ const RequestDate = `${year}-${month}-${day}`;
 
           if (data.message == "Success!") {
             modal.style.display="none";
-            // location.assign("/certificate_page");
           } else {
             errorMsg.textContent = data.message;
           }
@@ -2286,52 +2285,47 @@ const RequestDate = `${year}-${month}-${day}`;
           console.log(error);
         }
       });
-
-      // loading tables
-      
-
       document.addEventListener("DOMContentLoaded", async function () {
   try {
-    let currentPage = 1; // Initialize the current page
-    const pageSize = 3; // Set your desired page size
+    let currentPage = 1;
+    let totalPages = 1; 
 
     const fetchData = async (page) => {
       const res = await fetch(`/certs/allCerts?page=${page}`);
       const data = await res.json();
-      console.log(data);
 
       if (typeof data === "object") {
-        const dataArray = Object.values(data.data); // Assuming your data is nested under a 'data' key
-
-        // Update the current page span
-        document.getElementById("currentPage").innerText = `Page ${currentPage}`;
+        const dataArray = Object.values(data.data);
+        totalPages = data.totalPages; 
+        document.getElementById("currentPage").innerText = `Page ${currentPage} of ${totalPages}`;
 
         loadHTMLTable(dataArray);
       } else {
         console.error("Data is not in the expected format:", data);
       }
     };
-
-    // Initial data fetch
     await fetchData(currentPage);
-
-    // Event listener for the next page button
     document.getElementById("nextPage").addEventListener("click", async () => {
-      currentPage++;
-      await fetchData(currentPage);
+      if (currentPage < totalPages) {
+        currentPage++;
+        await fetchData(currentPage);
+      }
+      if (currentPage === totalPages) {
+        document.getElementById("nextPage").disabled = true;
+      }
     });
-
-    // Event listener for the previous page button
     document.getElementById("prevPage").addEventListener("click", async () => {
       if (currentPage > 1) {
         currentPage--;
         await fetchData(currentPage);
+        document.getElementById("nextPage").disabled = false;
       }
     });
   } catch (error) {
     console.log(error);
   }
 });
+
 
       function searchCertificates() {
     const projectTitle = document.getElementById('projectNameInput').value;
