@@ -14,7 +14,7 @@
 
   <body>
     <div class="container">
-      <div class="navigation">
+      <div class="navigation" style="background-color: #aa0407;">
         <ul>
           <li>
             <a href="/home">
@@ -744,6 +744,7 @@
             user.lineManager,
             user.role
           );
+
           for (let i = 0; i < user.length; i++) {
             const userData = user[i];
             if (
@@ -778,7 +779,13 @@
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
                       padding: 8px;
-                    ">${userData.roleID}</td>`;
+                    ">${
+                      userData.roleID === 1
+                        ? "User"
+                        : userData.roleID === 2
+                        ? "Administrator"
+                        : ""
+                    }</td>`;
 
               tableHTML += `<td
                   style="

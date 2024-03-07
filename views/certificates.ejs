@@ -66,13 +66,15 @@ input.invalid {
 
   <body>
     <div class="container" >
-      <div class="navigation" >
+      <div class="navigation" style="background-color: #aa0407;" >
         <ul>
           <li>
             <a href="/home">
-              <!-- <span class="icon"><i class="fa fa-apple"></i></span> -->
+              <img src="images/telecellogo.png" style="width: 100px; height: 100px;" alt="">
               <span class="title" style="width: 100px"
-                ><h4 style="width: 50px; height: 100px">Logo</h4></span
+                ><h4 style="width: 50px; height: 100px">Logo</h4>
+                
+                </span
               >
             </a>
           </li>
@@ -311,7 +313,7 @@ input.invalid {
                   >
                     Date Requested
                   </th>
-                  <!-- <th
+                  <th
                     style="
                       border: 1px solid #dddddd;
                       text-align: left;
@@ -319,7 +321,7 @@ input.invalid {
                     "
                   >
                     Actions
-                  </th> -->
+                  </th>
                 </tr>
                 </thead>
                 <tbody> 
@@ -787,6 +789,7 @@ input.invalid {
         </div>
       </div>
       <div id="certificateDetailsModal"  style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 20px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        
         <div
           class="modal-content"
           style="border-radius: 10px; width:50%; height: 90%; margin-top: 30px; overflow-y: auto;"
@@ -803,11 +806,15 @@ input.invalid {
             id="closeCertModal"
             >&times;</button
           >
-          <h2 style="margin-left: 80px"> Certificate Details</h2>
+          <h2 style="margin-left: 80px">View Certificate Details</h2>
+          <div style="display:flex; flex-direction:row; width: 600px; margin-left: 90px;margin-top: 10px;  border: 1px solid red ; background-color: white; border-radius: 15px; text-align: center;">
+            <div id="toggleDetailsContainer" style="width: 50%; background-color: red; border-radius: 15px; color: white; ">Certificate Details</div>
+            <div id="toggleCommentsContainer" style="width: 50%;">View Comments</div>
+        </div>
                           <!-- <hr style="margin-top: 5px" /> -->
           <br />
           <form
-            class="userForm"
+            id="CertForm"
             style="margin-left: 20px; padding-bottom: 20px;scroll-behavior: auto;"
           >
           
@@ -820,7 +827,7 @@ input.invalid {
                 
               "
             >
-              <label for="">UserEmail</label>
+              <label for="">Requester's Email</label>
               <div required
               name="userEmail"
               
@@ -829,7 +836,7 @@ input.invalid {
                color:gray;
               "
               placeholder="UserEmail">
-              userEmail  
+              Requester's Email  
                 
             </div>
             </div>
@@ -901,7 +908,7 @@ input.invalid {
 
           <div style="display: flex; flex-direction: row; justify-content:space-between; margin: 0px 80px 0px 80px;margin-bottom:10px;">
             <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service Customer Facing?">
-              <label for="">External Users?</label>
+              <label for="">Public facing?</label>
               <!-- <div style="position: relative; display: inline-block; margin-left: 120px; bottom: 25px;  "> -->
               
               <!-- </div> -->
@@ -919,7 +926,7 @@ input.invalid {
             </div>
 
             <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the Service revenue generating, e.g does it take top-up payments?">
-              <label for="">Generates Revenue?</label>
+              <label for="">Does it generate Revenue?</label>
               <div required
               name="revGen"
               
@@ -936,7 +943,7 @@ input.invalid {
 
           <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;margin-bottom: 10px;" >
             <div style="display: flex; flex-direction: column" class="tooltip" data-tooltip="Is the degradation of the service likely to have an impact on Vodafone's brand??">
-              <label for="">Deg Effect?</label>
+              <label for="">Has impact on brand?</label>
               <div required
               name="degEffect"
               
@@ -950,20 +957,7 @@ input.invalid {
             </div>
             </div>
 
-            <div style="display: flex; flex-direction: column; margin-right:55px;" class="tooltip" data-tooltip="Is this a Renewal or a New request?">
-              <label for="">Request Type</label>
-              <div required
-              name="requestType"
-              
-              class="username"
-              style="
-               color:gray;
-              "
-              placeholder="UserEmail">
-              UserEmail  
-                
-            </div>
-            </div>
+            
           </div>
 
           <div style="display: flex; flex-direction: row; justify-content: space-between; margin: 0px 80px 0px 80px;">
@@ -1173,41 +1167,156 @@ input.invalid {
 
             
           </form>
-          <div style="width: 500px; height: 40px; border:1px solid #333;  margin: 0px 80px 0px 80px; text-align: center; padding: 10px 10px 0px 10px;">
-           <div style="display: flex; flex-direction: row; justify-content: space-between;">
-            <div style="color: red;">Comments <span>(0)</span></div>
-            <div style="color: red;" id="displayComments">></div>
+          <div id="ViewCommentsContainer" style="display: flex;">
+          <div class="ComentsCont" >
+           <div style="display: flex; flex-direction: row; justify-content: space-between; margin-left: 70px;">
+            <div style="color: red;">Comments <span id="commentLength">(0)</span></div>
+            
+            <div id="addComment" class="add-comment-btn" style="float: right; margin-right: 40px; margin-top: 10px; background-color: rgb(233, 127, 127); color: white; width: 120px ; padding: 4px 4px 4px 4px; border-radius: 5px; font-size: smaller;">Add Comment</div>
           </div>
+          <div style=" margin-left: 70px; margin-top: 10px; width: 600px; border: 1px black solid;"></div>
           </div>
-          <div id="commentsContainer" style=" display: none; flex-direction: column; margin: 0px 80px 0px 80px;  ">
-            <div style="display: flex; flex-direction: row; justify-content: space-between;">
-              <div>done</div>
-              <div>kofi</div>
-            </div>
-              
-              <div id="addComment" style= "margin-left: 500px; font-size: smaller; width: 50px; background-color: red; border: 1px solid red; border-radius: 5px; color: white; padding: 0px 5px 0px 10px;">Add</div>
-              <div id="newcomment" style="display: none;">
-                <form action="" style="display: block;">
-                  <div>
-                    <label for="">Comment</label>
-                  </div>
-                  <div>
-                    <input type="text">
-                  </div>
-                  
-                </form>
-                <div id="saveComment">save</div>
+          <div id="commentsContainer" class="comments-container" style="display: flex; flex-direction: column; margin: 10px 80px 10px 80px;">
+            <!-- Existing comments will be appended here dynamically -->
+            
+          </div>
+          
+          
+          
+          
+          <div id="newcomment" class="new-comment-form" style="display: none; margin-top: 80px; margin-left: 80px;">
+            <form action="">
+              <div>
+                <label for="commentInput">Comment</label>
               </div>
+              <div>
+                <input type="text" id="commentInput" style="width: 400px; border-radius: 5px; height: 30px; ">
+              </div>
+            </form>
+            <div id="saveComment" class="save-comment-btn" style="float: right; margin-right: 220px; background-color: #aa0407; color: white; margin-top: 10px; border-radius: 5px; padding: 0px 5px 0px 5px;">Save</div>
           </div>
         </div>
+        </div>
         
+      </div>
+      <div id="changeStatusModal" style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 200px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        <div
+        class="modal-content"
+        style="border-radius: 10px; margin-top: 100px; width: 40%; overflow-y: auto;"
+      >
+        <span
+          class="close"
+          style="
+            border: 1px;
+            border-color: black;
+            width: 10px;
+            height: 10px;
+            margin-right: 80px;
+          "
+          id="closeDeleteModal"
+          >&times;</span
+        >
+        <h2 style="margin-left: 60px ; color: black;">Change Certificate Status</h2>
+        <!-- <hr style="margin-top: 5px" /> -->
+        <span style="padding-left: 60px; margin-top: 60px;">Select your required status from the dropdown below.</span>
+        <br />
+        <div style="display: flex; flex-direction: column; margin-left: 60px; margin-top: 20px;">
+          <label for="">Status</label>
+          <select
+            for=""
+            name="status"
+            id="status"
+            style="width: 300px; height: 30px; margin-right: 40px"
+          >
+            <option disabled selected>Select Status</option>
+            <option value="In Progress">In Progress</option>
+            <option value="Active">Active</option>
+            <option value="Expired">Expired</option>
+          </select>
+        </div>
+        <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
+          <div style="padding-right: 16px;"><button id="cancelDelete" style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
+          <div><button id="saveStatus" style="background-color: green; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Save</button></div>
+        </div>
+        </div>
+      </div>
+      <div id="deleteModal" style=" display:none; position:fixed; z-index:1; left: 0; top: 0; padding-top: 200px; width: 100%; height: 100%; background-color: black; overflow: auto; background-color: rgb(0, 0, 0); background-color: rgba(0, 0, 0, 0.4);">
+        <div
+        class="modal-content"
+        style="border-radius: 10px; margin-top: 100px; width: 40%; overflow-y: auto;"
+      >
+        <span
+          class="close"
+          style="
+            border: 1px;
+            border-color: black;
+            width: 10px;
+            height: 10px;
+            margin-right: 80px;
+          "
+          id="closeDeleteModal"
+          >&times;</span
+        >
+        <h2 style="margin-left: 60px ; color: black;">Delete Certificate</h2>
+        <!-- <hr style="margin-top: 5px" /> -->
+        <span style="padding-left: 60px; margin-top: 60px;">Are you sure you want to delete this certificate?</span>
+        <br />
+        <div style="display: flex; flex-direction: row; float: right; justify-content: space-around; margin-top: 30px;">
+          <div style="padding-right: 16px;"><button id="cancelDelete" style="background-color: white; border: 1px solid gray;  padding: 4px 8px 4px 8px; border-radius: 4px;">Cancel</button></div>
+          <div><button id="confirmDelete" style="background-color: red; color: white; border: none; padding: 4px 8px 4px 8px; border-radius: 4px;">Delete</button></div>
+        </div>
+        </div>
       </div>
     </div>
     <script src="JS/index.js"></script>
     <script>
+      const toggleDetails=document.getElementById("toggleDetailsContainer");
+      const toggleCommentContainer=document.getElementById("toggleCommentsContainer");
+      const CertForm=document.getElementById("CertForm");
       const openModalBtn = document.getElementById("openModalBtn");
       const closeModalBtn = document.getElementById("closeModalBtn");
       const modal = document.getElementById("myModal");
+      const ViewCommentsContainer=document.getElementById("ViewCommentsContainer");
+
+      toggleCommentContainer.addEventListener("click",()=>{
+        
+        CertForm.style.display="none";
+        ViewCommentsContainer.style.display="block";
+        toggleCommentContainer.style.color="white";
+        toggleDetails.style.color="black";
+        toggleDetails.style.backgroundColor="white";
+        toggleCommentContainer.style.backgroundColor="red";
+        toggleCommentContainer.style.borderRadius="15px";
+
+        const commentsContainer = document.getElementById("commentsContainer");
+        commentsContainer.style.display="block";
+        let certificateID = 23;
+
+fetch(`comment/getComments/${certificateID}`)
+  .then((response) => response.json())
+  .then((data) => {
+    if (data.data && data.data.length > 0) {
+      commentLength.innerText=`(${data.data.length})`;
+      // Assuming data.data is an array of comments
+      data.data.forEach((comment) => {
+        commentsContainer.appendChild(createCommentElement(comment));
+      });
+    }
+  });
+
+      })
+      toggleDetails.addEventListener("click",()=>{
+        
+        CertForm.style.display="block";
+        ViewCommentsContainer.style.display="none";
+        toggleCommentContainer.style.color="black";
+        toggleDetails.style.color="white";
+        toggleDetails.style.backgroundColor="red";
+        toggleCommentContainer.style.backgroundColor="white";
+        toggleDetails.style.borderRadius="15px";
+        
+
+      })
       
 
       openModalBtn.addEventListener("click", () => {
@@ -1240,7 +1349,7 @@ input.invalid {
         const revGen = form.revGen.value;
         const externalUsers = form.externalUsers.value;
         const degEffect = form.degEffect.value;
-        const requestType = form.requestType.value;
+        // const requestType = form.requestType.value;
         const managerApproval = form.managerApproval.value;
         const serverSpecs = form.serverSpecs.value;
         const domainName = form.domainName.value;
@@ -1252,6 +1361,8 @@ input.invalid {
         const portNumber = form.portNumber.value;
         const status = form.status.value;
         const dateRequested = form.dateRequested.value;
+        const approversEmail =form.approversEmail.value;
+        const ProductType= form.ProductType.value
 
         // console.log(username, password, password_repeat, email, team, role);
 
@@ -1265,7 +1376,7 @@ input.invalid {
         revGen,
         externalUsers,
         degEffect,
-        requestType,
+        // requestType,
         managerApproval,
         serverSpecs,
         domainName,
@@ -1276,7 +1387,9 @@ input.invalid {
         operatingSystem,
         portNumber,
         status,
-        dateRequested
+        dateRequested,
+        approversEmail,
+        ProductType
             }),
             headers: { "Content-Type": "application/json" },
           });
@@ -1343,7 +1456,7 @@ input.invalid {
               certificateData.userEmail !== undefined &&
               certificateData.projectTitle !== undefined &&
               certificateData.domainName !== undefined &&
-              certificateData.requestType !== undefined &&
+              // certificateData.requestType !== undefined &&
               certificateData.serverAddress !== undefined &&
               certificateData.status !== undefined &&
               certificateData.dateRequested !== undefined
@@ -1378,21 +1491,13 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
                       text-align: left;
                       padding: 8px;
                     ">${certificateData.domainName}</td>`;
-              // tableHTML += `<td style="
-              //         border-bottom: 1px solid rgb(168, 168, 169);
-              //         text-align: left;
-              //         padding: 8px;
-              //       ">${certificateData.serverHostname}</td>`;
-              // tableHTML += `<td style="
-              //         border-bottom: 1px solid rgb(168, 168, 169);
-              //         text-align: left;
-              //         padding: 8px;
-              //       ">${certificateData.serverAddress}</td>`;
+              
               tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
                       padding: 8px;
                     ">${certificateData.status}</td>`;
+                    
                     tableHTML += `<td style="
                       border-bottom: 1px solid rgb(168, 168, 169);
                       text-align: left;
@@ -1400,29 +1505,114 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
                     ">${formattedDate}</td>`;
                     
 
-              tableHTML += `<td
+                    tableHTML += `<td
                   style="
+                        position:relative;
                         border-bottom: 1px solid rgb(168, 168, 169);
                         text-align: left;
                         padding: 8px;
+                        
                       "
                       data-certificate-id="${certificateData.certificateID}"
                 >
-                  <button
-                  id="viewcert"
-                  data-certificate-data="${certificateData.certificateID}"
-                    style="
-                          padding-left: 4px;
-                          padding-right: 4px;
-                          color: white;
-                          background-color: black;
-                          border-radius: 3px;
-                          font-size: small;
-                        "
-                  >
-                    view
-                  </button>
-                  
+                <button
+                data-certificate-id="${certificateData.certificateID}"
+    class="toggleActionsBtn"
+    style="
+      padding-left: 4px;
+      padding-right: 4px;
+      color: white;
+      background-color: black;
+      border-radius: 3px;
+      font-size: small;
+      border: none;
+    "
+    onclick="toggleActions(this)"
+  >
+    Show Actions
+  </button>
+
+  <!-- Actions container -->
+  <div data-certificate-id="${certificateData.certificateID}" class="actionsContainer" style="display: none;position: absolute;
+  top: 55%; 
+  left:5%;
+  position:absolute;
+  background-color: #ffffff;
+  border: 1px solid #ccc;
+  border-radius:4px;
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  z-index:100;
+   margin-top: 10px;">
+    <!-- Buttons for different actions -->
+    <button
+      class="openEditModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: black;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Edit
+    </button>
+    <button
+    data-certificate-data="${certificateData.certificateID}"
+      class="deleteModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: black;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Delete
+    </button>
+    <button
+    data-certificate-data="${certificateData.certificateID}"
+      class="openChangeStatusModalBtn"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: black;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      Change Status
+    </button>
+    <button
+      data-certificate-data="${certificateData.certificateID}"
+      class="openCertDetailsModal"
+      style="
+        padding-left: 4px;
+        padding-right: 4px;
+        margin-bottom:4px;
+        color: white;
+        background-color: black;
+        border-radius: 3px;
+        margin-left: 6px;
+        font-size: small;
+        border: none;
+      "
+    >
+      View Cert
+    </button>
+  </div>
                 </td>`;
               tableHTML += "</tr>";
             }
@@ -1450,11 +1640,27 @@ tableHTML += `<tr id="opencertDetailsBtn" data-certificate-data="${JSON.stringif
     
 // }
 
-         
+function toggleActions(btn) {
+      var actionsContainer = btn.nextElementSibling;
+      var toggleActionsBtn = btn;
+
+      if (actionsContainer.style.display === "none") {
+        actionsContainer.style.display = "flex";
+        actionsContainer.style.flexDirection="column";
+        // actionsContainer.style.position="relative";
+        toggleActionsBtn.innerText = "Hide Actions";
+      } else {
+        actionsContainer.style.display = "none";
+        toggleActionsBtn.innerText = "Show Actions";
+      }
+    } 
+    let certificateID;       
 document.getElementById("table-container").addEventListener("click", function(event) {
 
 
-  if (event.target.id === "viewcert") {
+  if (event.target.className === "openCertDetailsModal") {
+    const certificateDetailsModal=document.getElementById("certificateDetailsModal");
+    console.log("kofi");
     certificateDetailsModal.style.display = "block";
     console.log(event.target.getAttribute('data-certificate-data'));
     const certificateDataID= event.target.getAttribute('data-certificate-data');
@@ -1494,42 +1700,187 @@ document.getElementById("table-container").addEventListener("click", function(ev
     console.log("view button clicked");
   }
   console.log("Event target id:", event.target.id);
-  if(event.target.id ==="closeCertModal"){
+  // certificateDetailsModal.style.display = "block";
+  if(event.target.className ==="ComentsCont"){
     certificateDetailsModal.style.display="none";
     console.log("Event target id:", event.target.id);
   }
 
+  if(event.target.className==="openChangeStatusModalBtn"){
+    const certificateStatusModal=document.getElementById("changeStatusModal");
+    console.log("Status Modal clicked");
+    certificateStatusModal.style.display = "block";
+    console.log(event.target.getAttribute('data-certificate-data'));
+    const certificateDataID= event.target.getAttribute('data-certificate-data');
+    console.log(certificateDataID);
+    const fetchData = async () => {
+    try {
+      const response = await fetch(`certs/certById/${certificateDataID}`);
+      const data = await response.json();
+
+      if (data.data && data.data.length > 0) {
+        console.log(data.data[0]);
+        const certificateData = data.data[0];
+        status.value = certificateData.status;
+
+        const saveStatus = document.getElementById("saveStatus");
+        saveStatus.addEventListener("click", async (e) => {
+          const selectedStatus = document.getElementById('status').value;
+
+          try {
+            const response = await fetch(`/certs/updateCertStatus/${certificateDataID}`, {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                status: selectedStatus,
+              }),
+            });
+
+            const responseData = await response.json();
+
+            if (response.ok) {
+              console.log('Success:', responseData.message);
+              changeStatusModal.style.display="none";
+              alert("Certificate status updated sucessfully, refresh page to view changes.");
+              location.reload();
+            } else {
+              console.error('Error:', responseData.message);
+            }
+          } catch (error) {
+            console.error('Error:', error.message);
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+  fetchData(); 
+
+  }
+  if(event.target.className==="deleteModalBtn"){
+    const certificateDeleteModal=document.getElementById("deleteModal");
+    console.log("Delete Modal clicked");
+    certificateDeleteModal.style.display = "block";
+    console.log(event.target.getAttribute('data-certificate-data'));
+    const certificateDataID= event.target.getAttribute('data-certificate-data');
+    console.log(certificateDataID);
+    deleteModal.style.display = "block";
+
+    document.getElementById("confirmDelete").addEventListener("click", function () {
+      fetch("certs/deleteCert/", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ certificateID: certificateID }),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.message === "Deleted!") {
+            console.log("deleted");
+            // Certificate deleted successfully, you can update the UI or reload the table here
+            // For example, you can remove the corresponding row from the table.
+            event.target.parentElement.parentElement.remove(); // Remove the whole row
+          } else {
+            // Handle the error, show an alert, or take appropriate action
+          }
+        })
+        .catch(error => {
+          console.error(error);
+        });
+
+      document.getElementById("deleteModal").style.display = "none";
+    });
+  }
+
 });
- const toggleComments=document.getElementById("displayComments");
- toggleComments.addEventListener("click", async(e)=>{
-  let certificateID=27;
-  fetch(`comment/getComments/${certificateID}`)
-        .then((response) => response.json())
-            .then((data) => {
-              if (data.data && data.data.length > 0) {
-              console.log(data.data[0]);
-              }
-             });
-  
-  let commentsSection= document.getElementById("commentsContainer");
-  commentsSection.style.display="flex";
-  // commentsSection.style.flexDirection=""
- });
- const addNewComment=document.getElementById("addComment");
- addNewComment.addEventListener("click",()=>{
-  let newcommentform=document.getElementById("newcomment");
-  newcommentform.style.display="block";
-console.log("add new comment");
- });
+
+const closecert=document.getElementById("closeCertModal");
+closecert.addEventListener("click",()=>{
+  certificateDetailsModal.style.display = "none"; 
+})
+const toggleComments = document.getElementById("displayComments");
+  const addNewComment = document.getElementById("addComment");
+  const commentsContainer = document.getElementById("commentsContainer");
+  const newCommentForm = document.getElementById("newcomment");
+  const commentLength=document.getElementById("commentLength");
+
+  // toggleComments.addEventListener("click", async (e) => {
+  //   commentsContainer.style.display = "flex";
+  //   let certificateID = 23;
+
+  //   fetch(`comment/getComments/${certificateID}`)
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       if (data.data && data.data.length > 0) {
+  //         commentLength.innerText=`(${data.data.length})`;
+  //         // Assuming data.data is an array of comments
+  //         data.data.forEach((comment) => {
+  //           commentsContainer.appendChild(createCommentElement(comment));
+  //         });
+  //       }
+  //     });
+
+  //   commentsContainer.style.display = "flex";
+  //   addNewComment.style.display="flex";
+   
+  // });
+
+  addNewComment.addEventListener("click", () => {
+    newCommentForm.style.display = "block";
+    console.log("add new comment");
+  });
+
+  function createCommentElement(commentData) {
+    const commentDiv = document.createElement("div");
+    commentDiv.className = "comment";
+  commentDiv.style.border = "1px solid rgb(235, 169, 169)";
+  commentDiv.style.borderRadius = "10px";
+  commentDiv.style.margin="10px 0px 10px 0px";
+
+    const headerDiv = document.createElement("div");
+    headerDiv.className = "comment-header";
+  headerDiv.style.backgroundColor = "rgb(235, 169, 169)";
+  headerDiv.style.borderRadius = "10px";
+  headerDiv.style.marginBottom="3px";
+
+    const commentorName = document.createElement("div");
+    commentorName.textContent = `${commentData.commentor} commented ${getDaysAgo(commentData.date)}`;
+  commentorName.style.paddingLeft = "5px";
+  commentorName.style.fontSize = "12px";
+    headerDiv.appendChild(commentorName);
+
+    const commentText = document.createElement("div");
+    commentText.textContent = commentData.comment;
+  commentText.style.padding = "5px 10px 10px 10px";
+    
+    commentDiv.appendChild(headerDiv);
+    commentDiv.appendChild(commentText);
+
+    return commentDiv;
+  }
+
+  function getDaysAgo(dateString) {
+    const currentDate = new Date();
+    const commentDate = new Date(dateString);
+    const daysAgo = Math.floor((currentDate - commentDate) / (1000 * 60 * 60 * 24));
+    return `${daysAgo} days ago`;
+  }
  const saveComment=document.getElementById("saveComment");
  saveComment.addEventListener("click",async(e)=>{
-  const comment="test";
-  const certificateID=27;
+  const comment=document.getElementById("commentInput");
+  const commentInput=comment.value;
+  console.log(commentInput);
+  const certificateID=23;
   try {
           const res = await fetch("comment/addComment", {
             method: "POST",
             body: JSON.stringify({
-              comment,
+              commentInput,
               certificateID
             
             }),
@@ -1547,6 +1898,8 @@ console.log("add new comment");
           }
         } catch (error) {
           console.log(error);
+          certificateID.getMonth;
+          Comm
         }
  })
    
