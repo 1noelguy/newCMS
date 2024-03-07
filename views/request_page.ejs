@@ -340,9 +340,9 @@ input.invalid {
             </table>
             <div style="display: flex; float:right;">
               <div class="pagination">
-                <button id="prevPage">Previous</button>
+                <button id="prevPage" style="background-color: black; color: white; border:none; border-radius: 5px; padding: 2px 4px 2px 4px;">Previous</button>
                 <span id="currentPage"></span>
-                <button id="nextPage">Next</button>
+                <button id="nextPage" style="background-color: black; color: white; border:none; border-radius: 5px; padding: 2px 4px 2px 4px;" >Next</button>
               </div>
             </div>
           </div>
@@ -2138,13 +2138,9 @@ console.log(editcertificateID);
                 editForm.status.value=certificateData.status;
                 editForm.dnsMappingReq.value=certificateData.dnsMappingReq;
                 editForm.wafConfig.value=certificateData.wafConfig;
-                // Set values for other input fields
-
-                // Handle the form submission (update logic)
                 editForm.addEventListener("submit", (e) => {
                     e.preventDefault();
 
-                    // Gather the updated data from the form
                     const updatedData = {
                             userEmail: editForm.userEmail.value,
                             degEffect: editForm.degEffect.value,
@@ -2163,7 +2159,7 @@ console.log(editcertificateID);
                             status: editForm.status.value,
                             wafConfig: editForm.wafConfig.value,
                             dnsMappingReq: editForm.dnsMappingReq.value,
-                            certificateID: editcertificateID, // Use the ID obtained earlier
+                            certificateID: editcertificateID, 
                         };
                         fetch("certs/updateCerts", {
                             method: "PUT",
